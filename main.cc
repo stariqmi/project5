@@ -16,11 +16,18 @@ int main() {
 	TextDisplay* td = new TextDisplay(xsize, ysize);
 	Grid* grid = new Grid(td, xsize, ysize);
 
-	
+	string s;
+	while (cin >> s){
+		if (cin.fail()) {break;}
+		if (s == "start") { grid-init();
+						  cout<< *grid;}
+		if (s == "reset") { delete grid; grid->init(); cout << *grid;}
+		if (s == "quit")  {delete grid;}		
+	}
 
 
-	grid->init();
-	cout << *grid;
+	//grid->init();
+	//cout << *grid;
 	
 
 
