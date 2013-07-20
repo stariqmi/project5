@@ -14,6 +14,8 @@ class TextDisplay {
 
   ~TextDisplay();
 
+  void clearDisplay();
+
   friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
 };
 

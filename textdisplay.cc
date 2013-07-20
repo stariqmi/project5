@@ -37,6 +37,14 @@ void TextDisplay::notify(int r, int c, char ch) {
 	this->theDisplay[r][c] = ch;
 }
 
+void TextDisplay::clearDisplay() {
+	for(int i = 0; i < this->ysize; i++) {
+		for (int j = 0; j < xsize; j++) {
+			this->theDisplay[i][j] = ' ';
+		}
+	}
+}
+
 // overloading the output operator
 ostream &operator<<(ostream& out, const TextDisplay &td) {
 	

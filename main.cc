@@ -19,18 +19,14 @@ int main() {
 	string s;
 	while (cin >> s){
 		if (cin.fail()) {break;}
-		if (s == "start") { grid-init();
-						  cout<< *grid;}
-		if (s == "reset") { delete grid; grid->init(); cout << *grid;}
-		if (s == "quit")  {delete grid;}		
+		if (s == "start") { 
+			grid->init();
+			cout<< *grid;
+		}
+		if (s == "reset") { 
+			grid->clearGrid(); 
+			grid->init(); 
+			cout << *grid;}
+		if (s == "quit")  {delete grid; break;}		
 	}
-
-
-	//grid->init();
-	//cout << *grid;
-	
-
-
-
-	delete grid;
 }

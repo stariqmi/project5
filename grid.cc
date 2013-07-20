@@ -8,13 +8,14 @@ Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y) {}
 
 Grid::~Grid() {
 	this->clearGrid();
+	delete this->td;
 }
 
 void Grid::clearGrid() {
 	for(int i = 0; i < this->ysize; i++) {
 		delete[] this->theGrid[i];
 	}
-	delete this->td;
+	this->td->clearDisplay();
 	delete[] this->theGrid;
 }
 
@@ -24,6 +25,8 @@ void Grid::init() {
 		this->theGrid[i] = new Tile[this->xsize];
 	} // for
 
+	//cout << "new grid" << endl;
+
 	// set coordinates
 	for(int i = 0; i < this->ysize; i++) {
 		for(int j = 0; j < this->xsize; j++) {
@@ -31,12 +34,16 @@ void Grid::init() {
 		}
 	}
 
+	//cout << "new grid" << endl;
+
 	for(int i = 0; i < this->ysize; i++) {
 		this->theGrid[i][0].setThing(new Wall("vertical_wall"));
 		this->theGrid[i][0].notifyDisplay(*(this->td));
 		this->theGrid[i][this->xsize - 1].setThing(new Wall("vertical_wall"));
 		this->theGrid[i][this->xsize - 1].notifyDisplay(*(this->td));
 	}
+
+	cout << "new grid" << endl;
 
 	for(int i = 1; i < (this->xsize - 1); i++) {
 		this->theGrid[0][i].setThing(new Wall("horizontal_wall"));
