@@ -23,6 +23,15 @@ void Tile::notifyDisplay(TextDisplay &td) {
 		else if(type == "horizontal_wall") {
 			c = '-';
 		}
+		else if(type == "ground") {
+			c = '.';
+		}
+		else if(type == "door") {
+			c = '+';
+		}
+		else if(type == "passage") {
+			c = '#';
+		}
 		else {
 			c = 'x';
 		}

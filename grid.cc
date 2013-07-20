@@ -3,7 +3,6 @@
 
 using namespace std;
 
-
 Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y) {}
 
 Grid::~Grid() {
