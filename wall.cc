@@ -1,7 +1,7 @@
 #include "wall.h"
-#include <stdio>
+#include <iostream>
 #include <string>
 
 using namespace std;
 
-Wall::Wall(string type) : type(type) {}
+Wall::Wall(string type) : Thing(type) {}

@@ -7,12 +7,12 @@ using namespace std;
  * Constructor
  * @params n, a int representing the size of the grid
  */
-TextDisplay::TextDisplay(int x, int y): xsize(n), ysize(y) {
+TextDisplay::TextDisplay(int x, int y): xsize(x), ysize(y) {
 	this->theDisplay = new char*[y];
-	
+
 	// Loop to initialize a grid of chars
 	for(int i = 0; i < y; i++) {
-		this->theDisplay[i] = new char[y];
+		this->theDisplay[i] = new char[x];
 		for(int j = 0; j < x; j++) {
 			this->theDisplay[i][j] = ' ';	// Set the initial char to _, representing dead
 		} // for

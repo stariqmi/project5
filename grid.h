@@ -1,7 +1,7 @@
 #ifndef __GRID_H__
 #define __GRID_H__
 
-#include <stdio>
+#include <iostream>
 #include "tile.h"
 #include "textdisplay.h"
 
@@ -11,7 +11,7 @@ public:
 	int xsize;
 	int ysize;
 	TextDisplay* td;
-	 Grid(TextDisplay* td);
+	 Grid(TextDisplay* td, int x, int y);
 	~Grid();
 	void clearGrid();
 	void init();
