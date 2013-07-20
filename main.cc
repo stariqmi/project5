@@ -17,4 +17,5 @@ int main() {
 	Grid* grid = new Grid(td, xsize, ysize);
 	grid->init();
 	cout << *grid;
+	delete grid;
 }
