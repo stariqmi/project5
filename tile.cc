@@ -5,10 +5,6 @@ using namespace std;
 
 Tile::Tile() {}
 
-Tile::~Tile() {
-	if(!(this->thing == NULL)) delete this->thing;
-}
-
 void Tile::setCoords(int r, int c) {
 	this->r = r;
 	this->c = c;

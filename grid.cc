@@ -5,9 +5,6 @@ using namespace std;
 
 
 Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y) {}
-Grid::~Grid() {
-	this->clearGrid();
-}
 
 void Grid::init() {
 	this->theGrid = new Tile*[this->ysize];
@@ -35,14 +32,6 @@ void Grid::init() {
 		this->theGrid[this->ysize - 1][i].setThing(new Wall("horizontal_wall"));
 		this->theGrid[this->ysize - 1][i].notifyDisplay(*(this->td));
 	}
-}
-
-void Grid::clearGrid() {
-	for(int i = 0; i < this->ysize; i++) {
-		delete[] this->theGrid[i];
-	}
-	delete this->td;
-	delete[] this->theGrid;
 }
 
 ostream& operator<<(ostream &out, const Grid &g) {
