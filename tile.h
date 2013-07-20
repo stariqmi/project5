@@ -2,7 +2,7 @@
 #define __TILE_H__
 #include <iostream>
 #include "textdisplay.h"
-#include "thing.h"
+#include "nonlivingthing.h"
 
 class Tile {
   

@@ -3,9 +3,9 @@
 
 #include <iostream>
 #include <string>
-#include "thing.h"
+#include "nonlivingthing.h"
 
-class Wall : public Thing {
+class Wall : public NonLivingThing {
 
 public:
 	Wall(std::string type);

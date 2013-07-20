@@ -4,4 +4,5 @@
 
 using namespace std;
 
-Wall::Wall(string type) : Thing(type) {}
+Wall::Wall(string type) : NonLivingThing(type) {}
+Wall::~Wall() {}

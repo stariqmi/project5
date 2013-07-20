@@ -1,12 +1,12 @@
 #ifndef __NLTHING_H__
 #define __NLTHING_H__
 
-#include "thing.h";
+#include "thing.h"
 
-class NonLivingthing {
+class NonLivingThing : public Thing {
 public:
-	NonLivingthing();
-	~NonLivingthing();
+	NonLivingThing(std::string type);
+	~NonLivingThing();
 };
 
 #endif

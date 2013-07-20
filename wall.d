@@ -1,1 +1,1 @@
-wall.o: wall.cc wall.h thing.h
+wall.o: wall.cc wall.h nonlivingthing.h thing.h
