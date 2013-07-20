@@ -16,5 +16,5 @@ int main() {
 	TextDisplay* td = new TextDisplay(xsize, ysize);
 	Grid* grid = new Grid(td, xsize, ysize);
 	grid->init();
-	cout << *grid;	
+	cout << *grid;
 }

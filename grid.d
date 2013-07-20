@@ -1,1 +1,1 @@
-grid.o: grid.cc grid.h tile.h textdisplay.h thing.h
+grid.o: grid.cc grid.h tile.h textdisplay.h thing.h wall.h

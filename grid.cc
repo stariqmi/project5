@@ -18,6 +18,20 @@ void Grid::init() {
 			this->theGrid[i][j].setCoords(i, j);
 		}
 	}
+
+	for(int i = 0; i < this->ysize; i++) {
+		this->theGrid[i][0].setThing(new Wall("vertical_wall"));
+		this->theGrid[i][0].notifyDisplay(*(this->td));
+		this->theGrid[i][this->xsize - 1].setThing(new Wall("vertical_wall"));
+		this->theGrid[i][this->xsize - 1].notifyDisplay(*(this->td));
+	}
+
+	for(int i = 1; i < (this->xsize - 1); i++) {
+		this->theGrid[0][i].setThing(new Wall("horizontal_wall"));
+		this->theGrid[0][i].notifyDisplay(*(this->td));
+		this->theGrid[this->ysize - 1][i].setThing(new Wall("horizontal_wall"));
+		this->theGrid[this->ysize - 1][i].notifyDisplay(*(this->td));
+	}
 }
 
 ostream& operator<<(ostream &out, const Grid &g) {

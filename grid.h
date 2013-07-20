@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "tile.h"
+#include "wall.h"
 #include "textdisplay.h"
 
 class Grid {
