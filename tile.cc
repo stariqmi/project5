@@ -5,9 +5,15 @@ using namespace std;
 
 Tile::Tile() {}
 
+
+
 void Tile::setCoords(int r, int c) {
 	this->r = r;
 	this->c = c;
+}
+
+Tile::~Tile() {
+	delete this->thing;
 }
 
 void Tile::notifyDisplay(TextDisplay &td) {
