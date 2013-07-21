@@ -3,5 +3,5 @@
 using namespace std;
 
 
-Thing::Thing(string type): type(type) {}
+Thing::Thing() {}
 Thing::~Thing() {}

@@ -5,7 +5,7 @@
 
 class NonLivingThing : public Thing {
 public:
-	NonLivingThing(std::string type);
+	NonLivingThing();
 	~NonLivingThing();
 };
 

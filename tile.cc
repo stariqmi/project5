@@ -40,5 +40,6 @@ void Tile::notifyDisplay(TextDisplay &td) {
 }
 
 void Tile::setThing(Thing* thing) {
+	//if(!(this->thing == NULL)) delete this->thing;
 	this->thing = thing;
 }

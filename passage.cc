@@ -4,5 +4,7 @@ using namespace std;
 
 const string type = "passage";
 
-Passage::Passage() : NonLivingThing(type) {}
+Passage::Passage() {
+	this->type = type;
+}
 Passage::~Passage() {}

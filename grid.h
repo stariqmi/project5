@@ -4,6 +4,7 @@
 #include <iostream>
 #include "tile.h"
 #include "wall.h"
+#include "door.h"
 #include "textdisplay.h"
 
 class Grid {

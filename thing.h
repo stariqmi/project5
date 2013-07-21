@@ -7,7 +7,7 @@ class Thing
 {
 public:
 	std::string type;
-	Thing(std::string type);
+	Thing();
 	~Thing();
 };
 

@@ -42,14 +42,25 @@ void Grid::init() {
 		this->theGrid[i][this->xsize - 1].notifyDisplay(*(this->td));
 	}
 
-	cout << "new grid" << endl;
-
 	for(int i = 1; i < (this->xsize - 1); i++) {
 		this->theGrid[0][i].setThing(new Wall("horizontal_wall"));
 		this->theGrid[0][i].notifyDisplay(*(this->td));
 		this->theGrid[this->ysize - 1][i].setThing(new Wall("horizontal_wall"));
 		this->theGrid[this->ysize - 1][i].notifyDisplay(*(this->td));
 	}
+
+	// Room-1
+	for(int i = 2; i < 8; i++) {
+		this->theGrid[i][2].setThing(new Wall("vertical_wall"));
+		this->theGrid[i][2].notifyDisplay(*(this->td));
+		this->theGrid[i][27].setThing(new Wall("vertical_wall"));
+		this->theGrid[i][27].notifyDisplay(*(this->td));
+	}
+	
+	delete this->theGrid[4][27].thing;
+	this->theGrid[4][27].setThing(new Door);
+	this->theGrid[4][27].notifyDisplay(*(this->td));
+
 }
 
 ostream& operator<<(ostream &out, const Grid &g) {
