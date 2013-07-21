@@ -6,6 +6,7 @@
 #include "wall.h"
 #include "door.h"
 #include "ground.h"
+#include "passage.h"
 #include "room.h"
 #include "textdisplay.h"
 

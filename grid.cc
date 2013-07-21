@@ -202,13 +202,17 @@ void Grid::init() {
 		this->theGrid[22][65].notifyDisplay(*(this->td));
 
 		// Doors Top
-		delete this->theGrid[18][43].thing;
-		this->theGrid[18][43].setThing(new Door);
-		this->theGrid[18][43].notifyDisplay(*(this->td));
+		delete this->theGrid[18][44].thing;
+		this->theGrid[18][44].setThing(new Door);
+		this->theGrid[18][44].notifyDisplay(*(this->td));
 
 		delete this->theGrid[15][70].thing;
 		this->theGrid[15][70].setThing(new Door);
 		this->theGrid[15][70].notifyDisplay(*(this->td));
+
+		delete this->theGrid[20][36].thing;
+		this->theGrid[20][36].setThing(new Door);
+		this->theGrid[20][36].notifyDisplay(*(this->td));
 
 		// Ground
 		for(int i = 19; i < 22; i++) {
@@ -312,7 +316,7 @@ void Grid::init() {
 		}
 
 		// Doors Bottom
-		delete this->theGrid[13][43].thing;
+		delete this->theGrid[13][70].thing;
 		this->theGrid[13][70].setThing(new Door);
 		this->theGrid[13][70].notifyDisplay(*(this->td));
 
@@ -321,7 +325,67 @@ void Grid::init() {
 		this->theGrid[7][44].notifyDisplay(*(this->td));
 
 		//Door Left
+		delete this->theGrid[4][39].thing;
+		this->theGrid[4][39].setThing(new Door);
+		this->theGrid[4][39].notifyDisplay(*(this->td));
 		
+		delete this->theGrid[11][61].thing;
+		this->theGrid[11][61].setThing(new Door);
+		this->theGrid[11][61].notifyDisplay(*(this->td));
+
+
+
+		// Passages
+		for(int i = 8; i < 14; i++) {
+			this->theGrid[i][13].setThing(new Passage);
+			this->theGrid[i][13].notifyDisplay(*(this->td));			
+		}
+		for(int i = 13; i < 32; i++) {
+			this->theGrid[11][i].setThing(new Passage);
+			this->theGrid[11][i].notifyDisplay(*(this->td));			
+		}
+		for(int i = 8; i < 20; i++) {
+			this->theGrid[i][31].setThing(new Passage);
+			this->theGrid[i][31].notifyDisplay(*(this->td));			
+		}
+		for(int i = 25; i < 36; i++) {
+			this->theGrid[20][i].setThing(new Passage);
+			this->theGrid[20][i].notifyDisplay(*(this->td));			
+		}
+		for(int i = 32; i < 45; i++) {
+			this->theGrid[8][i].setThing(new Passage);
+			this->theGrid[8][i].notifyDisplay(*(this->td));			
+		}
+		for(int i = 5; i < 8; i++) {
+			this->theGrid[i][33].setThing(new Passage);
+			this->theGrid[i][33].notifyDisplay(*(this->td));			
+		}
+		for(int i = 28; i < 39; i++) {
+			this->theGrid[4][i].setThing(new Passage);
+			this->theGrid[4][i].notifyDisplay(*(this->td));			
+		}
+		for(int i = 32; i < 44; i++) {
+			this->theGrid[16][i].setThing(new Passage);
+			this->theGrid[16][i].notifyDisplay(*(this->td));			
+		}
+		for(int i = 45; i < 56; i++) {
+			this->theGrid[16][i].setThing(new Passage);
+			this->theGrid[16][i].notifyDisplay(*(this->td));			
+		}
+		for(int i = 14; i < 18; i++) {
+			this->theGrid[i][44].setThing(new Passage);
+			this->theGrid[i][44].notifyDisplay(*(this->td));			
+		}
+		for(int i = 11; i < 17; i++) {
+			this->theGrid[i][56].setThing(new Passage);
+			this->theGrid[i][56].notifyDisplay(*(this->td));			
+		}
+		for(int i = 57; i < 61; i++) {
+			this->theGrid[11][i].setThing(new Passage);
+			this->theGrid[11][i].notifyDisplay(*(this->td));			
+		}
+		this->theGrid[14][70].setThing(new Passage);
+		this->theGrid[14][70].notifyDisplay(*(this->td));
 }
 
 ostream& operator<<(ostream &out, const Grid &g) {
