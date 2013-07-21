@@ -8,7 +8,7 @@ class Thing
 public:
 	std::string type;
 	Thing();
-	~Thing();
+	virtual ~Thing();
 };
 
 #endif

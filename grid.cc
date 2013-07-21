@@ -124,7 +124,7 @@ void Grid::init() {
 		}
 
 		// Door Top
-		delete this->theGrid[14][12].thing;
+		delete this->theGrid[14][13].thing;
 		this->theGrid[14][13].setThing(new Door);
 		this->theGrid[14][13].notifyDisplay(*(this->td));
 
@@ -168,6 +168,7 @@ void Grid::init() {
 		this->theGrid[13][44].setThing(new Door);
 		this->theGrid[13][44].notifyDisplay(*(this->td));
 
+
 	// Room-4
 		// Vertical walls
 		for(int i = 18; i < 23; i++) {
@@ -177,12 +178,14 @@ void Grid::init() {
 			this->theGrid[i][77].notifyDisplay(*(this->td));
 		}
 
-		for(int i = 15; i < 19; i++) {
+		for(int i = 15; i < 18; i++) {
 			this->theGrid[i][65].setThing(new Wall("vertical_wall"));
 			this->theGrid[i][65].notifyDisplay(*(this->td));
 			this->theGrid[i][77].setThing(new Wall("vertical_wall"));
 			this->theGrid[i][77].notifyDisplay(*(this->td));
 		}
+		this->theGrid[18][65].setThing(new Wall("vertical_wall"));
+		this->theGrid[18][65].notifyDisplay(*(this->td));
 
 		// Hrozontal walls
 		for(int i = 37; i < 65; i++) {
@@ -232,7 +235,9 @@ void Grid::init() {
 				//this->rooms[0]->addContent(this->theGrid[i][j]);
 			}	
 		}
-	// Room-5
+
+
+	// // Room-5
 		// Vertical walls
 		for(int i = 2; i < 8; i++) {
 			this->theGrid[i][39].setThing(new Wall("vertical_wall"));
@@ -340,7 +345,7 @@ void Grid::init() {
 			this->theGrid[i][13].setThing(new Passage);
 			this->theGrid[i][13].notifyDisplay(*(this->td));			
 		}
-		for(int i = 13; i < 32; i++) {
+		for(int i = 14; i < 31; i++) {
 			this->theGrid[11][i].setThing(new Passage);
 			this->theGrid[11][i].notifyDisplay(*(this->td));			
 		}
