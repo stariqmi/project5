@@ -3,6 +3,7 @@
 #include <iostream>
 #include "textdisplay.h"
 #include "nonlivingthing.h"
+#include "room.h"
 
 class Tile {
   
@@ -11,6 +12,7 @@ public:
   Tile();                               // Default constructor
   ~Tile();
   Thing* thing;
+  Room room;
   void setCoords(int r, int c);         // Sets the grid coordinates for the cell
   void notifyDisplay(TextDisplay &t);   // Notifies the text display, i.e changes the character at coordinates 
   void setThing(Thing* thing);

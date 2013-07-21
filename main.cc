@@ -20,12 +20,12 @@ int main() {
 	while (cin >> s){
 		if (cin.fail()) {break;}
 		if (s == "start") { 
-			grid->init();
+			grid->initializeFloor();
 			cout<< *grid;
 		}
 		if (s == "reset") { 
 			grid->clearGrid(); 
-			grid->init(); 
+			grid->initializeFloor(); 
 			cout << *grid;}
 		if (s == "quit")  {delete grid; break;}		
 	}

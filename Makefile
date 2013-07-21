@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -Wall -MMD
-OBJECTS = grid.o main.o textdisplay.o tile.o thing.o nonlivingthing.o wall.o ground.o door.o passage.o room.o
+OBJECTS =  main.o textdisplay.o coordinates.o grid.o room.o tile.o thing.o nonlivingthing.o wall.o ground.o door.o passage.o
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = cc3k
 

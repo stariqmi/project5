@@ -4,7 +4,7 @@
 using namespace std;
 
 Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y) {
-	//this->rooms = new Room*[5];
+	// this->rooms = new Room*[5];
 }
 
 Grid::~Grid() {
@@ -17,10 +17,17 @@ void Grid::clearGrid() {
 		delete[] this->theGrid[i];
 	}
 	this->td->clearDisplay();
+	vector<Coordinates*>::iterator it = this->ground.begin();
+	//cout << this->ground.size() << endl;
+	while(it != this->ground.end()) {
+		delete *it;
+		it++;
+	}
+	this->ground.clear();
 	delete[] this->theGrid;
 }
 
-void Grid::init() {
+void Grid::initializeFloor() {
 	this->theGrid = new Tile*[this->ysize];
 	for(int i = 0; i < this->ysize; i++) {
 		this->theGrid[i] = new Tile[this->xsize];
@@ -72,13 +79,14 @@ void Grid::init() {
 			this->theGrid[7][i].notifyDisplay(*(this->td));	
 		}
 
-		//this->rooms[0] = new Room(26);
+		//this->rooms[0] = new Room(0);
 		for(int i = 3; i < 7; i++) {
 			for(int j = 3; j < 27; j++) {
 				this->theGrid[i][j].setThing(new Ground);
 				this->theGrid[i][j].notifyDisplay(*(this->td));
-				//cout << i << "," << j << endl;
-				//this->rooms[0]->addContent(this->theGrid[i][j]);
+				this->theGrid[i][j].room = this->rooms[0];
+				//cout << i << "," << j <<  endl; 
+				this->ground.push_back(new Coordinates(i, j));
 			}	
 		}
 
@@ -113,13 +121,13 @@ void Grid::init() {
 			this->theGrid[22][i].notifyDisplay(*(this->td));	
 		}
 
-		//this->rooms[0] = new Room(26);
+		//this->rooms[1] = new Room(1);
 		for(int i = 15; i < 22; i++) {
 			for(int j = 4; j < 24; j++) {
 				this->theGrid[i][j].setThing(new Ground);
 				this->theGrid[i][j].notifyDisplay(*(this->td));
-				//cout << i << "," << j << endl;
-				//this->rooms[0]->addContent(this->theGrid[i][j]);
+				this->theGrid[i][j].room = this->rooms[1];
+				this->ground.push_back(new Coordinates(i, j));
 			}	
 		}
 
@@ -148,13 +156,13 @@ void Grid::init() {
 			this->theGrid[13][i].notifyDisplay(*(this->td));	
 		}
 
-		//this->rooms[0] = new Room(26);
+		//this->rooms[2] = new Room(2);
 		for(int i = 10; i < 13; i++) {
 			for(int j = 39; j < 51; j++) {
 				this->theGrid[i][j].setThing(new Ground);
 				this->theGrid[i][j].notifyDisplay(*(this->td));
-				//cout << i << "," << j << endl;
-				//this->rooms[0]->addContent(this->theGrid[i][j]);
+				this->theGrid[i][j].room = this->rooms[2];
+				this->ground.push_back(new Coordinates(i, j));
 			}	
 		}
 
@@ -218,12 +226,13 @@ void Grid::init() {
 		this->theGrid[20][36].notifyDisplay(*(this->td));
 
 		// Ground
+		//this->rooms[3] = new Room(3);
 		for(int i = 19; i < 22; i++) {
 			for(int j = 37; j < 66; j++) {
 				this->theGrid[i][j].setThing(new Ground);
 				this->theGrid[i][j].notifyDisplay(*(this->td));
-				//cout << i << "," << j << endl;
-				//this->rooms[0]->addContent(this->theGrid[i][j]);
+				this->theGrid[i][j].room = this->rooms[3];
+				this->ground.push_back(new Coordinates(i, j));
 			}	
 		}
 
@@ -231,8 +240,8 @@ void Grid::init() {
 			for(int j = 66; j < 77; j++) {
 				this->theGrid[i][j].setThing(new Ground);
 				this->theGrid[i][j].notifyDisplay(*(this->td));
-				//cout << i << "," << j << endl;
-				//this->rooms[0]->addContent(this->theGrid[i][j]);
+				this->theGrid[i][j].room = this->rooms[3];
+				this->ground.push_back(new Coordinates(i, j));
 			}	
 		}
 
@@ -291,33 +300,36 @@ void Grid::init() {
 		}
 
 		// Ground
+		//this->rooms[4] = new Room(4);
 		for(int i = 3; i < 7; i++) {
 			for(int j = 40; j < 63; j++) {
 				this->theGrid[i][j].setThing(new Ground);
 				this->theGrid[i][j].notifyDisplay(*(this->td));
-				//cout << i << "," << j << endl;
-				//this->rooms[0]->addContent(this->theGrid[i][j]);
+				this->theGrid[i][j].room = this->rooms[4];
+				this->ground.push_back(new Coordinates(i, j));
 			}	
 		}
 		for(int i = 7; i < 13; i++) {
 			for(int j = 62; j < 77; j++) {
 				this->theGrid[i][j].setThing(new Ground);
 				this->theGrid[i][j].notifyDisplay(*(this->td));
-				//cout << i << "," << j << endl;
-				//this->rooms[0]->addContent(this->theGrid[i][j]);
+				this->theGrid[i][j].room = this->rooms[4];
+				this->ground.push_back(new Coordinates(i, j));
 			}	
 		}
 		for(int i = 5; i < 7; i++) {
 			for(int j = 63; j < 71; j++) {
 				this->theGrid[i][j].setThing(new Ground);
 				this->theGrid[i][j].notifyDisplay(*(this->td));
-				//cout << i << "," << j << endl;
-				//this->rooms[0]->addContent(this->theGrid[i][j]);
+				this->theGrid[i][j].room = this->rooms[4];
+				this->ground.push_back(new Coordinates(i, j));
 			}	
 		}
 		for(int i = 71; i < 74; i++) {
 			this->theGrid[6][i].setThing(new Ground);
 			this->theGrid[6][i].notifyDisplay(*(this->td));	
+			this->theGrid[6][i].room = this->rooms[4];
+			this->ground.push_back(new Coordinates(6, i));
 		}
 
 		// Doors Bottom
