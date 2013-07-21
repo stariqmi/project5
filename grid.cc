@@ -96,17 +96,17 @@ void Grid::init() {
 		for(int i = 14; i < 23; i++) {
 			this->theGrid[i][3].setThing(new Wall("vertical_wall"));
 			this->theGrid[i][3].notifyDisplay(*(this->td));
-			this->theGrid[i][23].setThing(new Wall("vertical_wall"));
-			this->theGrid[i][23].notifyDisplay(*(this->td));	
+			this->theGrid[i][24].setThing(new Wall("vertical_wall"));
+			this->theGrid[i][24].notifyDisplay(*(this->td));	
 		}
 
 		// Door Right
-		delete this->theGrid[20][23].thing;
-		this->theGrid[20][23].setThing(new Door);
-		this->theGrid[20][23].notifyDisplay(*(this->td));
+		delete this->theGrid[20][24].thing;
+		this->theGrid[20][24].setThing(new Door);
+		this->theGrid[20][24].notifyDisplay(*(this->td));
 
 		// Hrozontal walls
-		for(int i = 4; i < 23; i++) {
+		for(int i = 4; i < 24; i++) {
 			this->theGrid[14][i].setThing(new Wall("horizontal_wall"));
 			this->theGrid[14][i].notifyDisplay(*(this->td));
 			this->theGrid[22][i].setThing(new Wall("horizontal_wall"));
@@ -115,7 +115,7 @@ void Grid::init() {
 
 		//this->rooms[0] = new Room(26);
 		for(int i = 15; i < 22; i++) {
-			for(int j = 4; j < 23; j++) {
+			for(int j = 4; j < 24; j++) {
 				this->theGrid[i][j].setThing(new Ground);
 				this->theGrid[i][j].notifyDisplay(*(this->td));
 				//cout << i << "," << j << endl;
@@ -134,14 +134,14 @@ void Grid::init() {
 	// Room-3
 		// Vertical walls
 		for(int i = 9; i < 14; i++) {
-			this->theGrid[i][35].setThing(new Wall("vertical_wall"));
-			this->theGrid[i][35].notifyDisplay(*(this->td));
-			this->theGrid[i][47].setThing(new Wall("vertical_wall"));
-			this->theGrid[i][47].notifyDisplay(*(this->td));
+			this->theGrid[i][38].setThing(new Wall("vertical_wall"));
+			this->theGrid[i][38].notifyDisplay(*(this->td));
+			this->theGrid[i][51].setThing(new Wall("vertical_wall"));
+			this->theGrid[i][51].notifyDisplay(*(this->td));
 		}
 
 		// Hrozontal walls
-		for(int i = 36; i < 47; i++) {
+		for(int i = 39; i < 51; i++) {
 			this->theGrid[9][i].setThing(new Wall("horizontal_wall"));
 			this->theGrid[9][i].notifyDisplay(*(this->td));
 			this->theGrid[13][i].setThing(new Wall("horizontal_wall"));
@@ -150,13 +150,178 @@ void Grid::init() {
 
 		//this->rooms[0] = new Room(26);
 		for(int i = 10; i < 13; i++) {
-			for(int j = 36; j < 47; j++) {
+			for(int j = 39; j < 51; j++) {
 				this->theGrid[i][j].setThing(new Ground);
 				this->theGrid[i][j].notifyDisplay(*(this->td));
 				//cout << i << "," << j << endl;
 				//this->rooms[0]->addContent(this->theGrid[i][j]);
 			}	
 		}
+
+		// Door Top
+		delete this->theGrid[9][44].thing;
+		this->theGrid[9][44].setThing(new Door);
+		this->theGrid[9][44].notifyDisplay(*(this->td));
+
+		// Door Bottom
+		delete this->theGrid[13][44].thing;
+		this->theGrid[13][44].setThing(new Door);
+		this->theGrid[13][44].notifyDisplay(*(this->td));
+
+	// Room-4
+		// Vertical walls
+		for(int i = 18; i < 23; i++) {
+			this->theGrid[i][36].setThing(new Wall("vertical_wall"));
+			this->theGrid[i][36].notifyDisplay(*(this->td));
+			this->theGrid[i][77].setThing(new Wall("vertical_wall"));
+			this->theGrid[i][77].notifyDisplay(*(this->td));
+		}
+
+		for(int i = 15; i < 19; i++) {
+			this->theGrid[i][65].setThing(new Wall("vertical_wall"));
+			this->theGrid[i][65].notifyDisplay(*(this->td));
+			this->theGrid[i][77].setThing(new Wall("vertical_wall"));
+			this->theGrid[i][77].notifyDisplay(*(this->td));
+		}
+
+		// Hrozontal walls
+		for(int i = 37; i < 65; i++) {
+			this->theGrid[18][i].setThing(new Wall("horizontal_wall"));
+			this->theGrid[18][i].notifyDisplay(*(this->td));
+			this->theGrid[22][i].setThing(new Wall("horizontal_wall"));
+			this->theGrid[22][i].notifyDisplay(*(this->td));	
+		}
+
+		for(int i = 66; i < 77; i++) {
+			this->theGrid[15][i].setThing(new Wall("horizontal_wall"));
+			this->theGrid[15][i].notifyDisplay(*(this->td));
+			this->theGrid[22][i].setThing(new Wall("horizontal_wall"));
+			this->theGrid[22][i].notifyDisplay(*(this->td));	
+		}
+		this->theGrid[22][65].setThing(new Wall("horizontal_wall"));
+		this->theGrid[22][65].notifyDisplay(*(this->td));
+
+		// Doors Top
+		delete this->theGrid[18][43].thing;
+		this->theGrid[18][43].setThing(new Door);
+		this->theGrid[18][43].notifyDisplay(*(this->td));
+
+		delete this->theGrid[15][70].thing;
+		this->theGrid[15][70].setThing(new Door);
+		this->theGrid[15][70].notifyDisplay(*(this->td));
+
+		// Ground
+		for(int i = 19; i < 22; i++) {
+			for(int j = 37; j < 66; j++) {
+				this->theGrid[i][j].setThing(new Ground);
+				this->theGrid[i][j].notifyDisplay(*(this->td));
+				//cout << i << "," << j << endl;
+				//this->rooms[0]->addContent(this->theGrid[i][j]);
+			}	
+		}
+
+		for(int i = 16; i < 22; i++) {
+			for(int j = 66; j < 77; j++) {
+				this->theGrid[i][j].setThing(new Ground);
+				this->theGrid[i][j].notifyDisplay(*(this->td));
+				//cout << i << "," << j << endl;
+				//this->rooms[0]->addContent(this->theGrid[i][j]);
+			}	
+		}
+	// Room-5
+		// Vertical walls
+		for(int i = 2; i < 8; i++) {
+			this->theGrid[i][39].setThing(new Wall("vertical_wall"));
+			this->theGrid[i][39].notifyDisplay(*(this->td));
+		}
+		for(int i = 7; i < 14; i++) {
+			this->theGrid[i][61].setThing(new Wall("vertical_wall"));
+			this->theGrid[i][61].notifyDisplay(*(this->td));
+			this->theGrid[i][77].setThing(new Wall("vertical_wall"));
+			this->theGrid[i][77].notifyDisplay(*(this->td));
+		}
+		this->theGrid[6][74].setThing(new Wall("vertical_wall"));
+		this->theGrid[6][74].notifyDisplay(*(this->td));
+		this->theGrid[5][74].setThing(new Wall("vertical_wall"));
+		this->theGrid[5][74].notifyDisplay(*(this->td));
+		this->theGrid[5][71].setThing(new Wall("vertical_wall"));
+		this->theGrid[5][71].notifyDisplay(*(this->td));
+		this->theGrid[4][71].setThing(new Wall("vertical_wall"));
+		this->theGrid[4][71].notifyDisplay(*(this->td));
+		this->theGrid[6][77].setThing(new Wall("vertical_wall"));
+		this->theGrid[6][77].notifyDisplay(*(this->td));
+		for(int i = 2; i < 5; i++) {
+			this->theGrid[i][63].setThing(new Wall("vertical_wall"));
+			this->theGrid[i][63].notifyDisplay(*(this->td));
+		}
+
+		// Hrozontal walls
+		for(int i = 40; i < 63; i++) {
+			this->theGrid[2][i].setThing(new Wall("horizontal_wall"));
+			this->theGrid[2][i].notifyDisplay(*(this->td));
+		}
+		for(int i = 40; i < 61; i++) {
+			this->theGrid[7][i].setThing(new Wall("horizontal_wall"));
+			this->theGrid[7][i].notifyDisplay(*(this->td));
+		}
+		for(int i = 62; i < 77; i++) {
+			this->theGrid[13][i].setThing(new Wall("horizontal_wall"));
+			this->theGrid[13][i].notifyDisplay(*(this->td));
+		}
+		for(int i = 64; i < 71; i++) {
+			this->theGrid[4][i].setThing(new Wall("horizontal_wall"));
+			this->theGrid[4][i].notifyDisplay(*(this->td));
+		}
+		for(int i = 72; i < 74; i++) {
+			this->theGrid[5][i].setThing(new Wall("horizontal_wall"));
+			this->theGrid[5][i].notifyDisplay(*(this->td));
+		}
+		for(int i = 75; i < 77; i++) {
+			this->theGrid[6][i].setThing(new Wall("horizontal_wall"));
+			this->theGrid[6][i].notifyDisplay(*(this->td));
+		}
+
+		// Ground
+		for(int i = 3; i < 7; i++) {
+			for(int j = 40; j < 63; j++) {
+				this->theGrid[i][j].setThing(new Ground);
+				this->theGrid[i][j].notifyDisplay(*(this->td));
+				//cout << i << "," << j << endl;
+				//this->rooms[0]->addContent(this->theGrid[i][j]);
+			}	
+		}
+		for(int i = 7; i < 13; i++) {
+			for(int j = 62; j < 77; j++) {
+				this->theGrid[i][j].setThing(new Ground);
+				this->theGrid[i][j].notifyDisplay(*(this->td));
+				//cout << i << "," << j << endl;
+				//this->rooms[0]->addContent(this->theGrid[i][j]);
+			}	
+		}
+		for(int i = 5; i < 7; i++) {
+			for(int j = 63; j < 71; j++) {
+				this->theGrid[i][j].setThing(new Ground);
+				this->theGrid[i][j].notifyDisplay(*(this->td));
+				//cout << i << "," << j << endl;
+				//this->rooms[0]->addContent(this->theGrid[i][j]);
+			}	
+		}
+		for(int i = 71; i < 74; i++) {
+			this->theGrid[6][i].setThing(new Ground);
+			this->theGrid[6][i].notifyDisplay(*(this->td));	
+		}
+
+		// Doors Bottom
+		delete this->theGrid[13][43].thing;
+		this->theGrid[13][70].setThing(new Door);
+		this->theGrid[13][70].notifyDisplay(*(this->td));
+
+		delete this->theGrid[7][44].thing;
+		this->theGrid[7][44].setThing(new Door);
+		this->theGrid[7][44].notifyDisplay(*(this->td));
+
+		//Door Left
+		
 }
 
 ostream& operator<<(ostream &out, const Grid &g) {
