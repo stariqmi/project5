@@ -1,4 +1,6 @@
 #include "grid.h"
+#include <stdlib.h>
+#include <time.h>
 #include <iostream>
 
 using namespace std;
@@ -406,6 +408,7 @@ void Grid::initializeFloor() {
 }
 
 Character* Grid::generateCharacter(char type) {
+	srand(time(NULL));
 	int pos = rand() % this->ground.size();
 	int x = this->ground[pos]->x;
 	int y = this->ground[pos]->y;
@@ -444,7 +447,20 @@ Character* Grid::generateCharacter(char type) {
 					this->theGrid[x][y].notifyDisplay(*(this->td));
 					return dwarf;}						
 	}
+	delete this->ground[pos];
+	this->ground.erase(this->ground.begin() + pos);
 }
+
+// void Grid::generateStairway() {
+// 	srand(time(NULL));
+// 	int pos = rand() % this->ground.size();
+// 	int x = this->ground[pos]->x;
+// 	int y = this->ground[pos]->y;
+// 	bool occupyStatus = this->theGrid[x][y].room.isOccupied;
+// 	if(occupyStatus) {
+
+// 	}
+// }
 
 ostream& operator<<(ostream &out, const Grid &g) {
 	out << *(g.td);

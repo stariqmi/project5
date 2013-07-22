@@ -55,5 +55,3 @@ void Orc::setHealth(int h){
 }
 
 void Orc::attack(int x, int y) {}
-
-Orc::~Orc() {}

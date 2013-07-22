@@ -30,6 +30,7 @@ public:
 	~Grid();
 	void clearGrid();
 	void initializeFloor();
+	void generateStairway();
 	Character* generateCharacter(char type);
 	friend std::ostream& ::operator<<(std::ostream &out, const Grid &g);
 };

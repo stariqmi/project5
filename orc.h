@@ -6,7 +6,6 @@
 class Orc : public Character {
 public:
 	Orc();
-	~Orc();
 	void attack(int x_coordinate, int y_coordinate);
 	void pickGold(std::string direction); 
 	void usePotion(std::string direction);
