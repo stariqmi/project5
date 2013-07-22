@@ -5,24 +5,30 @@ using namespace std;
 
 Tile::Tile() {}
 
-
-
 void Tile::setCoords(int r, int c) {
 	this->r = r;
 	this->c = c;
 }
 
 Tile::~Tile() {
-	delete this->thing;
+	delete this->livingThing;
+	delete this->nonLivingThing;
 }
 
 void Tile::notifyDisplay(TextDisplay &td) {
 	char c;
-	if(this->thing == NULL) {
+	if(this->nonLivingThing == NULL) {
 		c = ' ';
 	}
 	else {
-		string type = this->thing->type;
+		string type;
+		if(this->livingThing) {
+			type = this->livingThing->type;
+		}
+		else {
+			type = this->nonLivingThing->type;	
+		}
+
 		if(type == "vertical_wall") {
 			c = '|';
 		}
@@ -50,5 +56,5 @@ void Tile::notifyDisplay(TextDisplay &td) {
 
 void Tile::setThing(Thing* thing) {
 	//if(!(this->thing == NULL)) delete this->thing;
-	this->thing = thing;
+	this->nonLivingThing = thing;
 }

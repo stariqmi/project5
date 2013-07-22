@@ -67,7 +67,7 @@ void Grid::initializeFloor() {
 		}
 		
 		// Door Right
-		delete this->theGrid[4][27].thing;
+		delete this->theGrid[4][27].nonLivingThing;
 		this->theGrid[4][27].setThing(new Door);
 		this->theGrid[4][27].notifyDisplay(*(this->td));
 
@@ -91,7 +91,7 @@ void Grid::initializeFloor() {
 		}
 
 		// Door bottom
-		delete this->theGrid[7][13].thing;
+		delete this->theGrid[7][13].nonLivingThing;
 		this->theGrid[7][13].setThing(new Door);
 		this->theGrid[7][13].notifyDisplay(*(this->td));
 
@@ -109,7 +109,7 @@ void Grid::initializeFloor() {
 		}
 
 		// Door Right
-		delete this->theGrid[20][24].thing;
+		delete this->theGrid[20][24].nonLivingThing;
 		this->theGrid[20][24].setThing(new Door);
 		this->theGrid[20][24].notifyDisplay(*(this->td));
 
@@ -132,7 +132,7 @@ void Grid::initializeFloor() {
 		}
 
 		// Door Top
-		delete this->theGrid[14][13].thing;
+		delete this->theGrid[14][13].nonLivingThing;
 		this->theGrid[14][13].setThing(new Door);
 		this->theGrid[14][13].notifyDisplay(*(this->td));
 
@@ -167,12 +167,12 @@ void Grid::initializeFloor() {
 		}
 
 		// Door Top
-		delete this->theGrid[9][44].thing;
+		delete this->theGrid[9][44].nonLivingThing;
 		this->theGrid[9][44].setThing(new Door);
 		this->theGrid[9][44].notifyDisplay(*(this->td));
 
 		// Door Bottom
-		delete this->theGrid[13][44].thing;
+		delete this->theGrid[13][44].nonLivingThing;
 		this->theGrid[13][44].setThing(new Door);
 		this->theGrid[13][44].notifyDisplay(*(this->td));
 
@@ -213,15 +213,15 @@ void Grid::initializeFloor() {
 		this->theGrid[22][65].notifyDisplay(*(this->td));
 
 		// Doors Top
-		delete this->theGrid[18][44].thing;
+		delete this->theGrid[18][44].nonLivingThing;
 		this->theGrid[18][44].setThing(new Door);
 		this->theGrid[18][44].notifyDisplay(*(this->td));
 
-		delete this->theGrid[15][70].thing;
+		delete this->theGrid[15][70].nonLivingThing;
 		this->theGrid[15][70].setThing(new Door);
 		this->theGrid[15][70].notifyDisplay(*(this->td));
 
-		delete this->theGrid[20][36].thing;
+		delete this->theGrid[20][36].nonLivingThing;
 		this->theGrid[20][36].setThing(new Door);
 		this->theGrid[20][36].notifyDisplay(*(this->td));
 
@@ -333,20 +333,20 @@ void Grid::initializeFloor() {
 		}
 
 		// Doors Bottom
-		delete this->theGrid[13][70].thing;
+		delete this->theGrid[13][70].nonLivingThing;
 		this->theGrid[13][70].setThing(new Door);
 		this->theGrid[13][70].notifyDisplay(*(this->td));
 
-		delete this->theGrid[7][44].thing;
+		delete this->theGrid[7][44].nonLivingThing;
 		this->theGrid[7][44].setThing(new Door);
 		this->theGrid[7][44].notifyDisplay(*(this->td));
 
 		//Door Left
-		delete this->theGrid[4][39].thing;
+		delete this->theGrid[4][39].nonLivingThing;
 		this->theGrid[4][39].setThing(new Door);
 		this->theGrid[4][39].notifyDisplay(*(this->td));
 		
-		delete this->theGrid[11][61].thing;
+		delete this->theGrid[11][61].nonLivingThing;
 		this->theGrid[11][61].setThing(new Door);
 		this->theGrid[11][61].notifyDisplay(*(this->td));
 
@@ -411,7 +411,7 @@ Character* Grid::generateCharacter(char type) {
 	int y = this->ground[pos]->y;
 	cout << x << "," << y << endl;
 	this->theGrid[x][y].room.isOccupied = true;
-	delete this->theGrid[x][y].thing;
+	delete this->theGrid[x][y].livingThing;
 	Orc* orc = new Orc;
 	orc->x = x;
 	orc->y = y;
