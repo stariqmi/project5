@@ -4,12 +4,13 @@
 #include "thing.h"
 
 class LivingThing: public Thing {
-int hp;
-int atk;
-int def;
+protected:
+	int hp;
+	int atk;
+	int def;
 public:
-	LivingThing(std::string type);
-	virtual void move() = 0;
+	LivingThing();
+	virtual void move(std::string direction) = 0;
 	virtual void attack (int i, int j) = 0;
 	virtual int getHealth() = 0;
 	virtual void setHealth(int h) = 0;
