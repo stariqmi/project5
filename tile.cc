@@ -11,50 +11,56 @@ void Tile::setCoords(int r, int c) {
 }
 
 Tile::~Tile() {
-	delete this->livingThing;
-	delete this->nonLivingThing;
+	if(this->livingThing) {delete this->livingThing;}
+	if(this->nonLivingThing) {delete this->nonLivingThing;}
 }
 
 void Tile::notifyDisplay(TextDisplay &td) {
 	char c;
 	if(this->nonLivingThing == NULL) {
+		cout << "null" <<endl;
 		c = ' ';
 	}
 	else {
 		string type;
-		if(this->livingThing) {
-			type = this->livingThing->type;
+		if(this->livingThing != NULL) {
+			cout << "living" << endl;
+			this->livingThing->type;
+			cout << "living" << endl;
+			type = '@';
 		}
 		else {
+			cout << "dead" << endl;
 			type = this->nonLivingThing->type;	
+			cout << "dead" << endl;
+			if(type == "vertical_wall") {
+			c = '|';
+			}
+			else if(type == "horizontal_wall") {
+				c = '-';
+			}
+			else if(type == "ground") {
+				c = '.';
+			}
+			else if(type == "door") {
+				c = '+';
+			}
+			else if(type == "passage") {
+				c = '#';
+			}
+			else if(type == "character") {
+				c = '@';
+			}
+			else {
+				c = 'x';
+			}
 		}
 
-		if(type == "vertical_wall") {
-			c = '|';
-		}
-		else if(type == "horizontal_wall") {
-			c = '-';
-		}
-		else if(type == "ground") {
-			c = '.';
-		}
-		else if(type == "door") {
-			c = '+';
-		}
-		else if(type == "passage") {
-			c = '#';
-		}
-		else if(type == "character") {
-			c = '@';
-		}
-		else {
-			c = 'x';
-		}
 	}
 	td.notify(this->r, this->c, c);
 }
 
-void Tile::setThing(Thing* thing) {
+void Tile::setThing(NonLivingThing* thing) {
 	//if(!(this->thing == NULL)) delete this->thing;
 	this->nonLivingThing = thing;
 }

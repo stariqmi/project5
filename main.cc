@@ -21,7 +21,7 @@ int main() {
 		//if (cin.fail()) {break;}
 		if (s == "start") { 
 			grid->initializeFloor();
-			player = grid->generateCharacter(type);
+			//player = grid->generateCharacter(type);
 			cout<< *grid;
 		}
 		if(s == "n" || s == "s" || s == "e" || s == "w") {
@@ -31,7 +31,7 @@ int main() {
 		if (s == "reset") { 
 			grid->clearGrid(); 
 			grid->initializeFloor(); 
-			grid->generateCharacter(type);
+			//player = grid->generateCharacter(type);
 			cout << *grid;}
 		if (s == "quit")  {delete grid; break;}		
 	}
