@@ -38,6 +38,9 @@ void Tile::notifyDisplay(TextDisplay &td) {
 		else if(type == "passage") {
 			c = '#';
 		}
+		else if(type == "character") {
+			c = '@';
+		}
 		else {
 			c = 'x';
 		}

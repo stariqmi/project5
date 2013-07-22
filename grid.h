@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
+#include "thing.h"
 #include "tile.h"
 #include "wall.h"
 #include "door.h"
@@ -12,6 +13,7 @@
 #include "room.h"
 #include "textdisplay.h"
 #include "coordinates.h"
+#include "orc.h"
 
 class Grid {
 public:
@@ -25,7 +27,7 @@ public:
 	~Grid();
 	void clearGrid();
 	void initializeFloor();
-	void generateCharacter();
+	Character* generateCharacter(char type);
 	friend std::ostream& ::operator<<(std::ostream &out, const Grid &g);
 };
 

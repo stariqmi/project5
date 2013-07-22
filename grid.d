@@ -1,2 +1,3 @@
-grid.o: grid.cc grid.h tile.h textdisplay.h nonlivingthing.h thing.h \
- room.h wall.h door.h ground.h passage.h coordinates.h
+grid.o: grid.cc grid.h thing.h tile.h textdisplay.h nonlivingthing.h \
+ room.h wall.h door.h ground.h passage.h coordinates.h orc.h character.h \
+ livingthing.h

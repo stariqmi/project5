@@ -1,9 +1,26 @@
 #include <iostream>
 #include "character.h"
-#include <string>
 #include "grid.h"
+#include <string>
 using namespace std;
-Character::Character(): gold(0) {}
+Character::Character(): gold(0) {
+	this->type = "character";
+}
+
+void Character::move(string direction){
+	Thing* original;
+	Thing* next;
+	if(direction == "n") {
+		next = this->grid->theGrid[this->x - 1][this->y].thing;
+		original = this->grid->theGrid[this->x][this->y].thing;
+		this->grid->theGrid[this->x][this->y].thing = next;
+		this->grid->theGrid[this->x - 1][this->y].thing = original;
+		this->grid->theGrid[this->x][this->y].notifyDisplay(*(this->grid->td));
+		this->grid->theGrid[this->x - 1][this->y].notifyDisplay(*(this->grid->td));
+		this->x--;
+	}	
+}
+
 // void Character::pickGold(string direction) {
 // 	if(direction == "N") { 
 // 		gold = gold + grid->theGrid[x_coordinate + 1][y_coordinate].thing.gold; 

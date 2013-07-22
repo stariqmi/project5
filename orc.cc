@@ -3,8 +3,7 @@
 #include <string>
 using namespace std;
 
-Orc::Orc(string type, int hp, int atk, int def) {
-	this->type  = "orc";
+Orc::Orc() {
 	this->hp = 180;
 	this->atk = 30;
 	this->def = 25;
@@ -46,44 +45,6 @@ Orc::Orc(string type, int hp, int atk, int def) {
 // 	}
 // }
 
-void Orc::move(string direction){
-	Thing* temp;
-	
-// switch(direction)	{
-// 	case "N": temp = grid->theGrid[x_coordinate][y_coordinate + 1].thing;
-// 			  grid->theGrid[x_coordinate][y_coordinate + 1].thing = grid->theGrid[x_coordinate][y_coordinate];
-// 			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-// 		      break;
-// 	case "S": temp = grid->theGrid[x_coordinate][y_coordinate + 1].thing;
-// 			  grid->theGrid[x_coordinate][y_coordinate + 1].thing = grid->theGrid[x_coordinate][y_coordinate];
-// 			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-// 			  break;
-// 	case "E": temp = grid->theGrid[x_coordinate + 1][y_coordinate].thing;
-// 			  grid->theGrid[x_coordinate + 1][y_coordinate].thing = grid->theGrid[x_coordinate][y_coordinate];
-// 			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-// 			  break;		 		 
-// 	case "W": temp = grid->theGrid[x_coordinate - 1][y_coordinate].thing;
-// 			  grid->theGrid[x_coordinate - 1][y_coordinate].thing = grid->theGrid[x_coordinate][y_coordinate];
-// 			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-// 			  break;
-// 	case "NE":temp = grid->theGrid[x_coordinate + 1][y_coordinate + 1].thing;
-// 			  grid->theGrid[x_coordinate + 1][y_coordinate + 1].thing = grid->theGrid[x_coordinate][y_coordinate];
-// 			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-// 		      break;			  
-// 	case "NW":temp = grid->theGrid[x_coordinate - 1][y_coordinate + 1].thing;
-// 			  grid->theGrid[x_coordinate - 1][y_coordinate + 1].thing = grid->theGrid[x_coordinate][y_coordinate];
-// 			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-// 		      break;
-// 	case "SE":temp = grid->theGrid[x_coordinate + 1][y_coordinate - 1].thing;
-// 			  grid->theGrid[x_coordinate + 1][y_coordinate - 1].thing = grid->theGrid[x_coordinate][y_coordinate];
-// 			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-// 		      break;
-// 	case "SW":temp = grid->theGrid[x_coordinate - 1][y_coordinate - 1].thing;
-// 			  grid->theGrid[x_coordinate - 1][y_coordinate - 1].thing = grid->theGrid[x_coordinate][y_coordinate];
-// 			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-// 		      break;		  		  		  
-// 	}	
-}
 
 int Orc::getHealth() {
 	return hp;
