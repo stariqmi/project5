@@ -17,14 +17,11 @@ int main() {
 	string s;
 	char type;
 	cin >> type;
-	while (cin >> s){
-		//if (cin.fail()) {break;}
-		if (s == "start") { 
-			grid->initializeFloor();
-			player = grid->generateCharacter(type);
-			cout<< *grid;
-		}
-		if(s == "n" || s == "s" || s == "e" || s == "w" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
+	grid->initializeFloor();
+	player = grid->generateCharacter(type);
+	cout<< *grid;
+	while (cin >> s){	
+		if(s == "no" || s == "so" || s == "ea" || s == "we" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
 			player->move(s);
 			cout << *grid;
 		}

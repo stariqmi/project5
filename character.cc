@@ -93,7 +93,7 @@ void Character::move(string direction){
 		this->x++;
 	}
 
-	else if(direction == "n") {
+	else if(direction == "no") {
 		string originalType = this->grid->theGrid[this->x - 1][this->y].thing->type; 
 		delete this->grid->theGrid[this->x - 1][this->y].thing;
 		this->grid->theGrid[this->x - 1][this->y].setThing(this->grid->theGrid[this->x][this->y].thing);
@@ -113,7 +113,7 @@ void Character::move(string direction){
 		this->x--;
 	}
 
-	else if(direction == "s") {
+	else if(direction == "so") {
 		string originalType = this->grid->theGrid[this->x + 1][this->y].thing->type; 
 		delete this->grid->theGrid[this->x + 1][this->y].thing;
 		this->grid->theGrid[this->x + 1][this->y].setThing(this->grid->theGrid[this->x][this->y].thing);
@@ -133,7 +133,7 @@ void Character::move(string direction){
 		this->x++;
 	}
 
-	else if(direction == "e") {
+	else if(direction == "ea") {
 		string originalType = this->grid->theGrid[this->x][this->y + 1].thing->type; 
 		delete this->grid->theGrid[this->x][this->y + 1].thing;
 		this->grid->theGrid[this->x][this->y + 1].setThing(this->grid->theGrid[this->x][this->y].thing);
@@ -153,7 +153,7 @@ void Character::move(string direction){
 		this->y++;
 	}
 
-	else if(direction == "w") {
+	else if(direction == "we") {
 		string originalType = this->grid->theGrid[this->x][this->y - 1].thing->type; 
 		delete this->grid->theGrid[this->x][this->y - 1].thing;
 		this->grid->theGrid[this->x][this->y - 1].setThing(this->grid->theGrid[this->x][this->y].thing);
