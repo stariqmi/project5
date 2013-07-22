@@ -10,6 +10,7 @@
 #include "door.h"
 #include "ground.h"
 #include "passage.h"
+#include "stairway.h"
 #include "room.h"
 #include "textdisplay.h"
 #include "coordinates.h"

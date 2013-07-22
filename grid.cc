@@ -458,8 +458,17 @@ Character* Grid::generateCharacter(char type) {
 // 	int y = this->ground[pos]->y;
 // 	bool occupyStatus = this->theGrid[x][y].room.isOccupied;
 // 	if(occupyStatus) {
-
+// 		//cout << "occupied" << endl;
+// 		this->generateStairway();
 // 	}
+// 	else {
+// 		//cout << "not occupied" << endl;
+// 		delete this->theGrid[x][y].thing;
+// 		this->theGrid[x][y].setThing(new Stairway);
+// 		this->theGrid[x][y].notifyDisplay(*(this->td));
+// 	}
+// 	// delete this->ground[pos];
+// 	// this->ground.erase(this->ground.begin() + pos);
 // }
 
 ostream& operator<<(ostream &out, const Grid &g) {

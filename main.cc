@@ -24,6 +24,7 @@ int main() {
 	cin >> type;
 	grid->initializeFloor();
 	player = grid->generateCharacter(type);
+	grid->generateStairway();
 	cout<< *grid;
 	while (cin >> s){	
 		if(s == "no" || s == "so" || s == "ea" || s == "we" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
@@ -35,6 +36,7 @@ int main() {
 			grid->clearGrid(); 
 			grid->initializeFloor(); 
 			player = grid->generateCharacter(type);
+			grid->generateStairway();
 			cout << *grid;}
 		if (s == "q")  {delete grid; break;}		
 	}

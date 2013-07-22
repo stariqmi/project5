@@ -43,6 +43,9 @@ void Tile::notifyDisplay(TextDisplay &td) {
 		else if(type == "character") {
 			c = '@';
 		}
+		else if(type == "stairway") {
+			c = '/';
+		}
 		else {
 			c = 'x';
 		}	
