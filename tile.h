@@ -11,12 +11,11 @@ class Tile {
 public:
   Tile();                               // Default constructor
   ~Tile();
-  Thing* livingThing;
-  Thing* nonLivingThing;
+  Thing* thing;
   Room room;
   void setCoords(int r, int c);         // Sets the grid coordinates for the cell
   void notifyDisplay(TextDisplay &t);   // Notifies the text display, i.e changes the character at coordinates 
-  void setThing(NonLivingThing* thing);
+  void setThing(Thing* thing);
 };
 
 #endif
