@@ -5,6 +5,7 @@
 using namespace std;
 Character::Character(): gold(0) {
 	this->type = "character";
+	this->standingOn = "ground";
 }
 
 void Character::move(string direction){
@@ -18,7 +19,57 @@ void Character::move(string direction){
 		this->grid->theGrid[this->x][this->y].notifyDisplay(*(this->grid->td));
 		this->grid->theGrid[this->x - 1][this->y].notifyDisplay(*(this->grid->td));
 		this->x--;
-	}	
+	}
+	
+	else if(direction == "s")	{
+		next = grid->theGrid[x + 1][y].thing;
+		original = grid->theGrid[x][y].thing;
+		grid->theGrid[x][y].thing = next;
+		grid->theGrid[x + 1][y].thing = original;
+		grid->theGrid[x][y].notifyDisplay(*(grid->td));
+		grid->theGrid[x + 1][y].notifyDisplay(*(grid->td));
+		x++;	
+	}
+
+	else if(direction == "e")	{
+		next = grid->theGrid[x][y + 1].thing;
+		original = grid->theGrid[x][y].thing;
+		grid->theGrid[x][y].thing = next;
+		grid->theGrid[x][y + 1].thing = original;
+		grid->theGrid[x][y].notifyDisplay(*(grid->td));
+		grid->theGrid[x][y + 1].notifyDisplay(*(grid->td));
+		y++;	
+	}
+	else if(direction == "w")	{
+		next = grid->theGrid[x][y - 1].thing;
+		original = grid->theGrid[x][y].thing;
+		grid->theGrid[x][y].thing = next;
+		grid->theGrid[x][y - 1].thing = original;
+		grid->theGrid[x][y].notifyDisplay(*(grid->td));
+		grid->theGrid[x][y - 1].notifyDisplay(*(grid->td));
+		y--;	
+	}
+	else if(direction == "ne")	{
+		next = grid->theGrid[x - 1][y + 1].thing;
+		original = grid->theGrid[x][y].thing;
+		grid->theGrid[x][y].thing = next;
+		grid->theGrid[x - 1][y + 1].thing = original;
+		grid->theGrid[x - 1][y + 1].notifyDisplay(*(grid->td));
+		grid->theGrid[x - 1][y + 1].notifyDisplay(*(grid->td));
+		y++;
+		x--;	
+	}
+	else if(direction == "nw")	{
+		next = grid->theGrid[x - 1][y - 1].thing;
+		original = grid->theGrid[x][y].thing;
+		grid->theGrid[x][y].thing = next;
+		grid->theGrid[x - 1][y - 1].thing = original;
+		grid->theGrid[x - 1][y - 1].notifyDisplay(*(grid->td));
+		grid->theGrid[x - 1][y - 1].notifyDisplay(*(grid->td));
+		y--;
+		x--;	
+	}
+
 }
 
 // void Character::pickGold(string direction) {
