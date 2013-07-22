@@ -405,6 +405,17 @@ void Grid::initializeFloor() {
 		this->theGrid[14][70].notifyDisplay(*(this->td));
 }
 
+void Grid::generateCharacter() {
+	int pos = rand() % this->ground.size();
+	int x = this->ground[pos]->x;
+	int y = this->ground[pos]->y;
+	cout << x << "," << y << endl;
+	this->theGrid[x][y].room.isOccupied = true;
+	delete this->theGrid[x][y].thing;
+	this->theGrid[x][y].setThing(new Passage);
+	this->theGrid[x][y].notifyDisplay(*(this->td));
+}
+
 ostream& operator<<(ostream &out, const Grid &g) {
 	out << *(g.td);
 	return out;

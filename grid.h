@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cstdlib>
 #include "tile.h"
 #include "wall.h"
 #include "door.h"
@@ -24,6 +25,7 @@ public:
 	~Grid();
 	void clearGrid();
 	void initializeFloor();
+	void generateCharacter();
 	friend std::ostream& ::operator<<(std::ostream &out, const Grid &g);
 };
 
