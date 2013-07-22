@@ -3,7 +3,24 @@
 #include <string>
 using namespace std;
 
-Human::Human(): Character(human, 140, 20, 20, 0) {}
+Human::Human() {
+	hp = 140;
+	atk = 20;
+	def = 20;
+}
+
+int Human::getHealth() {
+	return hp;
+}
+
+void Human::setHealth(int h){
+	hp = h; 
+}
+
+void Human::attack(int x, int y) {}
+
+Human::~Human() {}
+/*
 void Human::pickGold(string direction){
 switch(direction)	{
 	case "N": gold = gold + grid->theGrid[x_coordinate][y_coordinate + 1].thing.gold; 
@@ -40,47 +57,4 @@ switch(direction)	{
 			  break;		  		  		  
 	}
 }
-void Human::move(string direction){
-switch(direction)	{
-	case "N": temp = grid->theGrid[x_coordinate][y_coordinate + 1].thing;
-			  grid->theGrid[x_coordinate][y_coordinate + 1].thing = grid->theGrid[x_coordinate][y_coordinate];
-			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-		      break;
-	case "S": temp = grid->theGrid[x_coordinate][y_coordinate + 1].thing;
-			  grid->theGrid[x_coordinate][y_coordinate + 1].thing = grid->theGrid[x_coordinate][y_coordinate];
-			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-			  break;
-	case "E": temp = grid->theGrid[x_coordinate + 1][y_coordinate].thing;
-			  grid->theGrid[x_coordinate + 1][y_coordinate].thing = grid->theGrid[x_coordinate][y_coordinate];
-			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-			  break;		 		 
-	case "W": temp = grid->theGrid[x_coordinate - 1][y_coordinate].thing;
-			  grid->theGrid[x_coordinate - 1][y_coordinate].thing = grid->theGrid[x_coordinate][y_coordinate];
-			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-			  break;
-	case "NE":temp = grid->theGrid[x_coordinate + 1][y_coordinate + 1].thing;
-			  grid->theGrid[x_coordinate + 1][y_coordinate + 1].thing = grid->theGrid[x_coordinate][y_coordinate];
-			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-		      break;			  
-	case "NW":temp = grid->theGrid[x_coordinate - 1][y_coordinate + 1].thing;
-			  grid->theGrid[x_coordinate - 1][y_coordinate + 1].thing = grid->theGrid[x_coordinate][y_coordinate];
-			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-		      break;
-	case "SE":temp = grid->theGrid[x_coordinate + 1][y_coordinate - 1].thing;
-			  grid->theGrid[x_coordinate + 1][y_coordinate - 1].thing = grid->theGrid[x_coordinate][y_coordinate];
-			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-		      break;
-	case "SW":temp = grid->theGrid[x_coordinate - 1][y_coordinate - 1].thing;
-			  grid->theGrid[x_coordinate - 1][y_coordinate - 1].thing = grid->theGrid[x_coordinate][y_coordinate];
-			  grid->theGrid[x_coordinate][y_coordinate] = temp;
-		      break;		  		  		  
-	}	
-}
-
-int Human::getHealth() {
-	return hp;
-}
-
-void Human::setHealth(int h){
-	hp = h; 
-}
+*/

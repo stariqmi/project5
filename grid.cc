@@ -412,13 +412,37 @@ Character* Grid::generateCharacter(char type) {
 	cout << x << "," << y << endl;
 	this->theGrid[x][y].room.isOccupied = true;
 	delete this->theGrid[x][y].thing;
-	Orc* orc = new Orc;
-	orc->x = x;
-	orc->y = y;
-	this->theGrid[x][y].setThing(orc);
-	orc->grid = this; 
-	this->theGrid[x][y].notifyDisplay(*(this->td));
-	return orc;
+	switch (type) {
+		case 'o': 	Orc* orc = new Orc;
+					orc->x = x;
+					orc->y = y;
+					this->theGrid[x][y].setThing(orc);
+					orc->grid = this; 
+					this->theGrid[x][y].notifyDisplay(*(this->td));
+					return orc;
+		case 'h':	Human* human = new Human;
+					human->x = x;
+					human->y = y;
+					this->theGrid[x][y].setThing(human);
+					orc->grid = this; 
+					this->theGrid[x][y].notifyDisplay(*(this->td));
+					return human;
+		case 'e': 	Elf* elf = new Elf;
+					elf->x = x;
+					elf->y = y;
+					this->theGrid[x][y].setThing(elf);
+					elf->grid = this; 
+					this->theGrid[x][y].notifyDisplay(*(this->td));
+					return elf;	
+		case 'd':	Dwarf* dwarf = new Dwarf;
+					dwarf->x = x;
+					dwarf->y = y;
+					this->theGrid[x][y].setThing(dwarf);
+					dwarf->grid = this; 
+					this->theGrid[x][y].notifyDisplay(*(this->td));
+					return dwarf;						
+	}
+	
 }
 
 ostream& operator<<(ostream &out, const Grid &g) {
