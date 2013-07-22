@@ -415,6 +415,8 @@ Character* Grid::generateCharacter(char type) {
 	cout << x << "," << y << endl;
 	this->theGrid[x][y].room.isOccupied = true;
 	delete this->theGrid[x][y].thing;
+	delete this->ground[pos];
+	this->ground.erase(this->ground.begin() + pos);
 	switch (type) {
 		case 'o': 	
 					{Orc* orc = new Orc;
@@ -447,8 +449,7 @@ Character* Grid::generateCharacter(char type) {
 					this->theGrid[x][y].notifyDisplay(*(this->td));
 					return dwarf;}						
 	}
-	delete this->ground[pos];
-	this->ground.erase(this->ground.begin() + pos);
+	
 }
 
 // void Grid::generateStairway() {
@@ -461,7 +462,24 @@ Character* Grid::generateCharacter(char type) {
 
 // 	}
 // }
-
+void Grid::generateEnemy(string type){
+	srand(time(NULL));
+	int pos = rand() % this->ground.size();
+	int x = this->ground[pos]->x;
+	int y = this->ground[pos]->y;
+	cout << x << "," << y << endl;
+	//this->theGrid[x][y].room.isOccupied = true;
+	delete this->theGrid[x][y].thing;
+	delete this->ground[pos];
+	this->ground.erase(this->ground.begin() + pos);
+			Werewolf* werewolf = new Werewolf;
+			werewolf->x = x;
+					werewolf->y = y;
+					this->theGrid[x][y].setThing(werewolf);
+					orc->grid = this; 
+					this->theGrid[x][y].notifyDisplay(*(this->td));
+					return werewolf;
+}
 ostream& operator<<(ostream &out, const Grid &g) {
 	out << *(g.td);
 	return out;

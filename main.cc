@@ -15,7 +15,7 @@ int main() {
 	TextDisplay* td = new TextDisplay(xsize, ysize);
 	Grid* grid = new Grid(td, xsize, ysize);
 	Character* player;
-	//Character* enemy;
+	Character* enemy;
 	string s;
 	//srand(time(NULL));
 	int random = rand()% 7;
@@ -24,11 +24,12 @@ int main() {
 	cin >> type;
 	grid->initializeFloor();
 	player = grid->generateCharacter(type);
+	enemy = grid->generateEnemy(type);
 	cout<< *grid;
 	while (cin >> s){	
 		if(s == "no" || s == "so" || s == "ea" || s == "we" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
 			player->move(s);
-			//enemy->move(enemymoves[random]);
+			enemy->move(enemymoves[random]);
 			cout << *grid;
 		}
 		if (s == "r") { 
