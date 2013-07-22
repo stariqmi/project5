@@ -24,7 +24,7 @@ int main() {
 			player = grid->generateCharacter(type);
 			cout<< *grid;
 		}
-		if(s == "n" || s == "s" || s == "e" || s == "w") {
+		if(s == "n" || s == "s" || s == "e" || s == "w" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
 			player->move(s);
 			cout << *grid;
 		}
