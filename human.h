@@ -6,13 +6,11 @@
 class Human: public Character {
 public:
 	Human();
-	void attack(x_coordinate, y_coordinate);
+	void attack(int x, int y);
 	void pickGold(std::string direction); 
 	void usePotion(std::string direction);
-	void move(std::string direction);
 	int getHealth();
 	void setHealth(int h);
-	void move(std::string direction);
 };
 
 #endif

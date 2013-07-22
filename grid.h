@@ -14,6 +14,9 @@
 #include "textdisplay.h"
 #include "coordinates.h"
 #include "orc.h"
+#include "human.h"
+#include "dwarf.h"
+#include "elf.h"
 
 class Grid {
 public:

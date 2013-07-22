@@ -4,93 +4,93 @@
 #include <string>
 using namespace std;
 Character::Character(): gold(0) {
-	this->type = "character";
-	this->standingOn = "ground";
+	type = "character";
+	standingOn = "ground";
 }
 
 void Character::move(string direction){
 	if(direction == "nw") {
-		string originalType = this->grid->theGrid[this->x - 1][this->y - 1].thing->type; 
-		delete this->grid->theGrid[this->x - 1][this->y - 1].thing;
-		this->grid->theGrid[this->x - 1][this->y - 1].setThing(this->grid->theGrid[this->x][this->y].thing);
-		Character* player = dynamic_cast<Character*>(this->grid->theGrid[this->x][this->y].thing);
+		string originalType = grid->theGrid[x - 1][y - 1].thing->type; 
+		delete grid->theGrid[x - 1][y - 1].thing;
+		grid->theGrid[x - 1][y - 1].setThing(grid->theGrid[x][y].thing);
+		Character* player = dynamic_cast<Character*>(grid->theGrid[x][y].thing);
 		if(player->standingOn == "ground") {
-			this->grid->theGrid[this->x][this->y].setThing(new Ground);
+			grid->theGrid[x][y].setThing(new Ground);
 		}
 		else if(player->standingOn == "door") {
-			this->grid->theGrid[this->x][this->y].setThing(new Door);
+			grid->theGrid[x][y].setThing(new Door);
 		}
 		else if(player->standingOn == "passage") {
-			this->grid->theGrid[this->x][this->y].setThing(new Passage);
+			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
-		this->grid->theGrid[this->x][this->y].notifyDisplay(*(this->grid->td));
-		this->grid->theGrid[this->x - 1][this->y - 1].notifyDisplay(*(this->grid->td));
-		this->y--;
-		this->x--;
+		grid->theGrid[x][y].notifyDisplay(*(grid->td));
+		grid->theGrid[x - 1][y - 1].notifyDisplay(*(grid->td));
+		y--;
+		x--;
 	}
 
 	if(direction == "sw") {
-		string originalType = this->grid->theGrid[this->x + 1][this->y - 1].thing->type; 
-		delete this->grid->theGrid[this->x + 1][this->y - 1].thing;
-		this->grid->theGrid[this->x + 1][this->y - 1].setThing(this->grid->theGrid[this->x][this->y].thing);
-		Character* player = dynamic_cast<Character*>(this->grid->theGrid[this->x][this->y].thing);
+		string originalType = grid->theGrid[x + 1][y - 1].thing->type; 
+		delete grid->theGrid[x + 1][y - 1].thing;
+		grid->theGrid[x + 1][y - 1].setThing(grid->theGrid[x][y].thing);
+		Character* player = dynamic_cast<Character*>(grid->theGrid[x][y].thing);
 		if(player->standingOn == "ground") {
-			this->grid->theGrid[this->x][this->y].setThing(new Ground);
+			grid->theGrid[x][y].setThing(new Ground);
 		}
 		else if(player->standingOn == "door") {
-			this->grid->theGrid[this->x][this->y].setThing(new Door);
+			grid->theGrid[x][y].setThing(new Door);
 		}
 		else if(player->standingOn == "passage") {
-			this->grid->theGrid[this->x][this->y].setThing(new Passage);
+			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
-		this->grid->theGrid[this->x][this->y].notifyDisplay(*(this->grid->td));
-		this->grid->theGrid[this->x + 1][this->y - 1].notifyDisplay(*(this->grid->td));
-		this->y--;
-		this->x++;
+		grid->theGrid[x][y].notifyDisplay(*(grid->td));
+		grid->theGrid[x + 1][y - 1].notifyDisplay(*(grid->td));
+		y--;
+		x++;
 	}
 
 	else if(direction == "ne") {
-		string originalType = this->grid->theGrid[this->x - 1][this->y + 1].thing->type; 
-		delete this->grid->theGrid[this->x - 1][this->y + 1].thing;
-		this->grid->theGrid[this->x - 1][this->y + 1].setThing(this->grid->theGrid[this->x][this->y].thing);
-		Character* player = dynamic_cast<Character*>(this->grid->theGrid[this->x][this->y].thing);
+		string originalType = grid->theGrid[x - 1][y + 1].thing->type; 
+		delete grid->theGrid[x - 1][y + 1].thing;
+		grid->theGrid[x - 1][y + 1].setThing(grid->theGrid[x][y].thing);
+		Character* player = dynamic_cast<Character*>(grid->theGrid[x][y].thing);
 		if(player->standingOn == "ground") {
-			this->grid->theGrid[this->x][this->y].setThing(new Ground);
+			grid->theGrid[x][y].setThing(new Ground);
 		}
 		else if(player->standingOn == "door") {
-			this->grid->theGrid[this->x][this->y].setThing(new Door);
+			grid->theGrid[x][y].setThing(new Door);
 		}
 		else if(player->standingOn == "passage") {
-			this->grid->theGrid[this->x][this->y].setThing(new Passage);
+			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
-		this->grid->theGrid[this->x][this->y].notifyDisplay(*(this->grid->td));
-		this->grid->theGrid[this->x - 1][this->y + 1].notifyDisplay(*(this->grid->td));
-		this->y++;
-		this->x--;
+		grid->theGrid[x][y].notifyDisplay(*(grid->td));
+		grid->theGrid[x - 1][y + 1].notifyDisplay(*(grid->td));
+		y++;
+		x--;
 	}
 
 	else if(direction == "se") {
-		string originalType = this->grid->theGrid[this->x + 1][this->y + 1].thing->type; 
-		delete this->grid->theGrid[this->x + 1][this->y + 1].thing;
-		this->grid->theGrid[this->x + 1][this->y + 1].setThing(this->grid->theGrid[this->x][this->y].thing);
-		Character* player = dynamic_cast<Character*>(this->grid->theGrid[this->x][this->y].thing);
+		string originalType = grid->theGrid[x + 1][y + 1].thing->type; 
+		delete grid->theGrid[x + 1][y + 1].thing;
+		grid->theGrid[x + 1][y + 1].setThing(grid->theGrid[x][y].thing);
+		Character* player = dynamic_cast<Character*>(grid->theGrid[x][y].thing);
 		if(player->standingOn == "ground") {
-			this->grid->theGrid[this->x][this->y].setThing(new Ground);
+			grid->theGrid[x][y].setThing(new Ground);
 		}
 		else if(player->standingOn == "door") {
-			this->grid->theGrid[this->x][this->y].setThing(new Door);
+			grid->theGrid[x][y].setThing(new Door);
 		}
 		else if(player->standingOn == "passage") {
-			this->grid->theGrid[this->x][this->y].setThing(new Passage);
+			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
-		this->grid->theGrid[this->x][this->y].notifyDisplay(*(this->grid->td));
-		this->grid->theGrid[this->x + 1][this->y + 1].notifyDisplay(*(this->grid->td));
-		this->y++;
-		this->x++;
+		grid->theGrid[x][y].notifyDisplay(*(grid->td));
+		grid->theGrid[x + 1][y + 1].notifyDisplay(*(grid->td));
+		y++;
+		x++;
 	}
 
 	else if(direction == "no") {
@@ -99,18 +99,18 @@ void Character::move(string direction){
 		this->grid->theGrid[this->x - 1][this->y].setThing(this->grid->theGrid[this->x][this->y].thing);
 		Character* player = dynamic_cast<Character*>(this->grid->theGrid[this->x][this->y].thing);
 		if(player->standingOn == "ground") {
-			this->grid->theGrid[this->x][this->y].setThing(new Ground);
+			grid->theGrid[x][y].setThing(new Ground);
 		}
 		else if(player->standingOn == "door") {
-			this->grid->theGrid[this->x][this->y].setThing(new Door);
+			grid->theGrid[x][y].setThing(new Door);
 		}
 		else if(player->standingOn == "passage") {
-			this->grid->theGrid[this->x][this->y].setThing(new Passage);
+			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
-		this->grid->theGrid[this->x][this->y].notifyDisplay(*(this->grid->td));
-		this->grid->theGrid[this->x - 1][this->y].notifyDisplay(*(this->grid->td));
-		this->x--;
+		grid->theGrid[x][y].notifyDisplay(*(grid->td));
+		grid->theGrid[x - 1][y].notifyDisplay(*(grid->td));
+		x--;
 	}
 
 	else if(direction == "so") {
@@ -119,38 +119,37 @@ void Character::move(string direction){
 		this->grid->theGrid[this->x + 1][this->y].setThing(this->grid->theGrid[this->x][this->y].thing);
 		Character* player = dynamic_cast<Character*>(this->grid->theGrid[this->x][this->y].thing);
 		if(player->standingOn == "ground") {
-			this->grid->theGrid[this->x][this->y].setThing(new Ground);
+			grid->theGrid[x][y].setThing(new Ground);
 		}
 		else if(player->standingOn == "door") {
-			this->grid->theGrid[this->x][this->y].setThing(new Door);
+			grid->theGrid[x][y].setThing(new Door);
 		}
 		else if(player->standingOn == "passage") {
-			this->grid->theGrid[this->x][this->y].setThing(new Passage);
+			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
-		this->grid->theGrid[this->x][this->y].notifyDisplay(*(this->grid->td));
-		this->grid->theGrid[this->x + 1][this->y].notifyDisplay(*(this->grid->td));
-		this->x++;
+		grid->theGrid[x][y].notifyDisplay(*(grid->td));
+		grid->theGrid[x + 1][y].notifyDisplay(*(grid->td));
+		x++;
 	}
 
 	else if(direction == "ea") {
 		string originalType = this->grid->theGrid[this->x][this->y + 1].thing->type; 
 		delete this->grid->theGrid[this->x][this->y + 1].thing;
 		this->grid->theGrid[this->x][this->y + 1].setThing(this->grid->theGrid[this->x][this->y].thing);
-		Character* player = dynamic_cast<Character*>(this->grid->theGrid[this->x][this->y].thing);
-		if(player->standingOn == "ground") {
-			this->grid->theGrid[this->x][this->y].setThing(new Ground);
+		Character* player = dynamic_cast<Character*>(this->grid->theGrid[this->x][this->y].thing);if(player->standingOn == "ground") {
+			grid->theGrid[x][y].setThing(new Ground);
 		}
 		else if(player->standingOn == "door") {
-			this->grid->theGrid[this->x][this->y].setThing(new Door);
+			grid->theGrid[x][y].setThing(new Door);
 		}
 		else if(player->standingOn == "passage") {
-			this->grid->theGrid[this->x][this->y].setThing(new Passage);
+			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
-		this->grid->theGrid[this->x][this->y].notifyDisplay(*(this->grid->td));
-		this->grid->theGrid[this->x][this->y + 1].notifyDisplay(*(this->grid->td));
-		this->y++;
+		grid->theGrid[x][y].notifyDisplay(*(grid->td));
+		grid->theGrid[x][y + 1].notifyDisplay(*(grid->td));
+		y++;
 	}
 
 	else if(direction == "we") {
@@ -158,19 +157,19 @@ void Character::move(string direction){
 		delete this->grid->theGrid[this->x][this->y - 1].thing;
 		this->grid->theGrid[this->x][this->y - 1].setThing(this->grid->theGrid[this->x][this->y].thing);
 		Character* player = dynamic_cast<Character*>(this->grid->theGrid[this->x][this->y].thing);
-		if(player->standingOn == "ground") {
-			this->grid->theGrid[this->x][this->y].setThing(new Ground);
+	if(player->standingOn == "ground") {
+			grid->theGrid[x][y].setThing(new Ground);
 		}
 		else if(player->standingOn == "door") {
-			this->grid->theGrid[this->x][this->y].setThing(new Door);
+			grid->theGrid[x][y].setThing(new Door);
 		}
 		else if(player->standingOn == "passage") {
-			this->grid->theGrid[this->x][this->y].setThing(new Passage);
+			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
-		this->grid->theGrid[this->x][this->y].notifyDisplay(*(this->grid->td));
-		this->grid->theGrid[this->x][this->y - 1].notifyDisplay(*(this->grid->td));
-		this->y--;
+		grid->theGrid[x][y].notifyDisplay(*(grid->td));
+		grid->theGrid[x][y - 1].notifyDisplay(*(grid->td));
+		y--;
 	}
 }
 

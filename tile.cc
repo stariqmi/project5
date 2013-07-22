@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-Tile::Tile() {}
+Tile::Tile(): thing(NULL) {}
 
 void Tile::setCoords(int r, int c) {
 	this->r = r;
@@ -11,14 +11,14 @@ void Tile::setCoords(int r, int c) {
 }
 
 Tile::~Tile() {
-	//if(this->livingThing) {delete this->livingThing;}
-	delete this->thing;
+	if(this->thing != NULL) {
+		delete this->thing;
+	}
 }
 
 void Tile::notifyDisplay(TextDisplay &td) {
 	char c;
 	if(this->thing == NULL) {
-		//cout << "null" <<endl;
 		c = ' ';
 	}
 	else {

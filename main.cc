@@ -25,11 +25,11 @@ int main() {
 			player->move(s);
 			cout << *grid;
 		}
-		if (s == "reset") { 
+		if (s == "r") { 
 			grid->clearGrid(); 
 			grid->initializeFloor(); 
 			player = grid->generateCharacter(type);
 			cout << *grid;}
-		if (s == "quit")  {delete grid; break;}		
+		if (s == "q")  {delete grid; break;}		
 	}
 }
