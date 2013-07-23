@@ -7,7 +7,7 @@ class Dwarf: public Character {
 public:
 	Dwarf();
 	void pickGold(std::string direction); 
-	void usePotion(std::string direction);
+	void usePotion(int i, int j);
 	int getHealth();
 	void setHealth(int h);
 };

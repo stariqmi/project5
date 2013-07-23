@@ -149,6 +149,7 @@ void Grid::initializeFloor(char type) {
 
 		player = generateCharacter(type);
 		generateStairway();
+		generatePotions();
 		generateEnemies();
 		cout<< *this;
 }
@@ -240,7 +241,7 @@ Character* Grid::generateEnemies(){
 		int x = rooms[pos].tiles[pos2]->x;
 		int y = rooms[pos].tiles[pos2]->y;
 		if(theGrid[x][y].isOccupied) {
-			//i--; 
+			i--; 
 			//continue;
 		}
 		else {
@@ -252,6 +253,57 @@ Character* Grid::generateEnemies(){
 	}
 	
 }
+
+void Grid::generatePotions() {
+	vector<string> potionTypes;
+	potionTypes.push_back("RH");
+	potionTypes.push_back("PH");
+	potionTypes.push_back("BA");
+	potionTypes.push_back("BD");
+	potionTypes.push_back("WA");
+	potionTypes.push_back("WD");
+
+	for(int i = 0; i < 10; i++) {
+		int pos = rand() % + potionTypes.size();
+		int pos2 = rand() % + 5;
+		int pos3 = rand() % + rooms[pos2].tiles.size();
+		
+		int x = rooms[pos2].tiles[pos3]->x;
+		int y = rooms[pos2].tiles[pos3]->y;
+		if(theGrid[x][y].isOccupied) {
+			i--; 
+			//continue;
+		}
+		else {
+			Potion* potion;
+			if(potionTypes[pos] == "RH") {
+				potion = new BoostHealth;
+			}
+			else if(potionTypes[pos] == "PH") {
+				potion = new PoisonHealth;
+			}
+			else if(potionTypes[pos] == "BA") {
+				potion = new BoostAttack;
+			}
+			else if(potionTypes[pos] == "BD") {
+				potion = new BoostDefence;
+			}
+			else if(potionTypes[pos] == "WA") {
+				potion = new WoundAttack;
+			}
+			else if(potionTypes[pos] == "WD") {
+				potion = new WoundDefence;
+			}
+			delete theGrid[x][y].thing;
+			theGrid[x][y].setThing(potion);
+			theGrid[x][y].isOccupied = true;
+			theGrid[x][y].notifyDisplay(*td);
+		}
+	}
+
+}
+
+
 ostream& operator<<(ostream &out, const Grid &g) {
 	out << *(g.td);
 	out << "                                                                      Floor: " << g.level << endl;

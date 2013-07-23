@@ -15,6 +15,7 @@ public:
 	virtual int getHealth() = 0;
 	virtual int getAtk() = 0;
 	virtual int getDef() = 0;
+	virtual void usePotion(int i, int j) = 0;
 	virtual void setHealth(int h) = 0;
 	~LivingThing();
 };

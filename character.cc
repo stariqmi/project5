@@ -4,6 +4,8 @@
 #include <string>
 #include <math.h>
 using namespace std;
+
+
 Character::Character(): gold(0) {
 	type = "character";
 	standingOn = "ground";
@@ -219,6 +221,7 @@ int Character::getDef() {
 	return def;
 }
 
+
 void Character::attack(string direction){
 	if(direction == "no") {
 		LivingThing* defender;
@@ -230,6 +233,8 @@ void Character::attack(string direction){
 		cout << defender->getHealth() << endl;
 	 }
 }
+
+void Character::usePotion(int i, int j) {}
 
 Character::~Character() {}
 

@@ -2,6 +2,7 @@
 #define _CHARACTER_H__
 
 #include "livingthing.h"
+#include "potion.h"
 #include <string>
 
 class Grid;
@@ -18,7 +19,7 @@ class Character: public LivingThing {
 		int y;
 		Character(); // Sets defense, attack, gold and health
 		void pickGold(std::string direction); // it picks and set gold
-		void usePotion(std::string direction);
+		void usePotion(int i, int j);
 		void move(std::string direction);
 		int getAtk();
 		int getDef();
