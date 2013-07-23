@@ -3,6 +3,8 @@
 #include "grid.h"
 #include <string>
 using namespace std;
+
+
 Character::Character(): gold(0) {
 	type = "character";
 	standingOn = "ground";
@@ -217,6 +219,8 @@ int Character::getAtk() {
 int Character::getDef() {
 	return def;
 }
+
+void Character::usePotion(int i, int j) {}
 
 Character::~Character() {}
 

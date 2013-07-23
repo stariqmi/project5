@@ -8,7 +8,7 @@ public:
 	Elf();
 	void attack(int x_coordinate,int  y_coordinate);
 	void pickGold(std::string direction); 
-	void usePotion(std::string direction);
+	void usePotion(int i, int j);
 	int getHealth();
 	void setHealth(int h);
 };
