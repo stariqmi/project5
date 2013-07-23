@@ -55,4 +55,10 @@ void Dwarf::setHealth(int h){
 	hp = h; 
 }
 
+int Dwarf::getAtk() {
+	return atk;
+}
+int Dwarf::getDef() {
+	return def;
+}
 void Dwarf::attack(int x, int y) {}

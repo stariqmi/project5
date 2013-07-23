@@ -55,4 +55,12 @@ void Elf::setHealth(int h){
 	hp = h; 
 }
 
+
+int Elf::getAtk() {
+	return atk;
+}
+int Elf::getDef() {
+	return def;
+}
+
 void Elf::attack(int x, int y) {}
