@@ -18,8 +18,6 @@ void Human::setHealth(int h){
 	hp = h; 
 }
 
-void Human::attack(int x, int y) {}
-
 void Human::usePotion(int i, int j) {}
 
 

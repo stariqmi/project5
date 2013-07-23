@@ -71,6 +71,7 @@ int main() {
 			Coordinates* c = evalDirection(dir, grid->player->x, grid->player->y);
 			grid->player->usePotion(c->x, c->y);
 			delete c;
+			cout << *grid;
 		} 
 		if (s == "q")  {delete grid; break;}		
 	}

@@ -20,4 +20,3 @@ void Dwarf::setHealth(int h){
 
 void Dwarf::usePotion(int i, int j) {}
 
-void Dwarf::attack(int x, int y) {}
