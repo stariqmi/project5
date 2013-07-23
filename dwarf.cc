@@ -18,4 +18,3 @@ void Dwarf::setHealth(int h){
 	hp = h; 
 }
 
-void Dwarf::attack(int x, int y) {}

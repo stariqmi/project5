@@ -6,7 +6,6 @@
 class Elf: public Character {
 public:
 	Elf();
-	void attack(int x_coordinate,int  y_coordinate);
 	void pickGold(std::string direction); 
 	void usePotion(std::string direction);
 	int getHealth();

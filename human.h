@@ -6,7 +6,6 @@
 class Human: public Character {
 public:
 	Human();
-	void attack(int x, int y);
 	void pickGold(std::string direction); 
 	void usePotion(std::string direction);
 	int getHealth();

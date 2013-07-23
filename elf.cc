@@ -17,4 +17,3 @@ void Elf::setHealth(int h){
 	hp = h; 
 }
 
-void Elf::attack(int x, int y) {}

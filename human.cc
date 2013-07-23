@@ -18,6 +18,3 @@ void Human::setHealth(int h){
 	hp = h; 
 }
 
-void Human::attack(int x, int y) {}
-
-

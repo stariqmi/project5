@@ -11,7 +11,7 @@ protected:
 public:
 	LivingThing();
 	virtual void move(std::string direction) = 0;
-	virtual void attack (int i, int j) = 0;
+	virtual void attack (std::string direction) = 0;
 	virtual int getHealth() = 0;
 	virtual int getAtk() = 0;
 	virtual int getDef() = 0;
