@@ -20,6 +20,3 @@ void Werewolf::setHealth(int h){
 	hp = h; 
 }
 
-void Werewolf::attack(int x, int y) {} 
-
-void Werewolf::setAttack(){}

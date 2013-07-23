@@ -5,10 +5,10 @@
 
 class Mediator {
 protected:
-	const Character & player;
-	const Character & enemy;
+	 Character & player;
+	 Character & enemy;
 public:
-	Mediator(const Character & player, const Character & enemy);
+	Mediator(Character & player,Character & enemy);
 	void Attack();
 	void Attack(std::string direction);
 

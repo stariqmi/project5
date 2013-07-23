@@ -2,6 +2,7 @@
 #include "character.h"
 #include "grid.h"
 #include <string>
+#include <math.h>
 using namespace std;
 
 
@@ -218,6 +219,19 @@ int Character::getAtk() {
 }
 int Character::getDef() {
 	return def;
+}
+
+
+void Character::attack(string direction){
+	if(direction == "no") {
+		LivingThing* defender;
+		defender = dynamic_cast<LivingThing*>(grid->theGrid[x - 1][y].thing);
+	 	def = defender->getDef();
+		int damage = ceil((100/(100 + def)) * atk);
+		int h = (getHealth() - damage);
+		defender->setHealth(h);
+		cout << defender->getHealth() << endl;
+	 }
 }
 
 void Character::usePotion(int i, int j) {}

@@ -19,4 +19,3 @@ void Elf::setHealth(int h){
 
 void Elf::usePotion(int i, int j) {}
 
-void Elf::attack(int x, int y) {}

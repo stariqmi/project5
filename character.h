@@ -23,6 +23,7 @@ class Character: public LivingThing {
 		void move(std::string direction);
 		int getAtk();
 		int getDef();
+		void attack(std::string direction);
 		~Character();
 };
 

@@ -48,4 +48,3 @@ void Orc::usePotion(int i, int j) {
 	grid->theGrid[i][j].notifyDisplay(*(grid->td));
 }
 
-void Orc::attack(int x, int y) {}
