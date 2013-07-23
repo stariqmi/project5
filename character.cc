@@ -196,11 +196,19 @@ void Character::move(string direction){
 		grid->theGrid[x][y - 1].notifyDisplay(*(grid->td));
 		y--;
 	}
-	// if(going_to == "stairway") {
-	// 	grid->level++;
-	// 	grid->clearGrid();
-	// 	grid->initializeFloor();
-	// }
+	//cout << dynamic_cast<Character*>(grid->theGrid[x][y].thing)->raceID << endl;
+	if(going_to == "stairway") {
+		grid->level++;
+		if(grid->level == 2) {
+			cout << "Congratulations! You have won, now piss off!" << endl;
+		}
+		else {
+			grid->initializeFloor(dynamic_cast<Character*>(grid->theGrid[x][y].thing)->raceID);
+		}
+	}
+	else {
+		cout << *grid;
+	}
 }
 
 // void Character::pickGold(string direction) {

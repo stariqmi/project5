@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y), level(0) {
+Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y), level(1) {
 	// this->rooms = new Room*[5];
 }
 
@@ -254,5 +254,7 @@ Character* Grid::generateEnemies(){
 }
 ostream& operator<<(ostream &out, const Grid &g) {
 	out << *(g.td);
+	out << "                                                                    Floor: " << g.level << endl;
+
 	return out;
 }

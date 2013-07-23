@@ -13,6 +13,7 @@ class Character: public LivingThing {
 	public:
 		Grid* grid;
 		std::string standingOn;
+		char raceID;
 		int x;
 		int y;
 		Character(); // Sets defense, attack, gold and health

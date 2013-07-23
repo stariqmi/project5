@@ -7,6 +7,7 @@ Orc::Orc() {
 	this->hp = 180;
 	this->atk = 30;
 	this->def = 25;
+	raceID = 'o';
 }
 // void Orc::pickGold(string direction){
 // switch(direction)	{

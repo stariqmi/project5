@@ -3,10 +3,11 @@
 #include <string>
 using namespace std;
 
-Elf::Elf() {
+Elf::Elf()  {
 	hp = 140;
 	atk = 30;
 	def = 10;
+	raceID = 'e';
 }
 
 // void Elf::pickGold(string direction){

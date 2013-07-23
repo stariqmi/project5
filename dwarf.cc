@@ -7,6 +7,7 @@ Dwarf::Dwarf() {
 	hp = 100;
 	atk = 20;
 	def = 30;
+	raceID = 'd';
 }
 
 // void Dwarf::pickGold(string direction){

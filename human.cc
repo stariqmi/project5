@@ -7,6 +7,7 @@ Human::Human() {
 	hp = 140;
 	atk = 20;
 	def = 20;
+	raceID = 'h';
 }
 
 int Human::getHealth() {
