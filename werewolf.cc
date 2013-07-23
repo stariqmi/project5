@@ -20,13 +20,6 @@ void Werewolf::setHealth(int h){
 	hp = h; 
 }
 
-
-int Dwarf::getAtk() {
-	return atk;
-}
-int Dwarf::getDef() {
-	return def;
-}
 void Werewolf::attack(int x, int y) {} 
 
 void Werewolf::setAttack(){}

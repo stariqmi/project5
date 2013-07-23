@@ -1,1 +1,1 @@
-#include "mediator.cc"
+#include "mediator.h"

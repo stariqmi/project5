@@ -254,7 +254,7 @@ Character* Grid::generateEnemies(){
 }
 ostream& operator<<(ostream &out, const Grid &g) {
 	out << *(g.td);
-	out << "                                                                    Floor: " << g.level << endl;
-
+	out << "                                                                      Floor: " << g.level << endl;
+	out << "  HP: " << g.player->getHealth() << endl;
 	return out;
 }

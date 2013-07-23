@@ -20,6 +20,8 @@ class Character: public LivingThing {
 		void pickGold(std::string direction); // it picks and set gold
 		void usePotion(std::string direction);
 		void move(std::string direction);
+		int getAtk();
+		int getDef();
 		~Character();
 };
 
