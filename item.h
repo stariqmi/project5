@@ -2,7 +2,7 @@
 #define __ITEM_H__
 
 #include <string>
-#include "../nonlivingthing.h"
+#include "nonlivingthing.h"
 
 class Item : public NonLivingThing {
 	public:

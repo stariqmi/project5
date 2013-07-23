@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Potion::Potion() {
+Potion::Potion(string effect, string effectOn, int magnitude) {
 	type = "potion";
 }
 

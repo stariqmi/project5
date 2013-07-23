@@ -49,6 +49,9 @@ void Tile::notifyDisplay(TextDisplay &td) {
 		else if(type == "werewolf") {
 			c = 'W';
 		}
+		else if(type == "potion") {
+			c = 'P';
+		}
 		else {
 			c = 'x';
 		}	

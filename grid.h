@@ -19,6 +19,12 @@
 #include "dwarf.h"
 #include "elf.h"
 #include "werewolf.h"
+#include "boostattack.h"
+#include "woundattack.h"
+#include "boostdefence.h"
+#include "wounddefence.h"
+#include "boosthealth.h"
+#include "poisonhealth.h"
 
 class Grid {
 public:
@@ -37,6 +43,7 @@ public:
 	void generateStairway();
 	Character* generateCharacter(char type);
 	Character* generateEnemies();
+	void generatePotions();
 	friend std::ostream& ::operator<<(std::ostream &out, const Grid &g);
 };
 
