@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-Tile::Tile(): thing(NULL) {}
+Tile::Tile(): thing(NULL), isOccupied(false) {}
 
 void Tile::setCoords(int r, int c) {
 	this->r = r;
@@ -45,6 +45,9 @@ void Tile::notifyDisplay(TextDisplay &td) {
 		}
 		else if(type == "stairway") {
 			c = '/';
+		}
+		else if(type == "werewolf") {
+			c = 'W';
 		}
 		else {
 			c = 'x';

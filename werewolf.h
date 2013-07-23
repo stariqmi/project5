@@ -9,7 +9,9 @@ class Werewolf: public Character {
 	public:
 		Werewolf();
 		void attack (int x, int y);
-		void setAttacked(); 
+		void setAttack(); 
+		int getHealth();
+		void setHealth(int h);
 };
 
 #endif

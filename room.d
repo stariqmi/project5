@@ -1,1 +1,1 @@
-room.o: room.cc room.h
+room.o: room.cc room.h coordinates.h

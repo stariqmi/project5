@@ -8,7 +8,16 @@ Werewolf::Werewolf() {
 	hp = 120;
 	atk = 30;
 	def = 5;
-	isAttacked = False;
+	isAttacked = false;
+	type = "werewolf";
+}
+
+int Werewolf::getHealth() {
+	return hp;
+}
+
+void Werewolf::setHealth(int h){
+	hp = h; 
 }
 
 void Werewolf::attack(int x, int y) {} 

@@ -12,7 +12,7 @@ public:
   Tile();                               // Default constructor
   ~Tile();
   Thing* thing;
-  Room room;
+  bool isOccupied;
   void setCoords(int r, int c);         // Sets the grid coordinates for the cell
   void notifyDisplay(TextDisplay &t);   // Notifies the text display, i.e changes the character at coordinates 
   void setThing(Thing* thing);

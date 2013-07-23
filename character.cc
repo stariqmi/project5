@@ -24,6 +24,8 @@ void Character::move(string direction){
 			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
+		grid->theGrid[x - 1][y - 1].isOccupied = true;
+		grid->theGrid[x][y].isOccupied = false;
 		grid->theGrid[x][y].notifyDisplay(*(grid->td));
 		grid->theGrid[x - 1][y - 1].notifyDisplay(*(grid->td));
 		y--;
@@ -45,6 +47,8 @@ void Character::move(string direction){
 			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
+		grid->theGrid[x + 1][y - 1].isOccupied = true;
+		grid->theGrid[x][y].isOccupied = false;
 		grid->theGrid[x][y].notifyDisplay(*(grid->td));
 		grid->theGrid[x + 1][y - 1].notifyDisplay(*(grid->td));
 		y--;
@@ -66,6 +70,8 @@ void Character::move(string direction){
 			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
+		grid->theGrid[x - 1][y + 1].isOccupied = true;
+		grid->theGrid[x][y].isOccupied = false;
 		grid->theGrid[x][y].notifyDisplay(*(grid->td));
 		grid->theGrid[x - 1][y + 1].notifyDisplay(*(grid->td));
 		y++;
@@ -87,6 +93,8 @@ void Character::move(string direction){
 			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
+		grid->theGrid[x + 1][y + 1].isOccupied = true;
+		grid->theGrid[x][y].isOccupied = false;
 		grid->theGrid[x][y].notifyDisplay(*(grid->td));
 		grid->theGrid[x + 1][y + 1].notifyDisplay(*(grid->td));
 		y++;
@@ -108,6 +116,8 @@ void Character::move(string direction){
 			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
+		grid->theGrid[x - 1][y].isOccupied = true;
+		grid->theGrid[x][y].isOccupied = false;
 		grid->theGrid[x][y].notifyDisplay(*(grid->td));
 		grid->theGrid[x - 1][y].notifyDisplay(*(grid->td));
 		x--;
@@ -128,6 +138,8 @@ void Character::move(string direction){
 			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
+		grid->theGrid[x + 1][y].isOccupied = true;
+		grid->theGrid[x][y].isOccupied = false;
 		grid->theGrid[x][y].notifyDisplay(*(grid->td));
 		grid->theGrid[x + 1][y].notifyDisplay(*(grid->td));
 		x++;
@@ -147,6 +159,8 @@ void Character::move(string direction){
 			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
+		grid->theGrid[x][y + 1].isOccupied = true;
+		grid->theGrid[x][y].isOccupied = false;
 		grid->theGrid[x][y].notifyDisplay(*(grid->td));
 		grid->theGrid[x][y + 1].notifyDisplay(*(grid->td));
 		y++;
@@ -167,6 +181,8 @@ void Character::move(string direction){
 			grid->theGrid[x][y].setThing(new Passage);
 		}
 		player->standingOn = originalType;
+		grid->theGrid[x][y - 1].isOccupied = true;
+		grid->theGrid[x][y].isOccupied = false;
 		grid->theGrid[x][y].notifyDisplay(*(grid->td));
 		grid->theGrid[x][y - 1].notifyDisplay(*(grid->td));
 		y--;

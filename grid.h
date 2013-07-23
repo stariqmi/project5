@@ -18,6 +18,7 @@
 #include "human.h"
 #include "dwarf.h"
 #include "elf.h"
+#include "werewolf.h"
 
 class Grid {
 public:
@@ -26,13 +27,14 @@ public:
 	int ysize;
 	TextDisplay* td;
 	Room rooms[5];
-	std::vector<Coordinates*> ground;
+	//std::vector<Coordinates*> ground;
 	Grid(TextDisplay* td, int x, int y);
 	~Grid();
 	void clearGrid();
 	void initializeFloor();
 	void generateStairway();
 	Character* generateCharacter(char type);
+	Character* generateEnemies();
 	friend std::ostream& ::operator<<(std::ostream &out, const Grid &g);
 };
 
