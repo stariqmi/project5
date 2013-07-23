@@ -9,8 +9,10 @@ Character::Character(): gold(0) {
 }
 
 void Character::move(string direction){
+	string going_to;
 	if(direction == "nw") {
 		string originalType = grid->theGrid[x - 1][y - 1].thing->type; 
+		going_to = originalType;
 		delete grid->theGrid[x - 1][y - 1].thing;
 		grid->theGrid[x - 1][y - 1].setThing(grid->theGrid[x][y].thing);
 		Character* player = dynamic_cast<Character*>(grid->theGrid[x][y].thing);
@@ -34,6 +36,7 @@ void Character::move(string direction){
 
 	if(direction == "sw") {
 		string originalType = grid->theGrid[x + 1][y - 1].thing->type; 
+		going_to = originalType;
 		delete grid->theGrid[x + 1][y - 1].thing;
 		grid->theGrid[x + 1][y - 1].setThing(grid->theGrid[x][y].thing);
 		Character* player = dynamic_cast<Character*>(grid->theGrid[x][y].thing);
@@ -57,6 +60,7 @@ void Character::move(string direction){
 
 	else if(direction == "ne") {
 		string originalType = grid->theGrid[x - 1][y + 1].thing->type; 
+		going_to = originalType;
 		delete grid->theGrid[x - 1][y + 1].thing;
 		grid->theGrid[x - 1][y + 1].setThing(grid->theGrid[x][y].thing);
 		Character* player = dynamic_cast<Character*>(grid->theGrid[x][y].thing);
@@ -80,6 +84,7 @@ void Character::move(string direction){
 
 	else if(direction == "se") {
 		string originalType = grid->theGrid[x + 1][y + 1].thing->type; 
+		going_to = originalType;
 		delete grid->theGrid[x + 1][y + 1].thing;
 		grid->theGrid[x + 1][y + 1].setThing(grid->theGrid[x][y].thing);
 		Character* player = dynamic_cast<Character*>(grid->theGrid[x][y].thing);
@@ -103,6 +108,7 @@ void Character::move(string direction){
 
 	else if(direction == "no") {
 		string originalType = this->grid->theGrid[this->x - 1][this->y].thing->type; 
+		going_to = originalType;
 		delete this->grid->theGrid[this->x - 1][this->y].thing;
 		this->grid->theGrid[this->x - 1][this->y].setThing(this->grid->theGrid[this->x][this->y].thing);
 		Character* player = dynamic_cast<Character*>(this->grid->theGrid[this->x][this->y].thing);
@@ -125,6 +131,7 @@ void Character::move(string direction){
 
 	else if(direction == "so") {
 		string originalType = this->grid->theGrid[this->x + 1][this->y].thing->type; 
+		going_to = originalType;
 		delete this->grid->theGrid[this->x + 1][this->y].thing;
 		this->grid->theGrid[this->x + 1][this->y].setThing(this->grid->theGrid[this->x][this->y].thing);
 		Character* player = dynamic_cast<Character*>(this->grid->theGrid[this->x][this->y].thing);
@@ -147,6 +154,7 @@ void Character::move(string direction){
 
 	else if(direction == "ea") {
 		string originalType = this->grid->theGrid[this->x][this->y + 1].thing->type; 
+		going_to = originalType;
 		delete this->grid->theGrid[this->x][this->y + 1].thing;
 		this->grid->theGrid[this->x][this->y + 1].setThing(this->grid->theGrid[this->x][this->y].thing);
 		Character* player = dynamic_cast<Character*>(this->grid->theGrid[this->x][this->y].thing);if(player->standingOn == "ground") {
@@ -168,6 +176,7 @@ void Character::move(string direction){
 
 	else if(direction == "we") {
 		string originalType = this->grid->theGrid[this->x][this->y - 1].thing->type; 
+		going_to = originalType;
 		delete this->grid->theGrid[this->x][this->y - 1].thing;
 		this->grid->theGrid[this->x][this->y - 1].setThing(this->grid->theGrid[this->x][this->y].thing);
 		Character* player = dynamic_cast<Character*>(this->grid->theGrid[this->x][this->y].thing);
@@ -187,6 +196,11 @@ void Character::move(string direction){
 		grid->theGrid[x][y - 1].notifyDisplay(*(grid->td));
 		y--;
 	}
+	// if(going_to == "stairway") {
+	// 	grid->level++;
+	// 	grid->clearGrid();
+	// 	grid->initializeFloor();
+	// }
 }
 
 // void Character::pickGold(string direction) {

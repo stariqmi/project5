@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y) {
+Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y), level(0) {
 	// this->rooms = new Room*[5];
 }
 
@@ -36,7 +36,7 @@ void Grid::clearGrid() {
 	delete[] this->theGrid;
 }
 
-void Grid::initializeFloor() {
+void Grid::initializeFloor(char type) {
 	this->theGrid = new Tile*[this->ysize];
 	for(int i = 0; i < this->ysize; i++) {
 		this->theGrid[i] = new Tile[this->xsize];
@@ -146,6 +146,11 @@ void Grid::initializeFloor() {
 			Coordinates* c = new Coordinates(6, i);
 			this->rooms[4].tiles.push_back(c);
 		}
+
+		player = generateCharacter(type);
+		generateStairway();
+		generateEnemies();
+		cout<< *this;
 }
 
 Character* Grid::generateCharacter(char type) {

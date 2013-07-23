@@ -25,13 +25,15 @@ public:
 	Tile** theGrid;
 	int xsize;
 	int ysize;
+	int level;
 	TextDisplay* td;
 	Room rooms[5];
+	Character* player;
 	//std::vector<Coordinates*> ground;
 	Grid(TextDisplay* td, int x, int y);
 	~Grid();
 	void clearGrid();
-	void initializeFloor();
+	void initializeFloor(char type);
 	void generateStairway();
 	Character* generateCharacter(char type);
 	Character* generateEnemies();

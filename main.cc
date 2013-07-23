@@ -15,32 +15,25 @@ int main() {
 
 	TextDisplay* td = new TextDisplay(xsize, ysize);
 	Grid* grid = new Grid(td, xsize, ysize);
-	Character* player;
-	Character* enemy;
+	//Character* player;
+	//Character* enemy;
 	string s;
 	srand(time(NULL));
 	int random = rand()% 7;
 	string enemymoves[8] = {"no", "so", "ea" , "we", "ne", "nw", "se", "sw"};
 	char type;
 	cin >> type;
-	grid->initializeFloor();
-	player = grid->generateCharacter(type);
-	grid->generateStairway();
-	grid->generateEnemies();
-	cout<< *grid;
+	grid->initializeFloor(type);
 	while (cin >> s){	
 		if(s == "no" || s == "so" || s == "ea" || s == "we" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
-			player->move(s);
+			grid->player->move(s);
 			//enemy->move(enemymoves[random]);
 			cout << *grid;
 		}
 		if (s == "r") { 
 			grid->clearGrid(); 
-			grid->initializeFloor(); 
-			player = grid->generateCharacter(type);
-			grid->generateStairway();
-			grid->generateEnemies();
-			cout << *grid;}
+			grid->initializeFloor(type);
+			} 
 		if (s == "q")  {delete grid; break;}		
 	}
 }
