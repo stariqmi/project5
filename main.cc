@@ -6,6 +6,7 @@
 #include "textdisplay.h"
 #include "tile.h"
 #include "coordinates.h"
+#include "mediator.h"
 
 using namespace std;
 
@@ -41,7 +42,9 @@ Coordinates* evalDirection(string direction, int i, int j) {
 	return c;
 }
 
-
+void intitiate_atk(Mediator mediator, string direction) {
+	mediator.Attack(direction);
+}
 
 int main() {
 
@@ -73,6 +76,17 @@ int main() {
 			delete c;
 			cout << *grid;
 		} 
+		if (s == "a") {
+			string dir;
+			cin >> dir;
+			Coordinates* c = evalDirection(dir, grid->player->x, grid->player->y);
+			Character* enemy;
+			enemy = dynamic_cast<Character*>(grid->theGrid[c->x][c->y].thing);
+			intitiate_atk(Mediator(grid->player,enemy), dir);
+			//delete enemy;
+			delete c;
+			cout << *grid;
+		}
 		if (s == "q")  {delete grid; break;}		
 	}
 }

@@ -227,7 +227,10 @@ void Character::attack(string direction){
 		LivingThing* defender;
 		defender = dynamic_cast<LivingThing*>(grid->theGrid[x - 1][y].thing);
 	 	def = defender->getDef();
-		int damage = ceil((100/(100 + def)) * atk);
+	 	cout << "defense points :"<< def << endl;
+	 	cout << "atk points :" << atk << endl;
+		int damage = 50; //ceil((100/(100 + def)) * atk);
+		cout << "damage :" << damage << endl; 
 		int h = (getHealth() - damage);
 		defender->setHealth(h);
 		cout << defender->getHealth() << endl;
