@@ -2,7 +2,7 @@
 #define __LTHING_H__
 #include <string>
 #include "thing.h"
-
+#include "coordinates.h"
 class LivingThing: public Thing {
 protected:
 	int hp;
@@ -11,7 +11,7 @@ protected:
 public:
 	LivingThing();
 	virtual void move(std::string direction) = 0;
-	virtual void attack (std::string direction) = 0;
+	virtual void attack (Coordinates *c) = 0;
 	virtual int getHealth() = 0;
 	virtual int getAtk() = 0;
 	virtual int getDef() = 0;
