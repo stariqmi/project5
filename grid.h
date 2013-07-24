@@ -16,13 +16,7 @@
 #include "coordinates.h"
 
 #include "charFactory.h"
-
-#include "boostattack.h"
-#include "woundattack.h"
-#include "boostdefence.h"
-#include "wounddefence.h"
-#include "boosthealth.h"
-#include "poisonhealth.h"
+#include "itemFactory.h"
 
 class Grid {
 public:
@@ -31,6 +25,7 @@ public:
 	int ysize;
 	int level;
 	CharacterFactory* charFactory;
+	ItemFactory* itemFactory;
 	TextDisplay* td;
 	Room rooms[5];
 	Character* player;

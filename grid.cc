@@ -7,9 +7,7 @@
 
 using namespace std;
 
-Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y), level(1), charFactory(new CharacterFactory) {
-	// this->rooms = new Room*[5];
-}
+Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y), level(1), charFactory(new CharacterFactory), itemFactory(new ItemFactory) {}
 
 Grid::~Grid() {
 	this->clearGrid();
@@ -255,25 +253,8 @@ void Grid::generatePotions() {
 			//continue;
 		}
 		else {
-			Potion* potion;
-			if(potionTypes[pos] == "RH") {
-				potion = new BoostHealth;
-			}
-			else if(potionTypes[pos] == "PH") {
-				potion = new PoisonHealth;
-			}
-			else if(potionTypes[pos] == "BA") {
-				potion = new BoostAttack;
-			}
-			else if(potionTypes[pos] == "BD") {
-				potion = new BoostDefence;
-			}
-			else if(potionTypes[pos] == "WA") {
-				potion = new WoundAttack;
-			}
-			else if(potionTypes[pos] == "WD") {
-				potion = new WoundDefence;
-			}
+			Item* potion;
+			potion = itemFactory->makeItem(potionTypes[pos]);
 			delete theGrid[x][y].thing;
 			theGrid[x][y].setThing(potion);
 			theGrid[x][y].isOccupied = true;
