@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
+#include <string>
 #include "thing.h"
 #include "tile.h"
 #include "wall.h"
@@ -35,9 +36,11 @@ public:
 	void clearGrid();
 	void initializeFloor(char type);
 	void generateStairway();
+	Coordinates* evalDirection(std::string dir, int i, int j);
 	Character* generateCharacter(char type);
 	Character* generateEnemies();
 	void generatePotions();
+	void generateGold();
 	friend std::ostream& ::operator<<(std::ostream &out, const Grid &g);
 };
 

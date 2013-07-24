@@ -13,7 +13,10 @@ Grid::~Grid() {
 	this->clearGrid();
 	delete this->td;
 	delete charFactory;
+	delete itemFactory;
 }
+
+
 
 void Grid::clearGrid() {
 	for(int i = 0; i < this->ysize; i++) {
@@ -56,14 +59,17 @@ void Grid::initializeFloor(char type) {
 		for(int j = 0; j < 80; j++) {
 			if(line[j] == '|') {
 				theGrid[i][j].setThing(new Wall("vertical_wall"));
+				theGrid[i][j].isOccupied = true;
 				theGrid[i][j].notifyDisplay(*td);
 			}
 			else if(line[j] == '-') {
 				theGrid[i][j].setThing(new Wall("horizontal_wall"));
+				theGrid[i][j].isOccupied = true;
 				theGrid[i][j].notifyDisplay(*td);
 			}
 			else if(line[j] == '+') {
 				theGrid[i][j].setThing(new Door);
+				theGrid[i][j].isOccupied = true;
 				theGrid[i][j].notifyDisplay(*td);
 			}
 			else if(line[j] == '.') {
@@ -72,6 +78,7 @@ void Grid::initializeFloor(char type) {
 			}
 			else if(line[j] == '#') {
 				theGrid[i][j].setThing(new Passage);
+				theGrid[i][j].isOccupied = true;
 				theGrid[i][j].notifyDisplay(*td);
 			}
 		}
@@ -148,6 +155,7 @@ void Grid::initializeFloor(char type) {
 
 		player = generateCharacter(type);
 		generateStairway();
+		generateGold();
 		generatePotions();
 		generateEnemies();
 		cout<< *this;
@@ -263,6 +271,115 @@ void Grid::generatePotions() {
 	}
 
 }
+
+Coordinates* Grid::evalDirection(string direction, int i, int j) {
+	Coordinates* c;
+	if(direction == "no") {
+		c = new Coordinates(i - 1, j);
+	}
+	else if(direction == "so") {
+		c = new Coordinates(i + 1, j);
+	}
+	else if(direction == "we") {
+		c = new Coordinates(i, j - 1);
+	}
+	else if(direction == "ea") {
+		c = new Coordinates(i, j + 1);
+	}
+	else if(direction == "sw") {
+		c = new Coordinates(i + 1, j - 1);
+	}
+	else if(direction == "se") {
+		c = new Coordinates(i + 1, j + 1);
+	}
+	else if(direction == "nw") {
+		c = new Coordinates(i - 1, j - 1);
+	}
+	else if(direction == "ne") {
+		c = new Coordinates(i - 1, j + 1);
+	}
+	return c;
+}
+
+void Grid::generateGold() {
+	vector<string> goldTypes;
+	goldTypes.push_back("DH");
+	goldTypes.push_back("SM");
+	goldTypes.push_back("NG");
+	for (int i = 0; i < 10; i++) {
+		int pos = rand() % + goldTypes.size();
+		int pos2 = rand() % + 5;
+		int pos3 = rand() % + rooms[pos2].tiles.size();
+
+		int x = rooms[pos2].tiles[pos3]->x;
+		int y = rooms[pos2].tiles[pos3]->y;
+		if(theGrid[x][y].isOccupied) {
+			i--; 
+			//continue;
+		}
+		else {
+		
+			if(goldTypes[pos] == "DH") {
+				//cout << goldTypes[pos] << endl;
+				vector<string> radius;
+				radius.push_back("no");
+				radius.push_back("ne");
+				radius.push_back("nw");
+				radius.push_back("so");
+				radius.push_back("se");
+				radius.push_back("sw");
+				radius.push_back("ea");
+				radius.push_back("we");
+				bool found = false;
+				bool check = true;
+				Coordinates* coords;
+				while(check && radius.size()) {
+					int npos = rand() % + radius.size();
+					coords = evalDirection(radius[npos], x, y);
+					radius.erase(radius.begin() + npos);
+					if(!(theGrid[coords->x][coords->y].isOccupied)) {
+						// cout << "dragon" << endl;
+						// std::cout << "not isOccupied" << std::endl;
+						// cout << x << "," << y <<  endl;
+						// cout << coords->x << "," << coords->y <<  endl;
+ 						delete theGrid[coords->x][coords->y].thing;
+						theGrid[coords->x][coords->y].setThing(charFactory->makeCharacter('r'));
+						theGrid[coords->x][coords->y].isOccupied = true;
+						theGrid[coords->x][coords->y].notifyDisplay(*td);
+						found = true;
+						check = false;
+					}
+					else {
+						//std::cout << "isOccupied" << std::endl;							
+					}
+					delete coords;
+				}
+				if(!found) {
+					i--;
+				}
+				else {
+					//cout << "dragon hoard" << endl;
+					Item* gold;
+					gold = itemFactory->makeItem(goldTypes[pos]);
+					delete theGrid[x][y].thing;
+					theGrid[x][y].setThing(gold);
+					theGrid[x][y].isOccupied = true;
+					theGrid[x][y].notifyDisplay(*td);		
+				}
+			}
+			else {
+				//cout << goldTypes[pos] << endl;
+				Item* gold;
+				gold = itemFactory->makeItem(goldTypes[pos]);
+				delete theGrid[x][y].thing;
+				theGrid[x][y].setThing(gold);
+				theGrid[x][y].isOccupied = true;
+				theGrid[x][y].notifyDisplay(*td);
+			}
+		}	
+	}	
+}
+
 
 
 ostream& operator<<(ostream &out, const Grid &g) {
