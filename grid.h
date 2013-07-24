@@ -14,11 +14,9 @@
 #include "room.h"
 #include "textdisplay.h"
 #include "coordinates.h"
-#include "orc.h"
-#include "human.h"
-#include "dwarf.h"
-#include "elf.h"
-#include "werewolf.h"
+
+#include "charFactory.h"
+
 #include "boostattack.h"
 #include "woundattack.h"
 #include "boostdefence.h"
@@ -32,6 +30,7 @@ public:
 	int xsize;
 	int ysize;
 	int level;
+	CharacterFactory* charFactory;
 	TextDisplay* td;
 	Room rooms[5];
 	Character* player;

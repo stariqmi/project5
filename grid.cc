@@ -7,13 +7,14 @@
 
 using namespace std;
 
-Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y), level(1) {
+Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y), level(1), charFactory(new CharacterFactory) {
 	// this->rooms = new Room*[5];
 }
 
 Grid::~Grid() {
 	this->clearGrid();
 	delete this->td;
+	delete charFactory;
 }
 
 void Grid::clearGrid() {
@@ -165,39 +166,14 @@ Character* Grid::generateCharacter(char type) {
 	int y = rooms[pos].tiles[pos2]->y;
 	theGrid[x][y].isOccupied = true;
 	delete theGrid[x][y].thing;
-	switch (type) {
-		case 'o': 	
-					{Orc* orc = new Orc;
-					orc->x = x;
-					orc->y = y;
-					this->theGrid[x][y].setThing(orc);
-					orc->grid = this; 
-					this->theGrid[x][y].notifyDisplay(*(this->td));
-					return orc;}
-		case 'h':	
-					{Human* human = new Human;
-					human->x = x;
-					human->y = y;
-					this->theGrid[x][y].setThing(human);
-					human->grid = this; 
-					this->theGrid[x][y].notifyDisplay(*(this->td));
-					return human;}
-		case 'e': 	{Elf* elf = new Elf;
-					elf->x = x;
-					elf->y = y;
-					this->theGrid[x][y].setThing(elf);
-					elf->grid = this; 
-					this->theGrid[x][y].notifyDisplay(*(this->td));
-					return elf;	}
-		case 'd':	{Dwarf* dwarf = new Dwarf;
-					dwarf->x = x;
-					dwarf->y = y;
-					this->theGrid[x][y].setThing(dwarf);
-					dwarf->grid = this; 
-					this->theGrid[x][y].notifyDisplay(*(this->td));
-					return dwarf;}						
-	}
-	
+	Character* character;
+	character = charFactory->makeCharacter(type);
+	character->x = x;
+	character->y = y;
+	theGrid[x][y].setThing(character);
+	character->grid = this; 
+	theGrid[x][y].notifyDisplay(*(this->td));
+	return character;
 }
 
 void Grid::generateStairway() {
