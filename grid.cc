@@ -208,6 +208,8 @@ void Grid::generateStairway() {
 
 Character* Grid::generateEnemies(){
 	for(int i = 0; i < 20; i++) {
+		string probString = "wwwwvvvgggggttppmm";
+		int typePos = rand() % + 18;
 		//srand(time(NULL));
 		int pos = rand() % + 5;
 		//cout << pos << endl;
@@ -222,7 +224,9 @@ Character* Grid::generateEnemies(){
 		}
 		else {
 			delete theGrid[x][y].thing;
-			theGrid[x][y].setThing(new Werewolf);
+			//cout << probString[typePos] << endl;
+			//charFactory->makeCharacter(probString[typePos])
+			theGrid[x][y].setThing(charFactory->makeCharacter(probString[typePos]));
 			theGrid[x][y].isOccupied = true;
 			theGrid[x][y].notifyDisplay(*td);
 		}

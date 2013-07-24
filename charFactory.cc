@@ -20,5 +20,20 @@ Character* CharacterFactory::makeCharacter(char type) {
 	else if(type == 'w') {
 		c = new Werewolf;
 	}
+	else if(type == 'v') {
+		c = new Vampire;
+	}
+	else if(type == 't') {
+		c = new Troll;
+	}
+	else if(type == 'g') {
+		c = new Goblin;
+	}
+	else if(type == 'm') {
+		c = new Merchant;
+	}
+	else if(type == 'p') {
+		c = new Phoenix;
+	}
 	return c;
 }

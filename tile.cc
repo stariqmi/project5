@@ -52,6 +52,21 @@ void Tile::notifyDisplay(TextDisplay &td) {
 		else if(type == "potion") {
 			c = 'P';
 		}
+		else if(type == "vampire") {
+			c = 'V';
+		}
+		else if(type == "troll") {
+			c = 'T';
+		}
+		else if(type == "goblin") {
+			c = 'G';
+		}
+		else if(type == "merchant") {
+			c = 'M';
+		}
+		else if(type == "phoenix") {
+			c = 'X';
+		}
 		else {
 			c = 'x';
 		}	

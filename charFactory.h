@@ -7,6 +7,11 @@
 #include "dwarf.h"
 #include "elf.h"
 #include "werewolf.h"
+#include "vampire.h"
+#include "troll.h"
+#include "goblin.h"
+#include "merchant.h"
+#include "phoenix.h" 
 
 class CharacterFactory {
 public:
