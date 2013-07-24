@@ -222,36 +222,38 @@ int Character::getDef() {
 }
 
 
-void Character::attack(string direction){
-	if(direction == "no") {
+void Character::attack(Coordinates *c){
+	
 		LivingThing* defender;
-		cout << grid->theGrid[x][y].thing->type << endl;
-		cout << grid->theGrid[x - 1][y].thing->type << endl;
-		defender = dynamic_cast<LivingThing*>(grid->theGrid[x - 1][y].thing);
+		cout << "check 1" << endl;
+		cout << c->x << "," << c->y << endl;
+		cout << grid->theGrid[c->x][c->y].thing->type << endl; 
+		defender = dynamic_cast<LivingThing*>(grid->theGrid[c->x][c->y].thing);
+		//cout << x <<","<< y << endl; 
 	 	def = defender->getDef();
-	 	cout << "defense points :"<< def << endl;
-	 	cout << "atk points :" << atk << endl;
-		int damage = 50; //ceil((100/(100 + def)) * atk);
+	 	// cout << "defense points :"<< def << endl;
+	 	// cout << "atk points :" << atk << endl;
+		int damage = 50; //((100/(100 + def)) * atk);
 		cout << "damage :" << damage << endl; 
 		int h = (getHealth() - damage);
 		defender->setHealth(h);
-		cout << defender->getHealth() << endl;
+		//cout << defender->getHealth() << endl;
 	 }
-	 if(direction == "so") {
-		LivingThing* defender;
-		cout << grid->theGrid[x][y].thing->type << endl;
-		cout << "fdsf" << endl;
-		defender = dynamic_cast<LivingThing*>(grid->theGrid[x + 1][y].thing);
-	 	def = defender->getDef();
-	 	cout << "defense points :"<< def << endl;
-	 	cout << "atk points :" << atk << endl;
-		int damage = 50; //ceil((100/(100 + def)) * atk);
-		cout << "damage :" << damage << endl; 
-		int h = (getHealth() - damage);
-		defender->setHealth(h);
-		cout << defender->getHealth() << endl;
-	 }
-}
+	 // if(direction == "so") {
+		// LivingThing* defender;
+		// cout << x <<"," << y << endl;
+		// // cout << "fdsf" << endl;
+		//  defender = dynamic_cast<LivingThing*>(grid->theGrid[x + 1][y].thing);
+	 // 	def = defender->getDef();
+	 // 	// cout << "defense points :"<< def << endl;
+	 // 	// cout << "atk points :" << atk << endl;
+		// int damage = ceil((100/(100 + def)) * atk);
+		// cout << "damage :" << damage << endl; 
+		// int h = (getHealth() - damage);
+		// defender->setHealth(h);
+		// //cout << defender->getHealth() << endl;
+	 // }
+
 
 void Character::usePotion(int i, int j) {}
 

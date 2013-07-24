@@ -7,13 +7,12 @@
 
 using namespace std;
 
-Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y), level(1) {
-	// this->rooms = new Room*[5];
-}
+Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y), level(1), charFactory(new CharacterFactory), itemFactory(new ItemFactory) {}
 
 Grid::~Grid() {
 	this->clearGrid();
 	delete this->td;
+	delete charFactory;
 }
 
 void Grid::clearGrid() {
@@ -165,39 +164,14 @@ Character* Grid::generateCharacter(char type) {
 	int y = rooms[pos].tiles[pos2]->y;
 	theGrid[x][y].isOccupied = true;
 	delete theGrid[x][y].thing;
-	switch (type) {
-		case 'o': 	
-					{Orc* orc = new Orc;
-					orc->x = x;
-					orc->y = y;
-					this->theGrid[x][y].setThing(orc);
-					orc->grid = this; 
-					this->theGrid[x][y].notifyDisplay(*(this->td));
-					return orc;}
-		case 'h':	
-					{Human* human = new Human;
-					human->x = x;
-					human->y = y;
-					this->theGrid[x][y].setThing(human);
-					human->grid = this; 
-					this->theGrid[x][y].notifyDisplay(*(this->td));
-					return human;}
-		case 'e': 	{Elf* elf = new Elf;
-					elf->x = x;
-					elf->y = y;
-					this->theGrid[x][y].setThing(elf);
-					elf->grid = this; 
-					this->theGrid[x][y].notifyDisplay(*(this->td));
-					return elf;	}
-		case 'd':	{Dwarf* dwarf = new Dwarf;
-					dwarf->x = x;
-					dwarf->y = y;
-					this->theGrid[x][y].setThing(dwarf);
-					dwarf->grid = this; 
-					this->theGrid[x][y].notifyDisplay(*(this->td));
-					return dwarf;}						
-	}
-	
+	Character* character;
+	character = charFactory->makeCharacter(type);
+	character->x = x;
+	character->y = y;
+	theGrid[x][y].setThing(character);
+	character->grid = this; 
+	theGrid[x][y].notifyDisplay(*(this->td));
+	return character;
 }
 
 void Grid::generateStairway() {
@@ -232,6 +206,8 @@ void Grid::generateStairway() {
 
 Character* Grid::generateEnemies(){
 	for(int i = 0; i < 20; i++) {
+		string probString = "wwwwvvvgggggttppmm";
+		int typePos = rand() % + 18;
 		//srand(time(NULL));
 		int pos = rand() % + 5;
 		//cout << pos << endl;
@@ -246,7 +222,9 @@ Character* Grid::generateEnemies(){
 		}
 		else {
 			delete theGrid[x][y].thing;
-			theGrid[x][y].setThing(new Werewolf);
+			//cout << probString[typePos] << endl;
+			//charFactory->makeCharacter(probString[typePos])
+			theGrid[x][y].setThing(charFactory->makeCharacter(probString[typePos]));
 			theGrid[x][y].isOccupied = true;
 			theGrid[x][y].notifyDisplay(*td);
 		}
@@ -275,25 +253,8 @@ void Grid::generatePotions() {
 			//continue;
 		}
 		else {
-			Potion* potion;
-			if(potionTypes[pos] == "RH") {
-				potion = new BoostHealth;
-			}
-			else if(potionTypes[pos] == "PH") {
-				potion = new PoisonHealth;
-			}
-			else if(potionTypes[pos] == "BA") {
-				potion = new BoostAttack;
-			}
-			else if(potionTypes[pos] == "BD") {
-				potion = new BoostDefence;
-			}
-			else if(potionTypes[pos] == "WA") {
-				potion = new WoundAttack;
-			}
-			else if(potionTypes[pos] == "WD") {
-				potion = new WoundDefence;
-			}
+			Item* potion;
+			potion = itemFactory->makeItem(potionTypes[pos]);
 			delete theGrid[x][y].thing;
 			theGrid[x][y].setThing(potion);
 			theGrid[x][y].isOccupied = true;

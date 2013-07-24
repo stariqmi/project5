@@ -14,17 +14,9 @@
 #include "room.h"
 #include "textdisplay.h"
 #include "coordinates.h"
-#include "orc.h"
-#include "human.h"
-#include "dwarf.h"
-#include "elf.h"
-#include "werewolf.h"
-#include "boostattack.h"
-#include "woundattack.h"
-#include "boostdefence.h"
-#include "wounddefence.h"
-#include "boosthealth.h"
-#include "poisonhealth.h"
+
+#include "charFactory.h"
+#include "itemFactory.h"
 
 class Grid {
 public:
@@ -32,6 +24,8 @@ public:
 	int xsize;
 	int ysize;
 	int level;
+	CharacterFactory* charFactory;
+	ItemFactory* itemFactory;
 	TextDisplay* td;
 	Room rooms[5];
 	Character* player;

@@ -1,6 +1,6 @@
 #ifndef _CHARACTER_H__
 #define _CHARACTER_H__
-
+#include "coordinates.h"
 #include "livingthing.h"
 #include "potion.h"
 #include <string>
@@ -23,7 +23,7 @@ class Character: public LivingThing {
 		void move(std::string direction);
 		int getAtk();
 		int getDef();
-		void attack(std::string direction);
+		void attack(Coordinates* c);
 		~Character();
 };
 

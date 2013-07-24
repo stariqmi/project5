@@ -1,1 +1,1 @@
-livingthing.o: livingthing.cc livingthing.h thing.h
+livingthing.o: livingthing.cc livingthing.h thing.h coordinates.h
