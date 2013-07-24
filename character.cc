@@ -225,7 +225,23 @@ int Character::getDef() {
 void Character::attack(string direction){
 	if(direction == "no") {
 		LivingThing* defender;
+		cout << grid->theGrid[x][y].thing->type << endl;
+		cout << grid->theGrid[x - 1][y].thing->type << endl;
 		defender = dynamic_cast<LivingThing*>(grid->theGrid[x - 1][y].thing);
+	 	def = defender->getDef();
+	 	cout << "defense points :"<< def << endl;
+	 	cout << "atk points :" << atk << endl;
+		int damage = 50; //ceil((100/(100 + def)) * atk);
+		cout << "damage :" << damage << endl; 
+		int h = (getHealth() - damage);
+		defender->setHealth(h);
+		cout << defender->getHealth() << endl;
+	 }
+	 if(direction == "so") {
+		LivingThing* defender;
+		cout << grid->theGrid[x][y].thing->type << endl;
+		cout << "fdsf" << endl;
+		defender = dynamic_cast<LivingThing*>(grid->theGrid[x + 1][y].thing);
 	 	def = defender->getDef();
 	 	cout << "defense points :"<< def << endl;
 	 	cout << "atk points :" << atk << endl;

@@ -82,7 +82,7 @@ int main() {
 			Coordinates* c = evalDirection(dir, grid->player->x, grid->player->y);
 			Character* enemy;
 			enemy = dynamic_cast<Character*>(grid->theGrid[c->x][c->y].thing);
-			intitiate_atk(Mediator(grid->player,enemy), dir);
+			intitiate_atk(Mediator(grid->player,grid->theGrid[c->x][c->y].thing), dir);
 			//delete enemy;
 			delete c;
 			cout << *grid;

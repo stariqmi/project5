@@ -6,9 +6,9 @@
 class Mediator {
 protected:
 	 Character * player;
-	 Character * enemy;
+	 Thing * enemy;
 public:
-	Mediator(Character * player,Character * enemy);
+	Mediator(Character * player,Thing * enemy);
 	void Attack();
 	void Attack(std::string direction);
 
