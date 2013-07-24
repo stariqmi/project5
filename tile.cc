@@ -59,13 +59,19 @@ void Tile::notifyDisplay(TextDisplay &td) {
 			c = 'T';
 		}
 		else if(type == "goblin") {
-			c = 'G';
+			c = 'N';
 		}
 		else if(type == "merchant") {
 			c = 'M';
 		}
 		else if(type == "phoenix") {
 			c = 'X';
+		}
+		else if(type == "dragon") {
+			c = 'D';
+		}
+		else if(type == "gold") {
+			c = 'G';
 		}
 		else {
 			c = 'x';
