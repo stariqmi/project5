@@ -12,6 +12,7 @@
 #include "goblin.h"
 #include "merchant.h"
 #include "phoenix.h" 
+#include "dragon.h"
 
 class CharacterFactory {
 public:

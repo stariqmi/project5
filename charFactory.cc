@@ -35,5 +35,8 @@ Character* CharacterFactory::makeCharacter(char type) {
 	else if(type == 'p') {
 		c = new Phoenix;
 	}
+	else if(type == 'r') {
+		c = new Dragon;
+	}
 	return c;
 }

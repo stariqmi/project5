@@ -26,5 +26,17 @@ Item* ItemFactory::makeItem(string type) {
 	else if(type == "PH") {
 		item = new PoisonHealth;
 	}
+	else if(type == "MH") {
+		item = new MerchantHorde;
+	}
+	else if(type == "DH") {
+		item = new DragonHorde;
+	}
+	else if(type == "SM") {
+		item = new SmallHorde;
+	}
+	else if(type == "NG") {
+		item = new NormalGold;
+	}
 	return item;
 }
