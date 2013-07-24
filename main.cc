@@ -110,7 +110,7 @@ int main() {
 			string dir;
 			cin >> dir;
 			Coordinates* c1 = evalDirection(dir, grid->player->x, grid->player->y);
-			Coordinates* c2 = evalDirection(dir, c1->x, c1->y);
+			Coordinates* c2 = evalDirection1(dir, c1->x, c1->y);
 			intitiate_atk(Mediator(grid->player,grid), c1, c2);
 		 	//delete enemy;
 		 	delete c1;
