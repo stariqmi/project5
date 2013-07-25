@@ -6,7 +6,7 @@
 #include "textdisplay.h"
 #include "tile.h"
 #include "coordinates.h"
-#include "mediator.h"
+#include "combatMediator.h"
 
 using namespace std;
 
@@ -42,50 +42,13 @@ Coordinates* evalDirection(string direction, int i, int j) {
 	return c;
 }
 
-
-Coordinates* evalDirection1(string direction, int i, int j) {
-	Coordinates* c;
-	if(direction == "no") {
-		c = new Coordinates(i + 1, j);
-	}
-	else if(direction == "so") {
-		c = new Coordinates(i - 1, j);
-	}
-	else if(direction == "we") {
-		c = new Coordinates(i, j + 1);
-	}
-	else if(direction == "ea") {
-		c = new Coordinates(i, j - 1);
-	}
-	else if(direction == "sw") {
-		c = new Coordinates(i - 1, j + 1);
-	}
-	else if(direction == "se") {
-		c = new Coordinates(i - 1, j - 1);
-	}
-	else if(direction == "nw") {
-		c = new Coordinates(i + 1, j + 1);
-	}
-	else if(direction == "ne") {
-		c = new Coordinates(i + 1, j - 1);
-	}
-	return c;
-}
-
-void intitiate_atk(Mediator mediator, Coordinates* c1, Coordinates* c2) {
-	mediator.Attack(c1, c2);
-}
-
 int main() {
 
 	TextDisplay* td = new TextDisplay(xsize, ysize);
 	Grid* grid = new Grid(td, xsize, ysize);
-	//Character* player;
-	//Character* enemy;
+	CombatMediator* cm = new CombatMediator(grid);
+	grid->combatMediator = cm;
 	string s;
-	srand(time(NULL));
-	int random = rand()% 7;
-	string enemymoves[8] = {"no", "so", "ea" , "we", "ne", "nw", "se", "sw"};
 	char type;
 	cin >> type;
 	grid->initializeFloor(type);
@@ -97,7 +60,7 @@ int main() {
 		if (s == "r") { 
 			grid->clearGrid(); 
 			grid->initializeFloor(type);
-			}
+		}
 		if ( s == "u") {
 			string dir;
 			cin >> dir;
@@ -110,13 +73,10 @@ int main() {
 			string dir;
 			cin >> dir;
 			Coordinates* c1 = evalDirection(dir, grid->player->x, grid->player->y);
-			Coordinates* c2 = evalDirection1(dir, c1->x, c1->y);
-			intitiate_atk(Mediator(grid->player,grid), c1, c2);
-		 	//delete enemy;
-		 	delete c1;
-		 	delete c2;
-			cout << *grid;
-			}
+			cm->combat(grid->player->x, grid->player->y, c1->x, c1->y);
+			delete c1;
+		 	cout << *grid;
+		}
 		if (s == "q")  {delete grid; break;}		
 	}
 }

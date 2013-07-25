@@ -20,3 +20,4 @@ void Troll::setHealth(int h){
 	hp = h; 
 }
 
+

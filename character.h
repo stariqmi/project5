@@ -24,6 +24,7 @@ class Character: public LivingThing {
 		int getAtk();
 		int getDef();
 		void attack(Coordinates* c);
+		void attack(int i, int j);
 		~Character();
 };
 

@@ -4,14 +4,14 @@
 #include "thing.h"
 #include "coordinates.h"
 class LivingThing: public Thing {
-protected:
+public:
 	int hp;
 	int atk;
 	int def;
-public:
 	LivingThing();
 	virtual void move(std::string direction) = 0;
 	virtual void attack (Coordinates *c) = 0;
+	virtual void attack (int i, int j) = 0;
 	virtual int getHealth() = 0;
 	virtual int getAtk() = 0;
 	virtual int getDef() = 0;

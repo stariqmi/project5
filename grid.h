@@ -15,7 +15,7 @@
 #include "room.h"
 #include "textdisplay.h"
 #include "coordinates.h"
-
+#include "combatMediator.h"
 #include "charFactory.h"
 #include "itemFactory.h"
 
@@ -30,6 +30,7 @@ public:
 	TextDisplay* td;
 	Room rooms[5];
 	Character* player;
+	CombatMediator* combatMediator;
 	//std::vector<Coordinates*> ground;
 	Grid(TextDisplay* td, int x, int y);
 	~Grid();

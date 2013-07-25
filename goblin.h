@@ -8,7 +8,6 @@ class Goblin: public Character {
 		bool isAttacked;
 	public:
 		Goblin();
-		void attack (int x, int y);
 		void setAttack(); 
 		int getHealth();
 		void setHealth(int h);

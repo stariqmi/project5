@@ -8,7 +8,6 @@ class Vampire: public Character {
 		bool isAttacked;
 	public:
 		Vampire();
-		void attack (int x, int y);
 		void setAttack(); 
 		int getHealth();
 		void setHealth(int h);

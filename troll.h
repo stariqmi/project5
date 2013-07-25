@@ -8,7 +8,6 @@ class Troll: public Character {
 		bool isAttacked;
 	public:
 		Troll();
-		void attack (int x, int y);
 		void setAttack(); 
 		int getHealth();
 		void setHealth(int h);

@@ -221,39 +221,17 @@ int Character::getDef() {
 	return def;
 }
 
+void Character::attack(Coordinates* c) {}
 
-void Character::attack(Coordinates *c){
-	
-		LivingThing* defender;
-		cout << "check 1" << endl;
-		cout << c->x << "," << c->y << endl;
-		cout << grid->theGrid[c->x][c->y].thing->type << endl; 
-		defender = dynamic_cast<LivingThing*>(grid->theGrid[c->x][c->y].thing);
-		//cout << x <<","<< y << endl; 
-	 	def = defender->getDef();
-	 	// cout << "defense points :"<< def << endl;
-	 	// cout << "atk points :" << atk << endl;
-		int damage = 50; //((100/(100 + def)) * atk);
-		cout << "damage :" << damage << endl; 
-		int h = (getHealth() - damage);
-		defender->setHealth(h);
-		//cout << defender->getHealth() << endl;
-	 }
-	 // if(direction == "so") {
-		// LivingThing* defender;
-		// cout << x <<"," << y << endl;
-		// // cout << "fdsf" << endl;
-		//  defender = dynamic_cast<LivingThing*>(grid->theGrid[x + 1][y].thing);
-	 // 	def = defender->getDef();
-	 // 	// cout << "defense points :"<< def << endl;
-	 // 	// cout << "atk points :" << atk << endl;
-		// int damage = ceil((100/(100 + def)) * atk);
-		// cout << "damage :" << damage << endl; 
-		// int h = (getHealth() - damage);
-		// defender->setHealth(h);
-		// //cout << defender->getHealth() << endl;
-	 // }
-
+void Character::attack(int i, int j) {
+	cout << "Attacker - " << type << endl;
+	Character* defender = dynamic_cast<Character*>(grid->theGrid[i][j].thing);
+	cout << "Defender - " << defender->type << endl;
+	cout << "Def-hp (pre): " << defender->hp << endl;
+	int damage = ceil((100/(double)(100 + defender->def)) * atk);
+	defender->hp -= damage;
+	cout << "Def-hp (post): " << defender->hp << endl;
+}
 
 void Character::usePotion(int i, int j) {}
 

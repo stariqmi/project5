@@ -10,7 +10,6 @@ class Merchant: public Character {
 	public:
 		static bool isHostile;
 		Merchant();
-		void attack (int x, int y);
 		void setAttack(); 
 		int getHealth();
 		void setHealth(int h);

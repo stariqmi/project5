@@ -230,9 +230,9 @@ Character* Grid::generateEnemies(){
 		}
 		else {
 			delete theGrid[x][y].thing;
-			//cout << probString[typePos] << endl;
-			//charFactory->makeCharacter(probString[typePos])
-			theGrid[x][y].setThing(charFactory->makeCharacter(probString[typePos]));
+			Character* enemy = charFactory->makeCharacter(probString[typePos]);
+			enemy->grid = this;
+			theGrid[x][y].setThing(enemy);
 			theGrid[x][y].isOccupied = true;
 			theGrid[x][y].notifyDisplay(*td);
 		}
