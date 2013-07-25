@@ -3,8 +3,8 @@
 #include "grid.h"
 #include <string>
 #include <math.h>
-using namespace std;
 
+using namespace std;
 
 Character::Character(): gold(0) {
 	type = "character";
@@ -13,13 +13,17 @@ Character::Character(): gold(0) {
 
 void Character::move(string direction){
 	Coordinates* coords = grid->evalDirection(direction, x, y);
+	if(grid->theGrid[coords->x][coords->y].thing == NULL) {
+		cout << "ERROR: Cannot move over empty space" << endl;
+		return;
+	}
 	string originalType = grid->theGrid[coords->x][coords->y].thing->type;
 	Character* player = dynamic_cast<Character*>(grid->theGrid[x][y].thing);
 	bool move = false;
 	
 	if(originalType == "gold") {
 		int originalGold = player->gold;
-		cout << player->gold << endl;
+		//cout << player->gold << endl;
 		Treasure* treasure = dynamic_cast<Treasure*>(grid->theGrid[coords->x][coords->y].thing);
 		if(treasure->treasureType == "dragonhorde") {
 			DragonHorde* dragonhorde = dynamic_cast<DragonHorde*>(treasure);
@@ -28,8 +32,9 @@ void Character::move(string direction){
 		else {
 			player->gold += treasure->giveGold(); 	
 		}
-		cout << player->gold << endl;
+		//cout << player->gold << endl;
 		if(originalGold != player->gold) {
+			cout << "Picked up a " << treasure->treasureType << endl;
 			move = true;
 		}
 	}
@@ -45,7 +50,10 @@ void Character::move(string direction){
 	}
 
 	else if(originalType != "ground" && originalType != "passage" && originalType != "door") {
-		cout << "are you blind" << endl;
+		cout << "ERROR: Cannot move over a "<< originalType << ", please enter a valid direction" << endl;
+		string dir;
+		cin >> dir;
+		this->move(dir);
 	}
 
 	else {

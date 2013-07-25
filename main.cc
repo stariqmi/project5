@@ -72,9 +72,9 @@ int main() {
 			string dir;
 			cin >> dir;
 			Coordinates* c1 = evalDirection(dir, grid->player->x, grid->player->y);
-			cm->combat(grid->player->x, grid->player->y, c1->x, c1->y);
+			bool checkAttack = cm->combat(grid->player->x, grid->player->y, c1->x, c1->y);
 			delete c1;
-		 	cout << *grid;
+			cout << *grid;
 		}
 		if (s == "q")  {delete grid; break;}		
 	}
