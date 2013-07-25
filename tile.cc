@@ -73,9 +73,6 @@ void Tile::notifyDisplay(TextDisplay &td) {
 		else if(type == "gold") {
 			c = 'G';
 		}
-		else {
-			c = 'x';
-		}	
 	}
 	td.notify(this->r, this->c, c);
 }

@@ -42,6 +42,15 @@ Coordinates* evalDirection(string direction, int i, int j) {
 	return c;
 }
 
+bool checkForPotion(Grid* grid, int x, int y) {
+	if(grid->theGrid[x][y].thing != NULL && grid->theGrid[x][y].thing->type == "potion") {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 int main() {
 
 	TextDisplay* td = new TextDisplay(xsize, ysize);
@@ -64,9 +73,15 @@ int main() {
 			string dir;
 			cin >> dir;
 			Coordinates* c = evalDirection(dir, grid->player->x, grid->player->y);
-			grid->player->usePotion(c->x, c->y);
+			bool check = checkForPotion(grid, c->x, c->y);
+			if(check) {
+				grid->player->usePotion(c->x, c->y);
+				cout << *grid;
+			}
+			else {
+				cout << "ERROR: No potion exists at such location" << endl;
+			}
 			delete c;
-			cout << *grid;
 		} 
 		 if (s == "a") {
 			string dir;

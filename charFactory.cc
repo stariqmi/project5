@@ -32,7 +32,7 @@ Character* CharacterFactory::makeCharacter(char type) {
 	else if(type == 'm') {
 		c = new Merchant;
 	}
-	else if(type == 'p') {
+	else if(type == 'x') {
 		c = new Phoenix;
 	}
 	else if(type == 'r') {

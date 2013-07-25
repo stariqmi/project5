@@ -215,7 +215,7 @@ void Grid::generateStairway() {
 
 Character* Grid::generateEnemies(){
 	for(int i = 0; i < 20; i++) {
-		string probString = "wwwwvvvgggggttppmm";
+		string probString = "wwwwvvvgggggttxxmm";
 		int typePos = rand() % + 18;
 		//srand(time(NULL));
 		int pos = rand() % + 5;
@@ -226,7 +226,7 @@ Character* Grid::generateEnemies(){
 		int x = rooms[pos].tiles[pos2]->x;
 		int y = rooms[pos].tiles[pos2]->y;
 		if(theGrid[x][y].isOccupied) {
-			i--; 
+ 			i--; 
 			//continue;
 		}
 		else {

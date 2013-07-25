@@ -9,7 +9,7 @@ Phoenix::Phoenix() {
 	atk = 35;
 	def = 20;
 	isAttacked = false;
-	type = "werewolf";
+	type = "phoenix";
 }
 
 int Phoenix::getHealth() {
