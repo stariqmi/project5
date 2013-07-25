@@ -14,6 +14,7 @@ Grid::~Grid() {
 	delete this->td;
 	delete charFactory;
 	delete itemFactory;
+	delete combatMediator;
 }
 
 
