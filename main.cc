@@ -55,7 +55,6 @@ int main() {
 	while (cin >> s){	
 		if(s == "no" || s == "so" || s == "ea" || s == "we" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
 			grid->player->move(s);
-			//enemy->move(enemymoves[random]);
 		}
 		if (s == "r") { 
 			grid->clearGrid(); 

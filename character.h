@@ -9,9 +9,8 @@ class Grid;
 
 
 class Character: public LivingThing {
-	protected:	
-		int gold;
 	public:
+		int gold;
 		Grid* grid;
 		std::string standingOn;
 		char raceID;

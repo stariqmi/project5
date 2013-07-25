@@ -3,12 +3,13 @@
 
 #include "treasure.h"
 #include "dragon.h"
+#include "tile.h"
 
 class DragonHorde : public Treasure {
 	public:
 		int giveGold();
 		DragonHorde();
-		Thing* protector;
+		Tile* protector;
 };
 
 #endif
