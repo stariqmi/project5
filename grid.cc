@@ -305,7 +305,7 @@ Coordinates* Grid::evalDirection(string direction, int i, int j) {
 void Grid::generateGold() {
 	vector<string> goldTypes;
 	goldTypes.push_back("DH");
-	goldTypes.push_back("SM");
+	goldTypes.push_back("SH");
 	goldTypes.push_back("NG");
 	for (int i = 0; i < 10; i++) {
 		int pos = rand() % + goldTypes.size();
@@ -344,7 +344,9 @@ void Grid::generateGold() {
 						// cout << x << "," << y <<  endl;
 						// cout << coords->x << "," << coords->y <<  endl;
  						delete theGrid[coords->x][coords->y].thing;
-						theGrid[coords->x][coords->y].setThing(charFactory->makeCharacter('r'));
+ 						Character* dragon = charFactory->makeCharacter('r');
+ 						dragon->grid = this;
+						theGrid[coords->x][coords->y].setThing(dragon);
 						theGrid[coords->x][coords->y].isOccupied = true;
 						theGrid[coords->x][coords->y].notifyDisplay(*td);
 						found = true;

@@ -32,7 +32,7 @@ Item* ItemFactory::makeItem(string type) {
 	else if(type == "DH") {
 		item = new DragonHorde;
 	}
-	else if(type == "SM") {
+	else if(type == "SH") {
 		item = new SmallHorde;
 	}
 	else if(type == "NG") {
