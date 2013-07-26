@@ -17,6 +17,7 @@ string Character::move(string direction){
 	string result = "";
 	Coordinates* coords = grid->evalDirection(direction, x, y);
 	if(grid->theGrid[coords->x][coords->y].thing == NULL) {
+		delete coords;
 		return "empty";
 	}
 	string originalType = grid->theGrid[coords->x][coords->y].thing->type;
