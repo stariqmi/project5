@@ -10,6 +10,7 @@ Phoenix::Phoenix() {
 	def = 20;
 	isAttacked = false;
 	type = "phoenix";
+	raceID = 'X';
 }
 
 int Phoenix::getHealth() {

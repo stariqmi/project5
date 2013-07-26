@@ -13,6 +13,7 @@ Goblin::Goblin() {
 	def = 10;
 	isAttacked = false;
 	type = "goblin";
+	raceID = 'N';
 }
 
 int Goblin::getHealth() {
@@ -24,7 +25,7 @@ void Goblin::setHealth(int h){
 }
 
 // Goblin attacks and steals gold.
-void Goblin::attack(int i, int j) {
+int Goblin::attack(int i, int j) {
 	cout << "Attacker - " << type << endl;
 	Character* defender = dynamic_cast<Character*>(grid->theGrid[i][j].thing);
 	cout << "Defender - " << defender->type << endl;
@@ -34,5 +35,6 @@ void Goblin::attack(int i, int j) {
 	cout << "Def-hp (post): " << defender->hp << endl;
 	defender->gold -= 1;
 	gold += 1;
+	return damage;
 }
 

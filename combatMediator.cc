@@ -2,12 +2,15 @@
 #include "grid.h"
 #include "character.h"
 #include <iostream>
+#include <string>
+#include <sstream>
 
 using namespace std;
 
 CombatMediator::CombatMediator(Grid* g) : grid(g) {}
 
-bool CombatMediator::combat(int ai, int aj, int di, int dj) {
+string CombatMediator::combat(int ai, int aj, int di, int dj) {
+	string result = "";
 	cout << grid->theGrid[di][dj].thing->type << endl;
 	if(	grid->theGrid[di][dj].thing == NULL ||
 		grid->theGrid[di][dj].thing->type == "ground" || 
@@ -18,18 +21,22 @@ bool CombatMediator::combat(int ai, int aj, int di, int dj) {
 		grid->theGrid[di][dj].thing->type == "potion" ||
 		grid->theGrid[di][dj].thing->type == "gold"
 	) {
-		cout << "ERROR: Cannot attack here" << endl;
-		return false; 
+		result = "invalid"; 
 	}
 
 	else {
+		string result1 = "";
+		string result2 = "";
 		Character* attacker = dynamic_cast<Character*>(grid->theGrid[ai][aj].thing);
 		if(grid->theGrid[di][dj].thing->type == "merchant") {
 			Merchant* merchant = dynamic_cast<Merchant*>(grid->theGrid[di][dj].thing);
 			merchant->isHostile = true;
 		}
 		Character* attacker2 = dynamic_cast<Character*>(grid->theGrid[di][dj].thing);
-		attacker->attack(di, dj);
+		int damage1 = attacker->attack(di, dj);
+		ostringstream os;
+		os << "PC deals " << damage1 << " damage to " << attacker2->raceID << " (" << attacker2->hp << " HP)."; 
+		result1 = os.str();
 		if(attacker2->hp <= 0) {
 			Thing* gold;
 			if(attacker2->type == "merchant") {
@@ -46,10 +53,17 @@ bool CombatMediator::combat(int ai, int aj, int di, int dj) {
 			grid->theGrid[di][dj].notifyDisplay(*(grid->td));
 		}
 		else {
+			int damage2;
 			srand(time(NULL));
 			int hit = rand() % + 2;
-			if(hit) attacker2->attack(ai, aj);
+			if(hit) {
+				damage2 = attacker2->attack(ai, aj);
+				ostringstream os;
+				os << attacker2->raceID << " deals " << damage2 << " damage to PC.";
+				result2 = os.str();
+			}
 		}
-		return true;
+		result = result1 + " " + result2;
 	}
+	return result;
 }

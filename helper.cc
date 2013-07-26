@@ -58,7 +58,10 @@ string Helper::evaluateMove(Grid* grid, Character* player, string dir, int gold,
 		result = "Invalid move outside playable region";
 	}
 	else if(move == "invalid") {
-		result = "invalid";
+		result = move;
+	}
+	else if(move == "dragon") {
+		result = move;
 	}
 	else {
 		string direction;

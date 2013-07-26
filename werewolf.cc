@@ -10,6 +10,7 @@ Werewolf::Werewolf() {
 	def = 5;
 	isAttacked = false;
 	type = "werewolf";
+	raceID = 'W';
 }
 
 int Werewolf::getHealth() {

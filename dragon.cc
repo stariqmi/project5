@@ -10,6 +10,7 @@ Dragon::Dragon() {
 	def = 20;
 	isAttacked = false;
 	type = "dragon";
+	raceID = 'D';
 }
 
 int Dragon::getHealth() {

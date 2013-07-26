@@ -24,12 +24,14 @@ string Character::move(string direction){
 	
 	if(originalType == "gold") {
 		int originalGold = player->gold;
-		//cout << player->gold << endl;
 		Treasure* treasure = dynamic_cast<Treasure*>(grid->theGrid[coords->x][coords->y].thing);
 		if(treasure->treasureType == "dragonhorde") {
 			DragonHorde* dragonhorde = dynamic_cast<DragonHorde*>(treasure);
 			if(dragonhorde->giveGold() != 0) { 
 				player->gold += player->pickGold(dragonhorde->giveGold()); 
+			}
+			else {
+				result = "dragon";
 			}
 		}
 		else {
@@ -106,14 +108,11 @@ int Character::getDef() {
 
 void Character::attack(Coordinates* c) {}
 
-void Character::attack(int i, int j) {
-	cout << "Attacker - " << type << endl;
+int Character::attack(int i, int j) {
 	Character* defender = dynamic_cast<Character*>(grid->theGrid[i][j].thing);
-	cout << "Defender - " << defender->type << endl;
-	cout << "Def-hp (pre): " << defender->hp << endl;
 	int damage = ceil((100/(double)(100 + defender->def)) * atk);
 	defender->hp -= damage;
-	cout << "Def-hp (post): " << defender->hp << endl;
+	return damage;
 }
 
 void Character::usePotion(int i, int j) {}

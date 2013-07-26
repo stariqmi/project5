@@ -12,6 +12,7 @@ Vampire::Vampire() {
 	def = 25;
 	isAttacked = false;
 	type = "vampire";
+	raceID = 'V';
 }
 
 int Vampire::getHealth() {
@@ -22,7 +23,7 @@ void Vampire::setHealth(int h){
 	hp = h; 
 }
 
-void Vampire::attack(int i, int j) {
+int Vampire::attack(int i, int j) {
 	cout << "Attacker - " << type << endl;
 	Character* defender = dynamic_cast<Character*>(grid->theGrid[i][j].thing);
 	cout << "Defender - " << defender->type << endl;
@@ -32,4 +33,5 @@ void Vampire::attack(int i, int j) {
 	cout << "Def-hp (post): " << defender->hp << endl;
 	defender->hp -= 10;
 	hp += 10;
+	return damage;
 }

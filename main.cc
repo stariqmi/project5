@@ -33,7 +33,10 @@ int main() {
 			cout << *grid;
 			string result = helper->evaluateMove(grid, grid->player, s, initialGold, moveCheck);
 			if(result == "invalid") {
-				cout << "Action: Invalid move." << endl;
+				cout << "ERROR: Invalid move - Cannot walk over wall, potion, enemy or empty space." << endl;
+			}
+			else if(result == "dragon") {
+				cout << "ERROR: Invalid move - You need to kill the dragon before you can take the Dragon Horde." << endl;
 			}
 			else {
 				cout << "Action: " << result << "." << endl;
@@ -61,7 +64,7 @@ int main() {
 			}
 			else {
 				cout << *grid;
-				cout << "Action: Invalid direction (No potion exists at such location)" << endl;
+				cout << "ERROR: Invalid direction - No potion exists at such location." << endl;
 			}
 			delete c;
 		}
@@ -70,10 +73,16 @@ int main() {
 			string dir;
 			cin >> dir;
 			Coordinates* c1 = helper->evalDirection(dir, grid->player->x, grid->player->y);
-			bool checkAttack = cm->combat(grid->player->x, grid->player->y, c1->x, c1->y);
+			string checkAttack = cm->combat(grid->player->x, grid->player->y, c1->x, c1->y);
 			delete c1;
 			cout << *grid;
-			success = true;
+			if(checkAttack == "invalid") {
+				cout << "ERROR: Invalid move (Cannot attack here)" << endl;
+			}
+			else {
+				success = true;
+				cout << "Action: " << checkAttack << endl;
+			}
 		}
 
 		else if (s == "q")  {delete grid; break;}		

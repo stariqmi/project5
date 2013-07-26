@@ -10,6 +10,7 @@ Merchant::Merchant() {
 	def = 5;
 	isAttacked = false;
 	type = "merchant";
+	raceID = 'M';
 }
 
 int Merchant::getHealth() {

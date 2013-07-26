@@ -10,6 +10,7 @@ Troll::Troll() {
 	def = 15;
 	isAttacked = false;
 	type = "troll";
+	raceID = 'T';
 }
 
 int Troll::getHealth() {
