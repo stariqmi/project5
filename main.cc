@@ -26,12 +26,12 @@ int main() {
 	cin >> type;
 	grid->initializeFloor(type);
 	while (cin >> s){	
-		
 		if (s == "no" || s == "so" || s == "ea" || s == "we" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
 			int initialGold = grid->player->gold;
 			string moveCheck = grid->player->move(s);
 			cout << *grid;
 			cout << "Action: " << helper->evaluateMove(grid, grid->player, s, initialGold, moveCheck) << "." << endl;
+
 		}
 
 		if (s == "r") { 
