@@ -31,7 +31,7 @@ int main() {
 			int initialGold = grid->player->gold;
 			string moveCheck = grid->player->move(s);
 			cout << *grid;
-			cout << "Action: " << helper->evaluateMove(grid, grid->player, s, initialGold, moveCheck) << endl;
+			cout << "Action: " << helper->evaluateMove(grid, grid->player, s, initialGold, moveCheck) << "." << endl;
 		}
 
 		if (s == "r") { 
@@ -45,8 +45,11 @@ int main() {
 			Coordinates* c = helper->evalDirection(dir, grid->player->x, grid->player->y);
 			bool check = helper->checkForPotion(grid, c->x, c->y);
 			if(check) {
+				Potion* potion = dynamic_cast<Potion*>(grid->theGrid[c->x][c->y].thing);
+				string potionType = potion->potionType;
 				grid->player->usePotion(c->x, c->y);
 				cout << *grid;
+				cout << "Action: PC used " << potionType << "." << endl;
 			}
 			else {
 				cout << "ERROR: No potion exists at such location" << endl;

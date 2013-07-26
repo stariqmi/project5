@@ -43,22 +43,22 @@ bool Helper::checkForPotion(Grid* grid, int x, int y) {
 }
 
 string Helper::evaluateMove(Grid* grid, Character* player, string dir, int gold, string move) {
+	string result;
+	Coordinates* coords;
 	if(move == "gold") {
-		string result;
 		int goldGained = player->gold - gold;
 		ostringstream stream;
 		stream << "Picked up " << goldGained << " gold";
 		result = stream.str();
-		return result;
 	}
 	else if(move  == "finish") {
-		return "You have finished the game!";
+		result = "You have finished the game!";
 	}
 	else if(move == "empty") {
-		return "Invalid move outside playable region";
+		result = "Invalid move outside playable region";
 	}
 	else if(move == "invalid") {
-		return "Invalid move (wall/enemy/potion)";
+		result = "Invalid move (wall/enemy/potion)";
 	}
 	else {
 		string direction;
@@ -70,15 +70,16 @@ string Helper::evaluateMove(Grid* grid, Character* player, string dir, int gold,
 		if(dir == "se") direction = "SouthEast";
 		if(dir == "nw") direction = "NorthWest";
 		if(dir == "sw") direction = "SouthWest";
-		Coordinates* coords = evalDirection(dir, player->x, player->y);
-		if(grid->theGrid[coords->x][coords->y].thing->type == "potion") {
-			return "PC moved " + direction + ", sees an unknown potion";
+		coords = evalDirection(dir, player->x, player->y);
+		int x = coords->x;
+		int y = coords->y;
+		delete coords;
+		if(grid->theGrid[x][y].thing->type == "potion") {
+			result = "PC moved " + direction + ", sees an unknown potion";
 		}
-		// else if(grid->theGrid[coords->x][coords->y].thing->type != "ground") {
-		// 	return "PC moved " + direction + ", sees a " + grid->theGrid[coords->x][coords->y].thing->type;	
-		// }
 		else {
-			return "PC moved " + direction;
+			result = "PC moved " + direction;
 		}
 	}
+	return result;
 }
