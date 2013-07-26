@@ -89,3 +89,17 @@ string Helper::evaluateMove(Grid* grid, Character* player, string dir, int gold,
 	}
 	return result;
 }
+
+string giveDirection(std::string dir) {
+	string direction;
+		if(dir == "ea") direction = "East";
+		if(dir == "we") direction = "West";
+		if(dir == "so") direction = "South";
+		if(dir == "no") direction = "North";
+		if(dir == "ne") direction = "NorthEast";
+		if(dir == "se") direction = "SouthEast";
+		if(dir == "nw") direction = "NorthWest";
+		if(dir == "sw") direction = "SouthWest";
+		return direction;
+		
+}

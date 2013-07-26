@@ -5,8 +5,8 @@
 
 class Merchant: public Character {
 	protected:
-		
-		bool isAttacked;
+				bool isAttacked;
+
 	public:
 		static bool isHostile;
 		Merchant();

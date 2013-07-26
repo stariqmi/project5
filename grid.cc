@@ -386,13 +386,14 @@ void Grid::generateGold() {
 	}	
 }
 
-void Grid::enemyAI() {
+string Grid::enemyAI() {
 	int counter = 0;
+	string s;
 	for (int i = 0; i < 25; i++)
 	{
 		for (int j = 0; j < 80; j++)
 		{
-			if(	theGrid[i][j].thing != NULL && 
+			if (theGrid[i][j].thing != NULL && 
 				theGrid[i][j].thing->type != "vertical_wall" && 
 				theGrid[i][j].thing->type != "horizontal_wall" && 
 				theGrid[i][j].thing->type != "character" && 
@@ -402,8 +403,8 @@ void Grid::enemyAI() {
 				theGrid[i][j].thing->type != "gold" && 
 				theGrid[i][j].thing->type != "door" &&
 				theGrid[i][j].thing->type != "stairway" && 
-				theGrid[i][j].thing->type != "passage"
-			) {
+				theGrid[i][j].thing->type != "passage")
+			 {
 				Character* enemy = dynamic_cast<Character*>(theGrid[i][j].thing);
 				if(enemy->isMoved) {
 					enemy->isMoved = false;
@@ -422,11 +423,48 @@ void Grid::enemyAI() {
 					bool check = true;
 					Coordinates* coords;
 					int z = 0;
+					int damage;
+					for(int k=0; k < radius.size(); k++) {
+							coords = evalDirection(radius[k],i,j);
+							if((theGrid[coords->x][coords->y].thing->type) == "character") {
+								if(enemy->type == "merchant"){
+									Merchant* merchant = dynamic_cast<Merchant*>(enemy);
+									srand(time(NULL));
+									int hit = rand() % + 2;
+									
+									if(merchant->isHostile == true && hit){
+										damage = merchant->attack(coords->x, coords->y);
+										ostringstream os;
+										delete coords;
+										os <<"ACTION :"<< enemy->raceID << " deals " << damage << " damage to PC";
+										s = os.str();
+										cout << s << endl;
+										cout << *this;
+										return s;
+									}
+								}
+							else {	srand(time(NULL));
+									int hit = rand() % + 2;
+									if(hit) {
+												damage = enemy->attack(coords->x, coords->y);
+												ostringstream os;
+												os <<"ACTION: " << enemy->raceID << " deals " << damage << " damage to PC";
+												s = os.str();
+												delete coords;
+												cout << s << endl;
+												cout << *this;
+												return s;
+											} 
+								}					
+							}	
+						}
+					
 					while(check && radius.size()) {
 						//cout << " " << z << " ";
 						//cout << theGrid[i][j].thing->type;
 						int npos = rand() % + radius.size();
 						coords = evalDirection(radius[npos], i, j);
+
 						radius.erase(radius.begin() + npos);
 						if(!(theGrid[coords->x][coords->y].isOccupied)) {
 							enemy->isMoved = true;
@@ -447,7 +485,7 @@ void Grid::enemyAI() {
 							//found = true;
 							check = false;
 							z++;
-					}
+						}
 					counter++;
 					//cout << endl;
 					delete coords;
@@ -457,6 +495,7 @@ void Grid::enemyAI() {
 		}
 	}
 	cout << *this;
+	return s;
 }	
 
 ostream& operator<<(ostream &out, const Grid &g) {

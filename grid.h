@@ -42,7 +42,7 @@ public:
 	Character* generateEnemies();
 	void generatePotions();
 	void generateGold();
-	void enemyAI();
+	std::string enemyAI();
 	friend std::ostream& ::operator<<(std::ostream &out, const Grid &g);
 };
 

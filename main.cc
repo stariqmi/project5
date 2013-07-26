@@ -98,7 +98,8 @@ int main() {
 					cout << "ERROR: Invalid move (Cannot attack here)" << endl;
 				}
 				else {
-					success = true;
+					success = false;
+					cout << *grid;
 					cout << "Action: " << checkAttack << endl;
 				}
 			}

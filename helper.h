@@ -15,6 +15,7 @@ class Helper {
 		Coordinates* evalDirection(std::string direction, int i, int j);
 		bool checkForPotion(Grid* grid, int x, int y);
 		std::string evaluateMove(Grid* grid, Character* player, std::string dir, int gold, std::string move);
+		std::string giveDirection(std::string dir);
 };
 
 #endif
