@@ -392,69 +392,67 @@ void Grid::enemyAI() {
 	{
 		for (int j = 0; j < 80; j++)
 		{
-			if((theGrid[i][j].thing) && (theGrid[i][j].thing->type != "vertical_wall") && (theGrid[i][j].thing->type != "horizontal_wall")
-				&& (theGrid[i][j].thing->type != "character") && (theGrid[i][j].thing->type != "ground") && (theGrid[i][j].thing->type != "potion")
-				&& (theGrid[i][j].thing->type != "dragon") && (theGrid[i][j].thing->type != "gold") && (theGrid[i][j].thing->type != "door")
-				&& (theGrid[i][j].thing->type != "passage"))
-			{
-				vector<string> radius;
-				radius.push_back("no");
-				radius.push_back("ne");
-				radius.push_back("nw");
-				radius.push_back("so");
-				radius.push_back("se");
-				radius.push_back("sw");
-				radius.push_back("ea");
-				radius.push_back("we");
-				bool found = false;
-				bool check = true;
-				Coordinates* coords;
-
-				while(check && radius.size()) {
-					 
-					cout << "check" << endl;
-					int npos = rand() % + radius.size();
-					coords = evalDirection(radius[npos], i, j);
-					radius.erase(radius.begin() + npos);
-					if(!(theGrid[coords->x][coords->y].isOccupied)) {
-						cout << "check1" << endl;
-						Character* enemy = dynamic_cast<Character*>(theGrid[i][j].thing);
-						cout << "check2" << endl;
-						string originalType = theGrid[coords->x][coords->y].thing->type;
-						delete theGrid[coords->x][coords->y].thing;
-						cout << "check3" << endl;
-						theGrid[coords->x][coords->y].setThing(theGrid[i][j].thing);
-						cout << "check4" << endl;
-						cout << enemy->standingOn << endl;
-						if(enemy->standingOn == "ground") {
-							cout << "check5" << endl;
+			if(	theGrid[i][j].thing != NULL && 
+				theGrid[i][j].thing->type != "vertical_wall" && 
+				theGrid[i][j].thing->type != "horizontal_wall" && 
+				theGrid[i][j].thing->type != "character" && 
+				theGrid[i][j].thing->type != "ground" && 
+				theGrid[i][j].thing->type != "potion" && 
+				theGrid[i][j].thing->type != "dragon" && 
+				theGrid[i][j].thing->type != "gold" && 
+				theGrid[i][j].thing->type != "door" &&
+				theGrid[i][j].thing->type != "stairway" && 
+				theGrid[i][j].thing->type != "passage"
+			) {
+				Character* enemy = dynamic_cast<Character*>(theGrid[i][j].thing);
+				if(enemy->isMoved) {
+					enemy->isMoved = false;
+				}
+				else{
+					vector<string> radius;
+					radius.push_back("no");
+					radius.push_back("ne");
+					radius.push_back("nw");
+					radius.push_back("so");
+					radius.push_back("se");
+					radius.push_back("sw");
+					radius.push_back("ea");
+					radius.push_back("we");
+					bool found = false;
+					bool check = true;
+					Coordinates* coords;
+					int z = 0;
+					while(check && radius.size()) {
+						//cout << " " << z << " ";
+						//cout << theGrid[i][j].thing->type;
+						int npos = rand() % + radius.size();
+						coords = evalDirection(radius[npos], i, j);
+						radius.erase(radius.begin() + npos);
+						if(!(theGrid[coords->x][coords->y].isOccupied)) {
+							enemy->isMoved = true;
+							//cout << " check1";
+							//cout << " check2";
+							string originalType = theGrid[coords->x][coords->y].thing->type;
+							delete theGrid[coords->x][coords->y].thing;
+							//cout << " check3";
+							theGrid[coords->x][coords->y].setThing(theGrid[i][j].thing);
+							//cout << " check4 ";
 							theGrid[i][j].setThing(new Ground);
-						}
-						else if(enemy->standingOn == "door") {
-							cout << "check5" << endl;
-							theGrid[i][j].setThing(new Door);
-						}
-						else if(enemy->standingOn == "passage") {
-							cout << "check5" << endl;
-							theGrid[i][j].setThing(new Passage);
-						}	
-
-						enemy->standingOn = originalType;
-						cout << "check6" << endl;
-						
-						theGrid[coords->x][coords->y].isOccupied = true;
-						theGrid[i][j].isOccupied = false;
-						theGrid[i][j].notifyDisplay(*(td));
-						theGrid[coords->x][coords->y].notifyDisplay(*td);
-						//found = true;
-						check = false;
-						
+							enemy->standingOn = originalType;
+							//cout << " check6";
+							theGrid[coords->x][coords->y].isOccupied = true;
+							theGrid[i][j].isOccupied = false;
+							theGrid[i][j].notifyDisplay(*(td));
+							theGrid[coords->x][coords->y].notifyDisplay(*td);
+							//found = true;
+							check = false;
+							z++;
 					}
 					counter++;
-					cout << counter << endl;
-				delete coords;
+					//cout << endl;
+					delete coords;
+					}
 				}
-
 			}
 		}
 	}

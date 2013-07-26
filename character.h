@@ -10,6 +10,7 @@ class Grid;
 
 class Character: public LivingThing {
 	public:
+		bool isMoved;
 		int gold;
 		Grid* grid;
 		std::string standingOn;

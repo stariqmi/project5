@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Character::Character(): gold(0) {
+Character::Character(): gold(0), isMoved(false) {
 	type = "character";
 	standingOn = "ground";
 }

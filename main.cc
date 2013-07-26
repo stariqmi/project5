@@ -30,8 +30,14 @@ int main() {
 			int initialGold = grid->player->gold;
 			string moveCheck = grid->player->move(s);
 			cout << *grid;
-			cout << "Action: " << helper->evaluateMove(grid, grid->player, s, initialGold, moveCheck) << "." << endl;
-
+			string result = helper->evaluateMove(grid, grid->player, s, initialGold, moveCheck);
+			if(result == "invalid") {
+				cout << "Action: Invalid move." << endl;
+			}
+			else {
+				cout << "Action: " << result << "." << endl;
+				grid->enemyAI();
+			}
 		}
 
 		if (s == "r") { 
@@ -52,7 +58,8 @@ int main() {
 				cout << "Action: PC used " << potionType << "." << endl;
 			}
 			else {
-				cout << "ERROR: No potion exists at such location" << endl;
+				cout << *grid;
+				cout << "Action: Invalid direction (No potion exists at such location)" << endl;
 			}
 			delete c;
 		}
