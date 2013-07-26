@@ -52,12 +52,10 @@ string Character::move(string direction){
 			move = true;
 		}
 		else {
+			//cout << "in next" << endl;
 			result = "next";
-			move = true;
-			int oldHP = grid->player->hp;
-			grid->initializeFloor(dynamic_cast<Character*>(grid->theGrid[x][y].thing)->raceID);
-			result = "Moved to new next floor";
-			grid->player->hp = oldHP;
+			// cout << result << endl;
+			// move = true;
 		}
 	}
 

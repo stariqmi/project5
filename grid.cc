@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Grid::Grid(TextDisplay* td, int x, int y): td(td), xsize(x), ysize(y), level(1), charFactory(new CharacterFactory), itemFactory(new ItemFactory) {}
+Grid::Grid(TextDisplay* td, int x, int y): theGrid(NULL), td(td), xsize(x), ysize(y), level(1), charFactory(new CharacterFactory), itemFactory(new ItemFactory) {}
 
 Grid::~Grid() {
 	this->clearGrid();
@@ -20,6 +20,13 @@ Grid::~Grid() {
 
 
 void Grid::clearGrid() {
+	// for(int i = 0; i < this->ysize; i++) {
+	// 	for(int j = 0; j < this->xsize; j++) {
+	// 		if(theGrid[i][j].thing) {
+	// 			delete theGrid[i][j].thing;
+	// 		}
+	// 	}
+	// }
 	for(int i = 0; i < this->ysize; i++) {
 		delete[] this->theGrid[i];
 	}

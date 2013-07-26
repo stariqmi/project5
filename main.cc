@@ -22,30 +22,41 @@ int main() {
 	CombatMediator* cm = new CombatMediator(grid);
 	grid->combatMediator = cm;
 	string s;
+	char type;
+	bool nextLevel = false;
 	bool keepPlaying = true;
 	while(keepPlaying) {
-		char type;
-		cin >> type;
+		if(!nextLevel) {
+			cin >> type;
+		}
 		grid->initializeFloor(type);
 		while (cin >> s) {
 			bool success = false;
 			if (s == "no" || s == "so" || s == "ea" || s == "we" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
 				int initialGold = grid->player->gold;
 				string moveCheck = grid->player->move(s);
-				cout << *grid;
-				string result = helper->evaluateMove(grid, grid->player, s, initialGold, moveCheck);
-				if(result == "invalid") {
-					cout << "ERROR: Invalid move - Cannot walk over wall, potion, enemy or empty space." << endl;
-				}
-				else if(result == "outside") {
-					cout << "ERROR: Invalid move - You can't move outside playable region." << endl;
-				}
-				else if(result == "dragon") {
-					cout << "ERROR: Invalid move - You need to kill the dragon before you can take the Dragon Horde." << endl;
+				if(moveCheck == "next") {
+					if(grid->theGrid != NULL) { 
+						grid->clearGrid();
+					}	
+					nextLevel = true;
 				}
 				else {
-					cout << "Action: " << result << "." << endl;
-					success = true;
+					//cout << *grid;
+					string result = helper->evaluateMove(grid, grid->player, s, initialGold, moveCheck);
+					if(result == "invalid") {
+						cout << "ERROR: Invalid move - Cannot walk over wall, potion, enemy or empty space." << endl;
+					}
+					else if(result == "outside") {
+						cout << "ERROR: Invalid move - You can't move outside playable region." << endl;
+					}
+					else if(result == "dragon") {
+						cout << "ERROR: Invalid move - You need to kill the dragon before you can take the Dragon Horde." << endl;
+					}
+					else {
+						cout << "Action: " << result << "." << endl;
+						success = true;
+					}
 				}
 			}
 
@@ -65,12 +76,12 @@ int main() {
 					Potion* potion = dynamic_cast<Potion*>(grid->theGrid[c->x][c->y].thing);
 					string potionType = potion->potionType;
 					grid->player->usePotion(c->x, c->y);
-					cout << *grid;
+					//cout << *grid;
 					cout << "Action: PC used " << potionType << "." << endl;
 					success = true;
 				}
 				else {
-					cout << *grid;
+					//cout << *grid;
 					cout << "ERROR: Invalid direction - No potion exists at such location." << endl;
 				}
 				delete c;
@@ -82,7 +93,7 @@ int main() {
 				Coordinates* c1 = helper->evalDirection(dir, grid->player->x, grid->player->y);
 				string checkAttack = cm->combat(grid->player->x, grid->player->y, c1->x, c1->y);
 				delete c1;
-				cout << *grid;
+				//cout << *grid;
 				if(checkAttack == "invalid") {
 					cout << "ERROR: Invalid move (Cannot attack here)" << endl;
 				}
@@ -97,6 +108,7 @@ int main() {
 				cout << "ERROR: Not a valid command" <<  endl;
 			}
 			if(success) grid->enemyAI();
+			if(nextLevel) break;
 		}
 		if(cin.fail()) keepPlaying = false;
 	}

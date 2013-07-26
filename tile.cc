@@ -24,7 +24,6 @@ void Tile::notifyDisplay(TextDisplay &td) {
 	else {
 		string type;
 		type = this->thing->type;	
-		//cout << "dead" << endl;
 		if(type == "vertical_wall") {
 		c = '|';
 		}
