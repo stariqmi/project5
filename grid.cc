@@ -456,6 +456,7 @@ void Grid::enemyAI() {
 			}
 		}
 	}
+	cout << *this;
 }	
 
 ostream& operator<<(ostream &out, const Grid &g) {

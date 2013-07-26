@@ -26,6 +26,7 @@ int main() {
 	cin >> type;
 	grid->initializeFloor(type);
 	while (cin >> s){	
+		bool success = false;
 		if (s == "no" || s == "so" || s == "ea" || s == "we" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
 			int initialGold = grid->player->gold;
 			string moveCheck = grid->player->move(s);
@@ -36,16 +37,16 @@ int main() {
 			}
 			else {
 				cout << "Action: " << result << "." << endl;
-				grid->enemyAI();
+				success = true;
 			}
 		}
 
-		if (s == "r") { 
+		else if (s == "r") { 
 			grid->clearGrid(); 
 			grid->initializeFloor(type);
 		}
 
-		if (s == "u") {
+		else if (s == "u") {
 			string dir;
 			cin >> dir;
 			Coordinates* c = helper->evalDirection(dir, grid->player->x, grid->player->y);
@@ -56,6 +57,7 @@ int main() {
 				grid->player->usePotion(c->x, c->y);
 				cout << *grid;
 				cout << "Action: PC used " << potionType << "." << endl;
+				success = true;
 			}
 			else {
 				cout << *grid;
@@ -64,16 +66,21 @@ int main() {
 			delete c;
 		}
 
-		if (s == "a") {
+		else if (s == "a") {
 			string dir;
 			cin >> dir;
 			Coordinates* c1 = helper->evalDirection(dir, grid->player->x, grid->player->y);
 			bool checkAttack = cm->combat(grid->player->x, grid->player->y, c1->x, c1->y);
 			delete c1;
 			cout << *grid;
+			success = true;
 		}
 
-		if (s == "q")  {delete grid; break;}		
+		else if (s == "q")  {delete grid; break;}		
+		else {
+			cout << "ERROR: Not a valid command" <<  endl;
+		}
+		if(success) grid->enemyAI();
 	}
 	delete helper;
 }
