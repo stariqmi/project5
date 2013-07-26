@@ -25,6 +25,7 @@ public:
 	int xsize;
 	int ysize;
 	int level;
+	std::string layout;
 	CharacterFactory* charFactory;
 	ItemFactory* itemFactory;
 	TextDisplay* td;
@@ -36,6 +37,7 @@ public:
 	~Grid();
 	void clearGrid();
 	void initializeFloor(char type);
+	void setLayout(char type);
 	void generateStairway();
 	Coordinates* evalDirection(std::string dir, int i, int j);
 	Character* generateCharacter(char type);

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Grid::Grid(TextDisplay* td, int x, int y): theGrid(NULL), td(td), xsize(x), ysize(y), level(1), charFactory(new CharacterFactory), itemFactory(new ItemFactory) {}
+Grid::Grid(TextDisplay* td, int x, int y): layout("floor.txt"), theGrid(NULL), td(td), xsize(x), ysize(y), level(1), charFactory(new CharacterFactory), itemFactory(new ItemFactory) {}
 
 Grid::~Grid() {
 	this->clearGrid();
@@ -44,6 +44,65 @@ void Grid::clearGrid() {
 		rooms[i].tiles.clear();
 	}
 	delete[] this->theGrid;
+}
+
+void Grid::setLayout(char type) {
+	ifstream file(layout.c_str());
+	for(int i = 0; i < 25; i++) {
+		string line;
+		getline(file, line);
+		for(int j = 0; j < 80; j++) {
+			if(line[j] == 'N') {
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(charFactory->makeCharacter('g'));
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == 'X') {
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(charFactory->makeCharacter('x'));
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == 'W') {
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(charFactory->makeCharacter('w'));
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == 'V') {
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(charFactory->makeCharacter('w'));
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == 'T') {
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(charFactory->makeCharacter('t'));
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == '/') {
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(new Stairway);
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == '@') {
+				delete theGrid[i][j].thing;
+				player =  charFactory->makeCharacter(type);
+				theGrid[i][j].setThing(player);
+				player->x = i;
+				player->y = j;
+				player->grid = this;
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			//file.close();
+			//setPotions();
+			//setGold();
+		}
+	}
 }
 
 void Grid::initializeFloor(char type) {
@@ -161,11 +220,18 @@ void Grid::initializeFloor(char type) {
 			this->rooms[4].tiles.push_back(c);
 		}
 
-		player = generateCharacter(type);
-		generateStairway();
-		generateGold();
-		generatePotions();
-		generateEnemies();
+		if(layout == "floor.txt") {		
+			//cout << "normal layout" << endl;
+			player = generateCharacter(type);
+			generateStairway();
+			generateGold();
+			generatePotions();
+			generateEnemies();
+		}
+		else {
+			//cout << "command line layout" << endl;
+			setLayout(type);
+		}
 		cout<< *this;
 }
 

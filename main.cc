@@ -15,10 +15,11 @@ using namespace std;
 const int xsize = 80;
 const int ysize = 25;
 
-int main() {
+int main(int argc, char* argv[]) {
 	Helper* helper = new Helper;
 	TextDisplay* td = new TextDisplay(xsize, ysize);
 	Grid* grid = new Grid(td, xsize, ysize);
+	if(argc > 1) grid->layout = argv[1];
 	CombatMediator* cm = new CombatMediator(grid);
 	grid->combatMediator = cm;
 	string s;
@@ -98,7 +99,7 @@ int main() {
 					cout << "ERROR: Invalid move (Cannot attack here)" << endl;
 				}
 				else {
-					success = false;
+					success = true;
 					cout << *grid;
 					cout << "Action: " << checkAttack << endl;
 				}
