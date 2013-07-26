@@ -188,21 +188,14 @@ void Grid::generateStairway() {
 	
 	for(int i = 0; i < 5; i++) {
 		if(!rooms[i].isOccupied) {
-			//cout << "added" << endl;
 			unoccupiedRooms.push_back(rooms[i]);
 		}
 	}
 
 	srand(time(NULL));
-	int pos = rand() % + 4;
-
-	//cout << "passed" << endl;
-
+	int pos = rand() % + unoccupiedRooms.size();
 	srand(time(NULL));
 	int pos2 = rand() % + unoccupiedRooms[pos].tiles.size();
-	
-	//cout << "passed" << endl;	
-
 	int x = unoccupiedRooms[pos].tiles[pos2]->x;
 	int y = unoccupiedRooms[pos].tiles[pos2]->y;
 

@@ -26,15 +26,17 @@ void Goblin::setHealth(int h){
 
 // Goblin attacks and steals gold.
 int Goblin::attack(int i, int j) {
-	cout << "Attacker - " << type << endl;
+	//cout << "Attacker - " << type << endl;
 	Character* defender = dynamic_cast<Character*>(grid->theGrid[i][j].thing);
-	cout << "Defender - " << defender->type << endl;
-	cout << "Def-hp (pre): " << defender->hp << endl;
+	//cout << "Defender - " << defender->type << endl;
+	//cout << "Def-hp (pre): " << defender->hp << endl;
 	int damage = ceil((100/(double)(100 + defender->def)) * atk);
 	defender->hp -= damage;
-	cout << "Def-hp (post): " << defender->hp << endl;
-	defender->gold -= 1;
-	gold += 1;
+	//cout << "Def-hp (post): " << defender->hp << endl;
+	if(defender->gold > 0) {
+		defender->gold -= 1;
+		gold += 1;
+	}
 	return damage;
 }
 

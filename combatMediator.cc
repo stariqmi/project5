@@ -35,7 +35,10 @@ string CombatMediator::combat(int ai, int aj, int di, int dj) {
 		Character* attacker2 = dynamic_cast<Character*>(grid->theGrid[di][dj].thing);
 		int damage1 = attacker->attack(di, dj);
 		ostringstream os;
-		os << "PC deals " << damage1 << " damage to " << attacker2->raceID << " (" << attacker2->hp << " HP)."; 
+		int hp;
+		hp = attacker2->hp;
+		if(attacker2->hp < 0) hp = 0; 
+		os << "PC deals " << damage1 << " damage to " << attacker2->raceID << " (" << hp << " HP)."; 
 		result1 = os.str();
 		if(attacker2->hp <= 0) {
 			Thing* gold;

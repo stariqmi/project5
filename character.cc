@@ -53,7 +53,10 @@ string Character::move(string direction){
 		else {
 			result = "next";
 			move = true;
+			int oldHP = grid->player->hp;
 			grid->initializeFloor(dynamic_cast<Character*>(grid->theGrid[x][y].thing)->raceID);
+			result = "Moved to new next floor";
+			grid->player->hp = oldHP;
 		}
 	}
 
@@ -71,17 +74,19 @@ string Character::move(string direction){
 		grid->theGrid[coords->x][coords->y].setThing(grid->theGrid[x][y].thing);
 		if(player->standingOn == "door") {
 			grid->theGrid[x][y].setThing(new Door);
+			grid->theGrid[x][y].isOccupied = true;
 		}
 		else if(player->standingOn == "passage") {
 			grid->theGrid[x][y].setThing(new Passage);
+			grid->theGrid[x][y].isOccupied = true;
 		}
 		else {
 			grid->theGrid[x][y].setThing(new Ground);
+			grid->theGrid[x][y].isOccupied = false;
 		}
 
 		player->standingOn = originalType;
 		grid->theGrid[coords->x][coords->y].isOccupied = true;
-		grid->theGrid[x][y].isOccupied = false;
 		grid->theGrid[x][y].notifyDisplay(*(grid->td));
 		grid->theGrid[coords->x][coords->y].notifyDisplay(*(grid->td));
 		if(direction == "nw") { y--; x--; }

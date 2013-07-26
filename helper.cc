@@ -55,7 +55,7 @@ string Helper::evaluateMove(Grid* grid, Character* player, string dir, int gold,
 		result = "You have finished the game!";
 	}
 	else if(move == "empty") {
-		result = "Invalid move outside playable region";
+		result = "outside";
 	}
 	else if(move == "invalid") {
 		result = move;
@@ -77,7 +77,10 @@ string Helper::evaluateMove(Grid* grid, Character* player, string dir, int gold,
 		int x = coords->x;
 		int y = coords->y;
 		delete coords;
-		if(grid->theGrid[x][y].thing->type == "potion") {
+		if(grid->theGrid[x][y].thing == NULL) {
+			result = "PC moved " + direction;
+		}
+		else if(grid->theGrid[x][y].thing->type == "potion") {
 			result = "PC moved " + direction + ", sees an unknown potion";
 		}
 		else {
