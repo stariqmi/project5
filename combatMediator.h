@@ -7,7 +7,7 @@ class CombatMediator {
 public:
 	Grid* grid;
 	CombatMediator(Grid* g);
-	void combat(int ai, int aj, int di, int dj);
+	bool combat(int ai, int aj, int di, int dj);
 };
 
 #endif

@@ -334,9 +334,13 @@ void Grid::generateGold() {
 				bool found = false;
 				bool check = true;
 				Coordinates* coords;
+				int xc;
+				int yc;
 				while(check && radius.size()) {
 					int npos = rand() % + radius.size();
 					coords = evalDirection(radius[npos], x, y);
+					xc = coords->x;
+					yc = coords->y;
 					radius.erase(radius.begin() + npos);
 					if(!(theGrid[coords->x][coords->y].isOccupied)) {
 						// cout << "dragon" << endl;
@@ -364,11 +368,14 @@ void Grid::generateGold() {
 					//cout << "dragon hoard" << endl;
 					Item* gold;
 					gold = itemFactory->makeItem(goldTypes[pos]);
+					DragonHorde* dh = dynamic_cast<DragonHorde*>(gold);
+					dh->protector = &(theGrid[xc][yc]);
 					delete theGrid[x][y].thing;
 					theGrid[x][y].setThing(gold);
 					theGrid[x][y].isOccupied = true;
 					theGrid[x][y].notifyDisplay(*td);		
 				}
+				//delete coords;
 			}
 			else {
 				//cout << goldTypes[pos] << endl;
