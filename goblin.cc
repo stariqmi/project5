@@ -2,9 +2,12 @@
 #include "goblin.h"
 #include "grid.h"
 #include <string>
+#include <math.h>
+
 using namespace std;
 
 Goblin::Goblin() {
+	gold = 0;
 	hp = 70;
 	atk = 5;
 	def = 10;
@@ -18,5 +21,18 @@ int Goblin::getHealth() {
 
 void Goblin::setHealth(int h){
 	hp = h; 
+}
+
+// Goblin attacks and steals gold.
+void Goblin::attack(int i, int j) {
+	cout << "Attacker - " << type << endl;
+	Character* defender = dynamic_cast<Character*>(grid->theGrid[i][j].thing);
+	cout << "Defender - " << defender->type << endl;
+	cout << "Def-hp (pre): " << defender->hp << endl;
+	int damage = ceil((100/(double)(100 + defender->def)) * atk);
+	defender->hp -= damage;
+	cout << "Def-hp (post): " << defender->hp << endl;
+	defender->gold -= 1;
+	gold += 1;
 }
 

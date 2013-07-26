@@ -19,3 +19,4 @@ int Werewolf::getHealth() {
 void Werewolf::setHealth(int h){
 	hp = h; 
 }
+

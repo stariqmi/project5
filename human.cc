@@ -47,4 +47,6 @@ void Human::usePotion(int i, int j) {
 	grid->theGrid[i][j].notifyDisplay(*(grid->td));
 }
 
-
+int Human::pickGold(int gold) {
+	return gold;
+}

@@ -6,7 +6,7 @@
 class Orc : public Character {
 public:
 	Orc();
-	void pickGold(std::string direction); 
+	int pickGold(int gold); 
 	void usePotion(int i, int j);
 	int getHealth();
 	void setHealth(int h);

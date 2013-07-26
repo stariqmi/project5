@@ -2,57 +2,21 @@
 #include <string>
 #include <stdlib.h>
 #include <time.h>
+#include <sstream>
 #include "grid.h"
 #include "textdisplay.h"
 #include "tile.h"
 #include "coordinates.h"
 #include "combatMediator.h"
+#include "helper.h"
 
 using namespace std;
 
 const int xsize = 80;
 const int ysize = 25;
 
-Coordinates* evalDirection(string direction, int i, int j) {
-	Coordinates* c;
-	if(direction == "no") {
-		c = new Coordinates(i - 1, j);
-	}
-	else if(direction == "so") {
-		c = new Coordinates(i + 1, j);
-	}
-	else if(direction == "we") {
-		c = new Coordinates(i, j - 1);
-	}
-	else if(direction == "ea") {
-		c = new Coordinates(i, j + 1);
-	}
-	else if(direction == "sw") {
-		c = new Coordinates(i + 1, j - 1);
-	}
-	else if(direction == "se") {
-		c = new Coordinates(i + 1, j + 1);
-	}
-	else if(direction == "nw") {
-		c = new Coordinates(i - 1, j - 1);
-	}
-	else if(direction == "ne") {
-		c = new Coordinates(i - 1, j + 1);
-	}
-	return c;
-}
-
-bool checkForPotion(Grid* grid, int x, int y) {
-	if(grid->theGrid[x][y].thing != NULL && grid->theGrid[x][y].thing->type == "potion") {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
 int main() {
-
+	Helper* helper = new Helper;
 	TextDisplay* td = new TextDisplay(xsize, ysize);
 	Grid* grid = new Grid(td, xsize, ysize);
 	CombatMediator* cm = new CombatMediator(grid);
@@ -62,18 +26,24 @@ int main() {
 	cin >> type;
 	grid->initializeFloor(type);
 	while (cin >> s){	
-		if(s == "no" || s == "so" || s == "ea" || s == "we" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
-			grid->player->move(s);
+		
+		if (s == "no" || s == "so" || s == "ea" || s == "we" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
+			int initialGold = grid->player->gold;
+			string moveCheck = grid->player->move(s);
+			cout << *grid;
+			cout << "Action: " << helper->evaluateMove(grid, grid->player, s, initialGold, moveCheck) << endl;
 		}
+
 		if (s == "r") { 
 			grid->clearGrid(); 
 			grid->initializeFloor(type);
 		}
-		if ( s == "u") {
+
+		if (s == "u") {
 			string dir;
 			cin >> dir;
-			Coordinates* c = evalDirection(dir, grid->player->x, grid->player->y);
-			bool check = checkForPotion(grid, c->x, c->y);
+			Coordinates* c = helper->evalDirection(dir, grid->player->x, grid->player->y);
+			bool check = helper->checkForPotion(grid, c->x, c->y);
 			if(check) {
 				grid->player->usePotion(c->x, c->y);
 				cout << *grid;
@@ -82,15 +52,18 @@ int main() {
 				cout << "ERROR: No potion exists at such location" << endl;
 			}
 			delete c;
-		} 
-		 if (s == "a") {
+		}
+
+		if (s == "a") {
 			string dir;
 			cin >> dir;
-			Coordinates* c1 = evalDirection(dir, grid->player->x, grid->player->y);
+			Coordinates* c1 = helper->evalDirection(dir, grid->player->x, grid->player->y);
 			bool checkAttack = cm->combat(grid->player->x, grid->player->y, c1->x, c1->y);
 			delete c1;
 			cout << *grid;
 		}
+
 		if (s == "q")  {delete grid; break;}		
 	}
+	delete helper;
 }

@@ -39,3 +39,6 @@ void Elf::usePotion(int i, int j) {
 	grid->theGrid[i][j].notifyDisplay(*(grid->td));
 }
 
+int Elf::pickGold(int gold) {
+	return gold;
+}

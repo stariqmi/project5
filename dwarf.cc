@@ -47,3 +47,6 @@ void Dwarf::usePotion(int i, int j) {
 	grid->theGrid[i][j].notifyDisplay(*(grid->td));
 }
 
+int Dwarf::pickGold(int gold) {
+	return 2*gold;
+}

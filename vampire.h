@@ -11,6 +11,7 @@ class Vampire: public Character {
 		void setAttack(); 
 		int getHealth();
 		void setHealth(int h);
+		void attack(int i, int j);
 };
 
 #endif

@@ -48,4 +48,8 @@ void Orc::usePotion(int i, int j) {
 	grid->theGrid[i][j].notifyDisplay(*(grid->td));
 }
 
+int Orc::pickGold(int gold) {
+	return gold;
+}
+
 

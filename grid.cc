@@ -324,11 +324,7 @@ void Grid::generateGold() {
 				//cout << goldTypes[pos] << endl;
 				vector<string> radius;
 				radius.push_back("no");
-				radius.push_back("ne");
-				radius.push_back("nw");
 				radius.push_back("so");
-				radius.push_back("se");
-				radius.push_back("sw");
 				radius.push_back("ea");
 				radius.push_back("we");
 				bool found = false;
@@ -394,7 +390,24 @@ void Grid::generateGold() {
 
 ostream& operator<<(ostream &out, const Grid &g) {
 	out << *(g.td);
-	out << "                                                                      Floor: " << g.level << endl;
-	out << "  HP: " << g.player->getHealth() << endl;
+	string race;
+	switch(g.player->raceID) {
+		case 'h':
+			race = "Human";
+			break;
+		case 'e':
+			race = "Elf";
+			break;
+		case 'o':
+			race = "Orc";
+			break;
+		case 'd':
+			race = "Dwarf";
+			break;
+	}
+	out << "Race: " << race << " Gold: " << g.player->gold << "                                    Floor: " << g.level << endl;
+	out << "HP: " << g.player->hp << endl;
+	out << "Atk: " << g.player->atk << endl;
+	out << "Def: " << g.player->def << endl;
 	return out;
 }

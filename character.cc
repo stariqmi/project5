@@ -2,6 +2,7 @@
 #include "character.h"
 #include "grid.h"
 #include <string>
+#include <sstream>
 #include <math.h>
 
 using namespace std;
@@ -11,15 +12,15 @@ Character::Character(): gold(0) {
 	standingOn = "ground";
 }
 
-void Character::move(string direction){
+string Character::move(string direction){
+	bool move = false;
+	string result = "";
 	Coordinates* coords = grid->evalDirection(direction, x, y);
 	if(grid->theGrid[coords->x][coords->y].thing == NULL) {
-		cout << "ERROR: Cannot move over empty space" << endl;
-		return;
+		return "empty";
 	}
 	string originalType = grid->theGrid[coords->x][coords->y].thing->type;
 	Character* player = dynamic_cast<Character*>(grid->theGrid[x][y].thing);
-	bool move = false;
 	
 	if(originalType == "gold") {
 		int originalGold = player->gold;
@@ -27,14 +28,16 @@ void Character::move(string direction){
 		Treasure* treasure = dynamic_cast<Treasure*>(grid->theGrid[coords->x][coords->y].thing);
 		if(treasure->treasureType == "dragonhorde") {
 			DragonHorde* dragonhorde = dynamic_cast<DragonHorde*>(treasure);
-			player->gold += dragonhorde->giveGold(); 
+			if(dragonhorde->giveGold() != 0) { 
+				player->gold += player->pickGold(dragonhorde->giveGold()); 
+			}
 		}
 		else {
-			player->gold += treasure->giveGold(); 	
+			player->gold += player->pickGold(treasure->giveGold()); 	
 		}
 		//cout << player->gold << endl;
 		if(originalGold != player->gold) {
-			cout << "Picked up a " << treasure->treasureType << endl;
+			result = "gold";
 			move = true;
 		}
 	}
@@ -42,21 +45,22 @@ void Character::move(string direction){
 	else if(originalType == "stairway") {
 		grid->level++;
 		if(grid->level == 3) {
-			cout << "Congratulations! You have won, now piss off!" << endl;
+			result =  "finish";
+			move = true;
 		}
 		else {
+			result = "next";
+			move = true;
 			grid->initializeFloor(dynamic_cast<Character*>(grid->theGrid[x][y].thing)->raceID);
 		}
 	}
 
 	else if(originalType != "ground" && originalType != "passage" && originalType != "door") {
-		cout << "ERROR: Cannot move over a "<< originalType << ", please enter a valid direction" << endl;
-		string dir;
-		cin >> dir;
-		this->move(dir);
+		result = "invalid";
 	}
 
 	else {
+		result = "move";
 		move = true;
 	}
 
@@ -86,10 +90,11 @@ void Character::move(string direction){
 		else if(direction == "so") { x++; }
 		else if(direction == "ea") { y++; }
 		else if(direction == "we") { y--; }
-		cout << *grid;
 		//cout << dynamic_cast<Character*>(grid->theGrid[x][y].thing)->raceID << endl;
 	}
 	delete coords;
+	return result;
+	
 }
 
 int Character::getAtk() {
@@ -112,6 +117,8 @@ void Character::attack(int i, int j) {
 }
 
 void Character::usePotion(int i, int j) {}
+
+int Character::pickGold(int gold) {return 0;}
 
 Character::~Character() {}
 
