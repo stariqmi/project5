@@ -30,6 +30,7 @@ int main(int argc, char* argv[]) {
 		if(!nextLevel) {
 			cin >> type;
 		}
+		nextLevel = false;
 		grid->initializeFloor(type);
 		while (cin >> s) {
 			bool success = false;
@@ -110,7 +111,7 @@ int main(int argc, char* argv[]) {
 				cout << "ERROR: Not a valid command" <<  endl;
 			}
 			if(success) grid->enemyAI();
-			if(nextLevel) break;
+			if(nextLevel) { break; }
 		}
 		if(cin.fail()) keepPlaying = false;
 	}

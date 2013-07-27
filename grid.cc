@@ -46,6 +46,95 @@ void Grid::clearGrid() {
 	delete[] this->theGrid;
 }
 
+void Grid::setGold() {
+	string directions[4] = {"we", "no", "ea", "so"};
+	ifstream file(layout.c_str());
+	for(int i = 0; i < 25; i++) {
+		string line;
+		getline(file, line);
+		for(int j = 0; j < 80; j++) {
+			if(line[j] == 'G') {
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(new Treasure(0, "gold"));
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+		}
+	}
+	int dragonCount = 0;
+	file.close();
+	ifstream file2(layout.c_str());
+	for(int i = 0; i < 25; i++) {
+		string line;
+		getline(file2, line);
+		for(int j = 0; j < 80; j++) {
+			if(line[j] == 'D') {
+				dragonCount++;
+				delete theGrid[i][j].thing;
+				Character* enemy = charFactory->makeCharacter('r');
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+				bool toProtect = true;
+				int z = 0;
+				while(toProtect) {
+					Coordinates* c = evalDirection(directions[z], i, j);
+					if(theGrid[c->x][c->y].thing->type == "gold") {
+						Treasure* treasure = dynamic_cast<Treasure*>(theGrid[c->x][c->y].thing);
+						if(treasure->treasureType == "gold") {
+							toProtect = false;
+							delete theGrid[c->x][c->y].thing;
+							Item* treasure2 = itemFactory->makeItem("DH");
+							theGrid[c->x][c->y].setThing(treasure2);
+							DragonHorde* dh = dynamic_cast<DragonHorde*>(treasure2);
+							dh->protector = &(theGrid[i][j]);
+							theGrid[c->x][c->y].isOccupied = true;
+							theGrid[c->x][c->y].notifyDisplay(*td);
+						}
+					}
+					delete c;
+					z++;
+				}
+			}
+		}
+	}
+	file2.close();
+	ifstream file3(layout.c_str());
+	vector<string> goldTypes;
+	goldTypes.push_back("DH");
+	goldTypes.push_back("SH");
+	goldTypes.push_back("SH");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
+	for (int i = 0; i < 25; i++) {
+		string line;
+		getline(file3, line);
+		for(int j = 0; j < 80; j++) {
+			if(line[j] == 'G') {
+				Treasure* t = dynamic_cast<Treasure*>(theGrid[i][j].thing);
+				if(t->treasureType == "gold") {
+					bool find = true;
+					while(find) {
+						srand(time(0));
+						int pos = rand() % + goldTypes.size();
+						if(goldTypes[pos] != "DH") {
+							delete theGrid[i][j].thing;
+							theGrid[i][j].setThing(itemFactory->makeItem(goldTypes[pos]));
+							theGrid[i][j].isOccupied = true;
+							theGrid[i][j].notifyDisplay(*td);
+							find = false;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 void Grid::setPotions() {
 	vector<string> potionTypes;
 	potionTypes.push_back("RH");
@@ -86,38 +175,56 @@ void Grid::setLayout(char type) {
 		getline(file, line);
 		for(int j = 0; j < 80; j++) {
 			if(line[j] == 'N') {
+				Character* enemy = charFactory->makeCharacter('g');
 				delete theGrid[i][j].thing;
-				theGrid[i][j].setThing(charFactory->makeCharacter('g'));
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
 				theGrid[i][j].isOccupied = true;
 				theGrid[i][j].notifyDisplay(*td);
 			}
 			else if(line[j] == 'X') {
+				Character* enemy = charFactory->makeCharacter('x');
 				delete theGrid[i][j].thing;
-				theGrid[i][j].setThing(charFactory->makeCharacter('x'));
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
 				theGrid[i][j].isOccupied = true;
 				theGrid[i][j].notifyDisplay(*td);
 			}
 			else if(line[j] == 'W') {
+				Character* enemy = charFactory->makeCharacter('w');
 				delete theGrid[i][j].thing;
-				theGrid[i][j].setThing(charFactory->makeCharacter('w'));
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
 				theGrid[i][j].isOccupied = true;
 				theGrid[i][j].notifyDisplay(*td);
 			}
 			else if(line[j] == 'V') {
+				Character* enemy = charFactory->makeCharacter('v');
 				delete theGrid[i][j].thing;
-				theGrid[i][j].setThing(charFactory->makeCharacter('w'));
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
 				theGrid[i][j].isOccupied = true;
 				theGrid[i][j].notifyDisplay(*td);
 			}
 			else if(line[j] == 'T') {
+				Character* enemy = charFactory->makeCharacter('t');
 				delete theGrid[i][j].thing;
-				theGrid[i][j].setThing(charFactory->makeCharacter('t'));
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
 				theGrid[i][j].isOccupied = true;
 				theGrid[i][j].notifyDisplay(*td);
 			}
 			else if(line[j] == '/') {
 				delete theGrid[i][j].thing;
 				theGrid[i][j].setThing(new Stairway);
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == 'M') {
+				Character* enemy = charFactory->makeCharacter('m');
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
 				theGrid[i][j].isOccupied = true;
 				theGrid[i][j].notifyDisplay(*td);
 			}
@@ -265,6 +372,7 @@ void Grid::initializeFloor(char type) {
 			//cout << "command line layout" << endl;
 			setLayout(type);
 			setPotions();
+			setGold();
 		}
 		cout<< *this;
 }
@@ -406,6 +514,11 @@ void Grid::generateGold() {
 	vector<string> goldTypes;
 	goldTypes.push_back("DH");
 	goldTypes.push_back("SH");
+	goldTypes.push_back("SH");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
 	goldTypes.push_back("NG");
 	for (int i = 0; i < 10; i++) {
 		int pos = rand() % + goldTypes.size();
@@ -421,7 +534,6 @@ void Grid::generateGold() {
 		else {
 		
 			if(goldTypes[pos] == "DH") {
-				//cout << goldTypes[pos] << endl;
 				vector<string> radius;
 				radius.push_back("no");
 				radius.push_back("so");
@@ -439,10 +551,6 @@ void Grid::generateGold() {
 					yc = coords->y;
 					radius.erase(radius.begin() + npos);
 					if(!(theGrid[coords->x][coords->y].isOccupied)) {
-						// cout << "dragon" << endl;
-						// std::cout << "not isOccupied" << std::endl;
-						// cout << x << "," << y <<  endl;
-						// cout << coords->x << "," << coords->y <<  endl;
  						delete theGrid[coords->x][coords->y].thing;
  						Character* dragon = charFactory->makeCharacter('r');
  						dragon->grid = this;
@@ -452,16 +560,13 @@ void Grid::generateGold() {
 						found = true;
 						check = false;
 					}
-					else {
-						//std::cout << "isOccupied" << std::endl;							
-					}
+					else {}
 					delete coords;
 				}
 				if(!found) {
 					i--;
 				}
 				else {
-					//cout << "dragon hoard" << endl;
 					Item* gold;
 					gold = itemFactory->makeItem(goldTypes[pos]);
 					DragonHorde* dh = dynamic_cast<DragonHorde*>(gold);
@@ -471,10 +576,8 @@ void Grid::generateGold() {
 					theGrid[x][y].isOccupied = true;
 					theGrid[x][y].notifyDisplay(*td);		
 				}
-				//delete coords;
 			}
 			else {
-				//cout << goldTypes[pos] << endl;
 				Item* gold;
 				gold = itemFactory->makeItem(goldTypes[pos]);
 				delete theGrid[x][y].thing;
@@ -536,7 +639,7 @@ string Grid::enemyAI() {
 										damage = merchant->attack(coords->x, coords->y);
 										ostringstream os;
 										delete coords;
-										os <<"ACTION :"<< enemy->raceID << " deals " << damage << " damage to PC";
+										os <<"Update:"<< enemy->raceID << " deals " << damage << " damage to PC";
 										s = os.str();
 										cout << s << endl;
 										cout << *this;
@@ -548,7 +651,7 @@ string Grid::enemyAI() {
 									if(hit) {
 												damage = enemy->attack(coords->x, coords->y);
 												ostringstream os;
-												os <<"ACTION: " << enemy->raceID << " deals " << damage << " damage to PC";
+												os <<"Update: " << enemy->raceID << " deals " << damage << " damage to PC";
 												s = os.str();
 												delete coords;
 												cout << s << endl;
