@@ -629,16 +629,18 @@ string Grid::enemyAI() {
 					int damage;
 					for(int k=0; k < radius.size(); k++) {
 							coords = evalDirection(radius[k],i,j);
-							if((theGrid[coords->x][coords->y].thing->type) == "character") {
+							int cx = coords->x;
+							int cy = coords->y;
+							delete coords;
+							if((theGrid[cx][cy].thing->type) == "character") {
 								if(enemy->type == "merchant"){
 									Merchant* merchant = dynamic_cast<Merchant*>(enemy);
 									srand(time(NULL));
 									int hit = rand() % + 2;
 									
 									if(merchant->isHostile == true && hit){
-										damage = merchant->attack(coords->x, coords->y);
+										damage = merchant->attack(cx, cy);
 										ostringstream os;
-										delete coords;
 										os <<"Update:"<< enemy->raceID << " deals " << damage << " damage to PC";
 										s = os.str();
 										cout << s << endl;
@@ -649,11 +651,10 @@ string Grid::enemyAI() {
 							else {	srand(time(NULL));
 									int hit = rand() % + 2;
 									if(hit) {
-												damage = enemy->attack(coords->x, coords->y);
+												damage = enemy->attack(cx, cy);
 												ostringstream os;
 												os <<"Update: " << enemy->raceID << " deals " << damage << " damage to PC";
 												s = os.str();
-												delete coords;
 												cout << s << endl;
 												cout << *this;
 												return s;
@@ -667,31 +668,29 @@ string Grid::enemyAI() {
 						//cout << theGrid[i][j].thing->type;
 						int npos = rand() % + radius.size();
 						coords = evalDirection(radius[npos], i, j);
-
+						int cx = coords->x;
+						int cy = coords->y;
+						delete coords;
 						radius.erase(radius.begin() + npos);
-						if(!(theGrid[coords->x][coords->y].isOccupied)) {
+						if(!(theGrid[cx][cy].isOccupied)) {
 							enemy->isMoved = true;
-							//cout << " check1";
-							//cout << " check2";
-							string originalType = theGrid[coords->x][coords->y].thing->type;
-							delete theGrid[coords->x][coords->y].thing;
+							string originalType = theGrid[cx][cy].thing->type;
+							delete theGrid[cx][cy].thing;
 							//cout << " check3";
-							theGrid[coords->x][coords->y].setThing(theGrid[i][j].thing);
+							theGrid[cx][cy].setThing(theGrid[i][j].thing);
 							//cout << " check4 ";
 							theGrid[i][j].setThing(new Ground);
 							enemy->standingOn = originalType;
 							//cout << " check6";
-							theGrid[coords->x][coords->y].isOccupied = true;
+							theGrid[cx][cy].isOccupied = true;
 							theGrid[i][j].isOccupied = false;
 							theGrid[i][j].notifyDisplay(*(td));
-							theGrid[coords->x][coords->y].notifyDisplay(*td);
+							theGrid[cx][cy].notifyDisplay(*td);
 							//found = true;
 							check = false;
 							z++;
 						}
 					counter++;
-					//cout << endl;
-					delete coords;
 					}
 				}
 			}

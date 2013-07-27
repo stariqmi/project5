@@ -47,7 +47,7 @@ string Character::move(string direction){
 
 	else if(originalType == "stairway") {
 		grid->level++;
-		if(grid->level == 3) {
+		if(grid->level == 10) {
 			result =  "finish";
 			move = true;
 		}

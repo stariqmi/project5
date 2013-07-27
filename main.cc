@@ -43,6 +43,7 @@ int main(int argc, char* argv[]) {
 					}	
 					nextLevel = true;
 				}
+				// if conditon for moveCheck == finish;
 				else {
 					//cout << *grid;
 					string result = helper->evaluateMove(grid, grid->player, s, initialGold, moveCheck);
