@@ -43,6 +43,7 @@ string CombatMediator::combat(int ai, int aj, int di, int dj) {
 		if(attacker2->hp < 0) {hp = 0;}
 		os << "PC deals " << damage1 << " damage to " << attacker2->raceID << " (" << hp << " HP)."; 
 		result1 = os.str();
+		cout << result1 << endl;
 
 		// Enemy killed, drops gold
 		if(attacker2->hp <= 0) {

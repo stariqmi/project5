@@ -576,6 +576,7 @@ void Grid::generateGold() {
 
 string Grid::enemyAI(string pc_move) {
 	int counter = 0;
+	
 	string s;
 	for (int i = 0; i < 25; i++)
 	{
@@ -634,7 +635,9 @@ string Grid::enemyAI(string pc_move) {
 										return s;
 									}
 									//delete coords;
+
 									cout << *this;
+									cout << pc_move << endl;
 									return s;
 								}
 
@@ -652,6 +655,7 @@ string Grid::enemyAI(string pc_move) {
 											}
 									//delete coords;
 									cout << *this;
+									cout << pc_move << endl;
 									return s; 
 								}					
 							}	
