@@ -6,9 +6,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <sstream>
-#include "grid.h"
-#include "coordinates.h"
-
 
 class Scoreboard {
 public:
@@ -16,6 +13,7 @@ public:
 	static Scoreboard* getInstance();
 	Scoreboard();
 	int score;
+	int highscore;
 	void addScore(int points);
 	static void cleanup();
 };

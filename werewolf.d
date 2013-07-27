@@ -1,4 +1,4 @@
-werewolf.o: werewolf.cc werewolf.h character.h coordinates.h \
+werewolf.o: werewolf.cc werewolf.h character.h scoreboard.h coordinates.h \
  livingthing.h thing.h potion.h item.h nonlivingthing.h grid.h tile.h \
  textdisplay.h room.h wall.h door.h ground.h passage.h stairway.h \
  combatMediator.h charFactory.h orc.h human.h dwarf.h elf.h vampire.h \

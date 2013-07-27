@@ -40,7 +40,7 @@ string CombatMediator::combat(int ai, int aj, int di, int dj) {
 		ostringstream os;
 		int hp;
 		hp = attacker2->hp;
-		if(attacker2->hp < 0) hp = 0;
+		if(attacker2->hp < 0) {hp = 0;}
 		os << "PC deals " << damage1 << " damage to " << attacker2->raceID << " (" << hp << " HP)."; 
 		result1 = os.str();
 

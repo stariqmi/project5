@@ -26,18 +26,27 @@ int main(int argc, char* argv[]) {
 	int player_health = 0;
 	int player_gold = 0;
 	char type;
+	bool finish = false;
+	bool died = false;
 	bool nextLevel = false;
 	bool keepPlaying = true;
 	while(keepPlaying) {
-		if(!nextLevel) {
+		if(!nextLevel && !(died || finish)) {
 			cout << "Select race (default Human): ";
 			cin >> type;
 		}
 		grid->initializeFloor(type);
-		if(nextLevel) {
+		if(nextLevel && !(died || finish) ) {
 			cout << "new level!" << endl;
 			grid->player->hp = player_health;
 			grid->player->gold = player_gold;
+		}
+		if(died || finish) {
+			 cout << "Current Score " << grid->player->scoreboard->score << endl;
+			 cout << "High Score " << grid->player->scoreboard->highscore << endl;
+			 died = false;
+			 finish = false;
+
 		}
 		cout << *grid;
 		nextLevel = false;
@@ -55,6 +64,10 @@ int main(int argc, char* argv[]) {
 						grid->clearGrid();
 					}	
 					nextLevel = true;
+				}
+				else if(moveCheck == "finish") {
+					finish = true;
+					break;
 				}
 				// if conditon for moveCheck == finish;
 				else {
@@ -137,6 +150,12 @@ int main(int argc, char* argv[]) {
 			}
 			if(nextLevel) { 
 				break; 
+			}
+			if(grid->player->hp <= 0){
+				died = true;
+				grid->clearGrid();
+				grid->level = 1;
+				break;
 			}
 		}
 		if(cin.fail()) keepPlaying = false;

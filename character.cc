@@ -4,12 +4,13 @@
 #include <string>
 #include <sstream>
 #include <math.h>
-
+#include "scoreboard.h"
 using namespace std;
 
 Character::Character(): gold(0), isMoved(false) {
 	type = "character";
 	standingOn = "ground";
+	scoreboard = Scoreboard::getInstance();
 }
 
 string Character::move(string direction){
@@ -36,7 +37,8 @@ string Character::move(string direction){
 		if(treasure->treasureType == "dragonhorde") {
 			DragonHorde* dragonhorde = dynamic_cast<DragonHorde*>(treasure);
 			if(dragonhorde->giveGold() != 0) { 
-				player->gold += player->pickGold(dragonhorde->giveGold()); 
+				player->gold += player->pickGold(dragonhorde->giveGold());
+				player->scoreboard->addScore(player->gold); 
 			}
 			else {
 				result = "dragon";
@@ -46,6 +48,8 @@ string Character::move(string direction){
 		// Any other type of treasure
 		else {
 			player->gold += player->pickGold(treasure->giveGold()); 	
+			//cout << player->scoreboard->score << endl;
+			player->scoreboard->addScore(player->gold);		
 		}
 		if(originalGold != player->gold) {
 			result = "gold";
