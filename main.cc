@@ -128,8 +128,7 @@ int main(int argc, char* argv[]) {
 				error =  "ERROR: Not a valid command";
 			}
 			if(success) {
-				grid->enemyAI();
-				cout << action << endl;
+				grid->enemyAI(action);
 				player_gold = grid->player->gold;
 				player_health = grid->player->hp;
 			}

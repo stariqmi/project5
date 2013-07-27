@@ -573,7 +573,7 @@ void Grid::generateGold() {
 	}	
 }
 
-string Grid::enemyAI() {
+string Grid::enemyAI(string pc_move) {
 	int counter = 0;
 	string s;
 	for (int i = 0; i < 25; i++)
@@ -628,6 +628,7 @@ string Grid::enemyAI() {
 										os <<"Update:"<< enemy->raceID << " deals " << damage << " damage to PC";
 										s = os.str();
 										cout << *this;
+										cout << pc_move << endl;
 										cout << s << endl;
 										return s;
 									}
@@ -640,6 +641,7 @@ string Grid::enemyAI() {
 												os <<"Update: " << enemy->raceID << " deals " << damage << " damage to PC";
 												s = os.str();
 												cout << *this;
+												cout << pc_move << endl;
 												cout << s << endl;
 												return s;
 											} 
@@ -675,6 +677,7 @@ string Grid::enemyAI() {
 		}
 	}
 	cout << *this;
+	cout << pc_move << endl;
 	return s;
 }	
 
