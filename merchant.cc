@@ -21,5 +21,5 @@ void Merchant::setHealth(int h){
 	hp = h; 
 }
 
-bool Merchant::isHostile = true;
+bool Merchant::isHostile = false;
 

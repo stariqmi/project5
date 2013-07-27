@@ -15,52 +15,71 @@ using namespace std;
 const int xsize = 80;
 const int ysize = 25;
 
-int main() {
+int main(int argc, char* argv[]) {
 	Helper* helper = new Helper;
 	TextDisplay* td = new TextDisplay(xsize, ysize);
 	Grid* grid = new Grid(td, xsize, ysize);
+	if(argc > 1) grid->layout = argv[1];
 	CombatMediator* cm = new CombatMediator(grid);
 	grid->combatMediator = cm;
 	string s;
+	int player_health = 0;
+	int player_gold = 0;
 	char type;
 	bool nextLevel = false;
 	bool keepPlaying = true;
 	while(keepPlaying) {
 		if(!nextLevel) {
+			cout << "Select race (default Human): ";
 			cin >> type;
 		}
 		grid->initializeFloor(type);
+		if(nextLevel) {
+			cout << "new level!" << endl;
+			grid->player->hp = player_health;
+			grid->player->gold = player_gold;
+		}
+		cout << *grid;
+		nextLevel = false;
 		while (cin >> s) {
 			bool success = false;
+			string action;
+			string error;
 			if (s == "no" || s == "so" || s == "ea" || s == "we" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
 				int initialGold = grid->player->gold;
 				string moveCheck = grid->player->move(s);
 				if(moveCheck == "next") {
+					player_gold = grid->player->gold;
+					player_health = grid->player->hp;
 					if(grid->theGrid != NULL) { 
 						grid->clearGrid();
 					}	
 					nextLevel = true;
 				}
+				// if conditon for moveCheck == finish;
 				else {
 					//cout << *grid;
 					string result = helper->evaluateMove(grid, grid->player, s, initialGold, moveCheck);
 					if(result == "invalid") {
-						cout << "ERROR: Invalid move - Cannot walk over wall, potion, enemy or empty space." << endl;
+						error = "ERROR: Invalid move - Cannot walk over wall, potion, enemy or empty space.";
 					}
 					else if(result == "outside") {
-						cout << "ERROR: Invalid move - You can't move outside playable region." << endl;
+						error = "ERROR: Invalid move - You can't move outside playable region.";
 					}
 					else if(result == "dragon") {
-						cout << "ERROR: Invalid move - You need to kill the dragon before you can take the Dragon Horde." << endl;
+						error = "ERROR: Invalid move - You need to kill the dragon before you can take the Dragon Horde.";
 					}
 					else {
-						cout << "Action: " << result << "." << endl;
+						action = "Action: " + result + ".";
 						success = true;
 					}
 				}
 			}
 
 			else if (s == "r") {
+				player_gold = 0;
+				player_health = 0;
+				grid->level = 1;
 				if(grid->theGrid != NULL) { 
 					grid->clearGrid(); 
 				}
@@ -77,12 +96,12 @@ int main() {
 					string potionType = potion->potionType;
 					grid->player->usePotion(c->x, c->y);
 					//cout << *grid;
-					cout << "Action: PC used " << potionType << "." << endl;
+					action = "Action: PC used " + potionType + ".";
 					success = true;
 				}
 				else {
 					//cout << *grid;
-					cout << "ERROR: Invalid direction - No potion exists at such location." << endl;
+					error = "ERROR: Invalid direction - No potion exists at such location.";
 				}
 				delete c;
 			}
@@ -95,21 +114,30 @@ int main() {
 				delete c1;
 				//cout << *grid;
 				if(checkAttack == "invalid") {
-					cout << "ERROR: Invalid move (Cannot attack here)" << endl;
+					error = "ERROR: Invalid move (Cannot attack here)";
 				}
 				else {
-					success = false;
-					cout << *grid;
-					cout << "Action: " << checkAttack << endl;
+					success = true;
+					//cout << *grid;
+					action = "Action: " + checkAttack;
 				}
 			}
 
 			else if (s == "q")  {delete grid; keepPlaying = false; break;}		
 			else {
-				cout << "ERROR: Not a valid command" <<  endl;
+				error =  "ERROR: Not a valid command";
 			}
-			if(success) grid->enemyAI();
-			if(nextLevel) break;
+			if(success) {
+				grid->enemyAI(action);
+				player_gold = grid->player->gold;
+				player_health = grid->player->hp;
+			}
+			else {
+				cout << error << endl;
+			}
+			if(nextLevel) { 
+				break; 
+			}
 		}
 		if(cin.fail()) keepPlaying = false;
 	}

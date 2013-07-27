@@ -18,22 +18,13 @@ void Elf::setHealth(int h){
 	hp = h; 
 }
 
+
+// Elf converts negative potions to positive potions
 void Elf::usePotion(int i, int j) {
 	Potion* potion = dynamic_cast<Potion*>(grid->theGrid[i][j].thing);
-	cout << "Potion Effect: " << potion->effect << endl;
-	cout << "Effect on: " << potion->effectOn << endl;
-	cout << "Magnitude: " << potion->magnitude << endl;
-	cout << endl;
-	cout << "Your health (pre) : " << hp << endl;
-	cout << "Your attack (pre) :" << atk << endl;
-	cout << "Your defence (pre) :" << def << endl;
 	if(potion->effectOn == "health") { if(hp != 140) hp += potion->magnitude; }
 	else if(potion->effectOn == "attack") atk += potion->magnitude; 
 	else def += potion->magnitude;
-	cout << endl;
-	cout << "Your health (post) : " << hp << endl;
-	cout << "Your attack (post) :" << atk << endl;
-	cout << "Your defence (post) :" << def << endl;
 	delete grid->theGrid[i][j].thing;
 	grid->theGrid[i][j].setThing(new Ground);
 	grid->theGrid[i][j].notifyDisplay(*(grid->td));

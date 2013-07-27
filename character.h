@@ -10,20 +10,17 @@ class Grid;
 
 class Character: public LivingThing {
 	public:
-		bool isMoved;
+		bool isMoved;	// for enemy AI
 		int gold;
 		Grid* grid;
-		std::string standingOn;
-		char raceID;
-		int x;
-		int y;
-		Character(); // Sets defense, attack, gold and health
-		virtual int pickGold(int gold); // it picks and set gold
-		void usePotion(int i, int j);
+		std::string standingOn; // for PC, standing on ground, door, passage or stairway
+		char raceID;	// char to represent race
+		int x;	// X-location in grid
+		int y;	// y-location in grid
+		Character(); 
+		virtual int pickGold(int gold);
+		virtual void usePotion(int i, int j);
 		std::string move(std::string direction);
-		int getAtk();
-		int getDef();
-		void attack(Coordinates* c);
 		virtual int attack(int i, int j);
 		~Character();
 };

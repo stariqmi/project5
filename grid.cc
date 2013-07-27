@@ -7,8 +7,8 @@
 
 using namespace std;
 
-Grid::Grid(TextDisplay* td, int x, int y): theGrid(NULL), td(td), xsize(x), ysize(y), level(1), charFactory(new CharacterFactory), itemFactory(new ItemFactory) 
-{wallet = wallet::getInstance();}
+
+Grid::Grid(TextDisplay* td, int x, int y): layout("floor.txt"), theGrid(NULL), td(td), xsize(x), ysize(y), level(1), charFactory(new CharacterFactory), itemFactory(new ItemFactory) {}
 
 Grid::~Grid() {
 	this->clearGrid();
@@ -18,23 +18,11 @@ Grid::~Grid() {
 	delete combatMediator;
 }
 
-
-
 void Grid::clearGrid() {
-	// for(int i = 0; i < this->ysize; i++) {
-	// 	for(int j = 0; j < this->xsize; j++) {
-	// 		if(theGrid[i][j].thing) {
-	// 			delete theGrid[i][j].thing;
-	// 		}
-	// 	}
-	// }
 	for(int i = 0; i < this->ysize; i++) {
 		delete[] this->theGrid[i];
 	}
 	this->td->clearDisplay();
-	//vector<Coordinates*>::iterator it = this->ground.begin();
-	// //cout << this->ground.size() << endl;
-	
 	for (int i = 0; i < 5; i++) {
 		rooms[i].isOccupied = false;
 		vector<Coordinates*>::iterator it = rooms[i].tiles.begin();
@@ -45,6 +33,202 @@ void Grid::clearGrid() {
 		rooms[i].tiles.clear();
 	}
 	delete[] this->theGrid;
+}
+
+void Grid::setGold() {
+	string directions[4] = {"we", "no", "ea", "so"};
+	ifstream file(layout.c_str());
+	for(int i = 0; i < 25; i++) {
+		string line;
+		getline(file, line);
+		for(int j = 0; j < 80; j++) {
+			if(line[j] == 'G') {
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(new Treasure(0, "gold"));
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+		}
+	}
+	int dragonCount = 0;
+	file.close();
+	ifstream file2(layout.c_str());
+	for(int i = 0; i < 25; i++) {
+		string line;
+		getline(file2, line);
+		for(int j = 0; j < 80; j++) {
+			if(line[j] == 'D') {
+				dragonCount++;
+				delete theGrid[i][j].thing;
+				Character* enemy = charFactory->makeCharacter('r');
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+				bool toProtect = true;
+				int z = 0;
+				while(toProtect) {
+					Coordinates* c = evalDirection(directions[z], i, j);
+					if(theGrid[c->x][c->y].thing->type == "gold") {
+						Treasure* treasure = dynamic_cast<Treasure*>(theGrid[c->x][c->y].thing);
+						if(treasure->treasureType == "gold") {
+							toProtect = false;
+							delete theGrid[c->x][c->y].thing;
+							Item* treasure2 = itemFactory->makeItem("DH");
+							theGrid[c->x][c->y].setThing(treasure2);
+							DragonHorde* dh = dynamic_cast<DragonHorde*>(treasure2);
+							dh->protector = &(theGrid[i][j]);
+							theGrid[c->x][c->y].isOccupied = true;
+							theGrid[c->x][c->y].notifyDisplay(*td);
+							Dragon* dragon = dynamic_cast<Dragon*>(enemy);
+							dragon->treasureLocation = &(theGrid[c->x][c->y]);
+						}
+					}
+					delete c;
+					z++;
+				}
+			}
+		}
+	}
+	file2.close();
+	ifstream file3(layout.c_str());
+	vector<string> goldTypes;
+	goldTypes.push_back("DH");
+	goldTypes.push_back("SH");
+	goldTypes.push_back("SH");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
+	for (int i = 0; i < 25; i++) {
+		string line;
+		getline(file3, line);
+		for(int j = 0; j < 80; j++) {
+			if(line[j] == 'G') {
+				Treasure* t = dynamic_cast<Treasure*>(theGrid[i][j].thing);
+				if(t->treasureType == "gold") {
+					bool find = true;
+					while(find) {
+						srand(time(0));
+						int pos = rand() % + goldTypes.size();
+						if(goldTypes[pos] != "DH") {
+							delete theGrid[i][j].thing;
+							theGrid[i][j].setThing(itemFactory->makeItem(goldTypes[pos]));
+							theGrid[i][j].isOccupied = true;
+							theGrid[i][j].notifyDisplay(*td);
+							find = false;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+void Grid::setPotions() {
+	vector<string> potionTypes;
+	potionTypes.push_back("RH");
+	potionTypes.push_back("PH");
+	potionTypes.push_back("BA");
+	potionTypes.push_back("BD");
+	potionTypes.push_back("WA");
+	potionTypes.push_back("WD");
+
+	vector<string> potions;
+	for(int i = 0; i < 10; i++) {
+		int pPos = rand() % + potionTypes.size();
+		potions.push_back(potionTypes[pPos]);
+	}
+	ifstream file(layout.c_str());
+	for(int i = 0; i < 25; i++) {
+		string line;
+		getline(file, line);
+		for(int j = 0; j < 80; j++) {
+			if(line[j] == 'P') {
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(itemFactory->makeItem(potions[potions.size() - 1]));
+				potions.pop_back();
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+		}
+	}
+	file.close();
+}
+
+void Grid::setLayout(char type) {
+	ifstream file(layout.c_str());
+	for(int i = 0; i < 25; i++) {
+		string line;
+		getline(file, line);
+		for(int j = 0; j < 80; j++) {
+			if(line[j] == 'N') {
+				Character* enemy = charFactory->makeCharacter('g');
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == 'X') {
+				Character* enemy = charFactory->makeCharacter('x');
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == 'W') {
+				Character* enemy = charFactory->makeCharacter('w');
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == 'V') {
+				Character* enemy = charFactory->makeCharacter('v');
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == 'T') {
+				Character* enemy = charFactory->makeCharacter('t');
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == '/') {
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(new Stairway);
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == 'M') {
+				Character* enemy = charFactory->makeCharacter('m');
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(enemy);
+				enemy->grid = this;
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+			else if(line[j] == '@') {
+				delete theGrid[i][j].thing;
+				player =  charFactory->makeCharacter(type);
+				theGrid[i][j].setThing(player);
+				player->x = i;
+				player->y = j;
+				player->grid = this;
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+		}
+	}
 }
 
 void Grid::initializeFloor(char type) {
@@ -162,18 +346,27 @@ void Grid::initializeFloor(char type) {
 			this->rooms[4].tiles.push_back(c);
 		}
 
-		player = generateCharacter(type);
-		generateStairway();
-		generateGold();
-		generatePotions();
-		generateEnemies();
-		cout<< *this;
+		if(layout == "floor.txt") {		
+			player = generateCharacter(type);
+			generateStairway();
+			generateGold();
+			generatePotions();
+			generateEnemies();
+		}
+		else {
+			setLayout(type);
+			setPotions();
+			setGold();
+		}
+		//if(level = 1) cout<< *this;
 }
 
 Character* Grid::generateCharacter(char type) {
+	if(type != 'e' && type != 'h' && type != 'o' && type != 'd') {
+		type = 'h';
+	}
 	srand(time(NULL));
 	int pos = rand() % + 5;
-	//cout << x << "," << y << endl;
 	this->rooms[pos].isOccupied = true;
 	srand(time(NULL));
 	int pos2 = rand() % + this->rooms[pos].tiles.size();
@@ -223,12 +416,10 @@ Character* Grid::generateEnemies(){
 		//cout << pos << endl;
 		//srand(time(NULL));
 		int pos2 = rand() % + rooms[pos].tiles.size();
-		//cout << pos2 << endl;
 		int x = rooms[pos].tiles[pos2]->x;
 		int y = rooms[pos].tiles[pos2]->y;
 		if(theGrid[x][y].isOccupied) {
  			i--; 
-			//continue;
 		}
 		else {
 			delete theGrid[x][y].thing;
@@ -260,7 +451,6 @@ void Grid::generatePotions() {
 		int y = rooms[pos2].tiles[pos3]->y;
 		if(theGrid[x][y].isOccupied) {
 			i--; 
-			//continue;
 		}
 		else {
 			Item* potion;
@@ -307,6 +497,11 @@ void Grid::generateGold() {
 	vector<string> goldTypes;
 	goldTypes.push_back("DH");
 	goldTypes.push_back("SH");
+	goldTypes.push_back("SH");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
+	goldTypes.push_back("NG");
 	goldTypes.push_back("NG");
 	for (int i = 0; i < 10; i++) {
 		int pos = rand() % + goldTypes.size();
@@ -317,12 +512,10 @@ void Grid::generateGold() {
 		int y = rooms[pos2].tiles[pos3]->y;
 		if(theGrid[x][y].isOccupied) {
 			i--; 
-			//continue;
 		}
 		else {
 		
 			if(goldTypes[pos] == "DH") {
-				//cout << goldTypes[pos] << endl;
 				vector<string> radius;
 				radius.push_back("no");
 				radius.push_back("so");
@@ -333,6 +526,7 @@ void Grid::generateGold() {
 				Coordinates* coords;
 				int xc;
 				int yc;
+				Character* dragon;
 				while(check && radius.size()) {
 					int npos = rand() % + radius.size();
 					coords = evalDirection(radius[npos], x, y);
@@ -340,12 +534,8 @@ void Grid::generateGold() {
 					yc = coords->y;
 					radius.erase(radius.begin() + npos);
 					if(!(theGrid[coords->x][coords->y].isOccupied)) {
-						// cout << "dragon" << endl;
-						// std::cout << "not isOccupied" << std::endl;
-						// cout << x << "," << y <<  endl;
-						// cout << coords->x << "," << coords->y <<  endl;
  						delete theGrid[coords->x][coords->y].thing;
- 						Character* dragon = charFactory->makeCharacter('r');
+ 						dragon = charFactory->makeCharacter('r');
  						dragon->grid = this;
 						theGrid[coords->x][coords->y].setThing(dragon);
 						theGrid[coords->x][coords->y].isOccupied = true;
@@ -353,16 +543,13 @@ void Grid::generateGold() {
 						found = true;
 						check = false;
 					}
-					else {
-						//std::cout << "isOccupied" << std::endl;							
-					}
+					else {}
 					delete coords;
 				}
 				if(!found) {
 					i--;
 				}
 				else {
-					//cout << "dragon hoard" << endl;
 					Item* gold;
 					gold = itemFactory->makeItem(goldTypes[pos]);
 					DragonHorde* dh = dynamic_cast<DragonHorde*>(gold);
@@ -371,11 +558,11 @@ void Grid::generateGold() {
 					theGrid[x][y].setThing(gold);
 					theGrid[x][y].isOccupied = true;
 					theGrid[x][y].notifyDisplay(*td);		
+					Dragon* protector = dynamic_cast<Dragon*>(dragon);
+					protector->treasureLocation = &(theGrid[x][y]);
 				}
-				//delete coords;
 			}
 			else {
-				//cout << goldTypes[pos] << endl;
 				Item* gold;
 				gold = itemFactory->makeItem(goldTypes[pos]);
 				delete theGrid[x][y].thing;
@@ -387,7 +574,7 @@ void Grid::generateGold() {
 	}	
 }
 
-string Grid::enemyAI() {
+string Grid::enemyAI(string pc_move) {
 	int counter = 0;
 	string s;
 	for (int i = 0; i < 25; i++)
@@ -427,20 +614,23 @@ string Grid::enemyAI() {
 					int damage;
 					for(int k=0; k < radius.size(); k++) {
 							coords = evalDirection(radius[k],i,j);
-							if((theGrid[coords->x][coords->y].thing->type) == "character") {
+							int cx = coords->x;
+							int cy = coords->y;
+							delete coords;
+							if((theGrid[cx][cy].thing->type) == "character") {
 								if(enemy->type == "merchant"){
 									Merchant* merchant = dynamic_cast<Merchant*>(enemy);
 									srand(time(NULL));
 									int hit = rand() % + 2;
 									
 									if(merchant->isHostile == true && hit){
-										damage = merchant->attack(coords->x, coords->y);
+										damage = merchant->attack(cx, cy);
 										ostringstream os;
-										delete coords;
-										os <<"ACTION :"<< enemy->raceID << " deals " << damage << " damage to PC";
+										os <<"Update:"<< enemy->raceID << " deals " << damage << " damage to PC";
 										s = os.str();
-										cout << s << endl;
 										cout << *this;
+										cout << pc_move << endl;
+										cout << s << endl;
 										return s;
 									}
 									delete coords;
@@ -451,13 +641,13 @@ string Grid::enemyAI() {
 							else {	srand(time(NULL));
 									int hit = rand() % + 2;
 									if(hit) {
-												damage = enemy->attack(coords->x, coords->y);
+												damage = enemy->attack(cx, cy);
 												ostringstream os;
-												os <<"ACTION: " << enemy->raceID << " deals " << damage << " damage to PC";
+												os <<"Update: " << enemy->raceID << " deals " << damage << " damage to PC";
 												s = os.str();
-												delete coords;
-												cout << s << endl;
 												cout << *this;
+												cout << pc_move << endl;
+												cout << s << endl;
 												return s;
 											}
 									delete coords;
@@ -468,41 +658,34 @@ string Grid::enemyAI() {
 						}
 					
 					while(check && radius.size()) {
-						//cout << " " << z << " ";
-						//cout << theGrid[i][j].thing->type;
 						int npos = rand() % + radius.size();
 						coords = evalDirection(radius[npos], i, j);
-
+						int cx = coords->x;
+						int cy = coords->y;
+						delete coords;
 						radius.erase(radius.begin() + npos);
-						if(!(theGrid[coords->x][coords->y].isOccupied)) {
+						if(!(theGrid[cx][cy].isOccupied)) {
 							enemy->isMoved = true;
-							//cout << " check1";
-							//cout << " check2";
-							string originalType = theGrid[coords->x][coords->y].thing->type;
-							delete theGrid[coords->x][coords->y].thing;
-							//cout << " check3";
-							theGrid[coords->x][coords->y].setThing(theGrid[i][j].thing);
-							//cout << " check4 ";
+							string originalType = theGrid[cx][cy].thing->type;
+							delete theGrid[cx][cy].thing;
+							theGrid[cx][cy].setThing(theGrid[i][j].thing);
 							theGrid[i][j].setThing(new Ground);
 							enemy->standingOn = originalType;
-							//cout << " check6";
-							theGrid[coords->x][coords->y].isOccupied = true;
+							theGrid[cx][cy].isOccupied = true;
 							theGrid[i][j].isOccupied = false;
 							theGrid[i][j].notifyDisplay(*(td));
-							theGrid[coords->x][coords->y].notifyDisplay(*td);
-							//found = true;
+							theGrid[cx][cy].notifyDisplay(*td);
 							check = false;
 							z++;
 						}
 					counter++;
-					//cout << endl;
-					delete coords;
 					}
 				}
 			}
 		}
 	}
 	cout << *this;
+	cout << pc_move << endl;
 	return s;
 }	
 
@@ -523,7 +706,7 @@ ostream& operator<<(ostream &out, const Grid &g) {
 			race = "Dwarf";
 			break;
 	}
-	out << "Race: " << race << " Gold: " << g.player->gold << "                                    Floor: " << g.level << endl;
+	out << "Race: " << race << " Gold: " << g.player->gold << "                                       Floor: " << g.level << endl;
 	out << "HP: " << g.player->hp << endl;
 	out << "Atk: " << g.player->atk << endl;
 	out << "Def: " << g.player->def << endl;

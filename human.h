@@ -7,7 +7,6 @@ class Human: public Character {
 public:
 	Human();
 	int pickGold(int gold); 
-	void usePotion(int i, int j);
 	int getHealth();
 	void setHealth(int h);
 };
