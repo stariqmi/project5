@@ -37,6 +37,7 @@ public:
 	~Grid();
 	void clearGrid();
 	void initializeFloor(char type);
+	void setPotions();
 	void setLayout(char type);
 	void generateStairway();
 	Coordinates* evalDirection(std::string dir, int i, int j);

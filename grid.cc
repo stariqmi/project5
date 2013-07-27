@@ -46,6 +46,39 @@ void Grid::clearGrid() {
 	delete[] this->theGrid;
 }
 
+void Grid::setPotions() {
+	vector<string> potionTypes;
+	potionTypes.push_back("RH");
+	potionTypes.push_back("PH");
+	potionTypes.push_back("BA");
+	potionTypes.push_back("BD");
+	potionTypes.push_back("WA");
+	potionTypes.push_back("WD");
+
+	vector<string> potions;
+	for(int i = 0; i < 10; i++) {
+		int pPos = rand() % + potionTypes.size();
+		//cout << potionTypes[pPos] << endl;
+		potions.push_back(potionTypes[pPos]);
+	}
+	//cout << "potions selected" << endl;
+	ifstream file(layout.c_str());
+	for(int i = 0; i < 25; i++) {
+		string line;
+		getline(file, line);
+		for(int j = 0; j < 80; j++) {
+			if(line[j] == 'P') {
+				delete theGrid[i][j].thing;
+				theGrid[i][j].setThing(itemFactory->makeItem(potions[potions.size() - 1]));
+				potions.pop_back();
+				theGrid[i][j].isOccupied = true;
+				theGrid[i][j].notifyDisplay(*td);
+			}
+		}
+	}
+	file.close();
+}
+
 void Grid::setLayout(char type) {
 	ifstream file(layout.c_str());
 	for(int i = 0; i < 25; i++) {
@@ -231,6 +264,7 @@ void Grid::initializeFloor(char type) {
 		else {
 			//cout << "command line layout" << endl;
 			setLayout(type);
+			setPotions();
 		}
 		cout<< *this;
 }
