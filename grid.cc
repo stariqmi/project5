@@ -7,7 +7,8 @@
 
 using namespace std;
 
-Grid::Grid(TextDisplay* td, int x, int y): theGrid(NULL), td(td), xsize(x), ysize(y), level(1), charFactory(new CharacterFactory), itemFactory(new ItemFactory) {}
+Grid::Grid(TextDisplay* td, int x, int y): theGrid(NULL), td(td), xsize(x), ysize(y), level(1), charFactory(new CharacterFactory), itemFactory(new ItemFactory) 
+{wallet = wallet::getInstance();}
 
 Grid::~Grid() {
 	this->clearGrid();
@@ -442,7 +443,11 @@ string Grid::enemyAI() {
 										cout << *this;
 										return s;
 									}
+									delete coords;
+									cout << *this;
+									return s;
 								}
+
 							else {	srand(time(NULL));
 									int hit = rand() % + 2;
 									if(hit) {
@@ -454,7 +459,10 @@ string Grid::enemyAI() {
 												cout << s << endl;
 												cout << *this;
 												return s;
-											} 
+											}
+									delete coords;
+									cout << *this;
+									return s; 
 								}					
 							}	
 						}
