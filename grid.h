@@ -32,7 +32,6 @@ public:
 	Room rooms[5];
 	Character* player;
 	CombatMediator* combatMediator;
-	//std::vector<Coordinates*> ground;
 	Grid(TextDisplay* td, int x, int y);
 	~Grid();
 	void clearGrid();

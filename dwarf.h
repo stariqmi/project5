@@ -6,8 +6,7 @@
 class Dwarf: public Character {
 public:
 	Dwarf();
-	int pickGold(int gold); 
-	void usePotion(int i, int j);
+	int pickGold(int gold);
 	int getHealth();
 	void setHealth(int h);
 };

@@ -30,8 +30,23 @@ int main(int argc, char* argv[]) {
 		if(!nextLevel) {
 			cin >> type;
 		}
-		nextLevel = false;
+		else {
+			// int prev_hp = grid->player->hp;
+			// int prev_gold = grid->player->gold;
+			// int prev_x = grid->player->x;
+			// int prev_y = grid->player->y;
+			// delete grid->theGrid[prev_x][prev_y].thing;
+			// Character* newPlayer = grid->charFactory->makeCharacter(type);
+			// newPlayer->x = prev_x;
+			// newPlayer->y = prev_y;
+			// newPlayer->gold = prev_gold;
+			// newPlayer->hp = prev_hp;
+			// newPlayer->grid = grid;
+			// grid->theGrid[prev_x][prev_y].setThing(newPlayer);
+			// grid->theGrid[prev_x][prev_y].notifyDisplay(*(grid->td));
+		}
 		grid->initializeFloor(type);
+		nextLevel = false;
 		while (cin >> s) {
 			bool success = false;
 			if (s == "no" || s == "so" || s == "ea" || s == "we" || s == "nw" || s == "ne" || s == "sw" || s == "se") {

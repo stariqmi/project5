@@ -9,7 +9,8 @@ class CombatMediator {
 public:
 	Grid* grid;
 	CombatMediator(Grid* g);
-	std::string combat(int ai, int aj, int di, int dj);
+	std::string combat(int ai, int aj, int di, int dj); // Combat between two characters, 
+														//each pair represents each characters coordinates
 };
 
 #endif

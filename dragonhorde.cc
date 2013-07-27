@@ -11,8 +11,6 @@ int DragonHorde::giveGold() {
 		return gold;
 	}
 	else {
-		cout << "protector type: " << protector->thing->type << endl;
-		cout << "Kill the damn dragon you coward!" << endl;
 		return 0;
 	}
 }

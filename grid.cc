@@ -17,23 +17,11 @@ Grid::~Grid() {
 	delete combatMediator;
 }
 
-
-
 void Grid::clearGrid() {
-	// for(int i = 0; i < this->ysize; i++) {
-	// 	for(int j = 0; j < this->xsize; j++) {
-	// 		if(theGrid[i][j].thing) {
-	// 			delete theGrid[i][j].thing;
-	// 		}
-	// 	}
-	// }
 	for(int i = 0; i < this->ysize; i++) {
 		delete[] this->theGrid[i];
 	}
 	this->td->clearDisplay();
-	//vector<Coordinates*>::iterator it = this->ground.begin();
-	// //cout << this->ground.size() << endl;
-	
 	for (int i = 0; i < 5; i++) {
 		rooms[i].isOccupied = false;
 		vector<Coordinates*>::iterator it = rooms[i].tiles.begin();
@@ -149,10 +137,8 @@ void Grid::setPotions() {
 	vector<string> potions;
 	for(int i = 0; i < 10; i++) {
 		int pPos = rand() % + potionTypes.size();
-		//cout << potionTypes[pPos] << endl;
 		potions.push_back(potionTypes[pPos]);
 	}
-	//cout << "potions selected" << endl;
 	ifstream file(layout.c_str());
 	for(int i = 0; i < 25; i++) {
 		string line;
@@ -240,9 +226,6 @@ void Grid::setLayout(char type) {
 				theGrid[i][j].isOccupied = true;
 				theGrid[i][j].notifyDisplay(*td);
 			}
-			//file.close();
-			//setPotions();
-			//setGold();
 		}
 	}
 }
@@ -363,7 +346,6 @@ void Grid::initializeFloor(char type) {
 		}
 
 		if(layout == "floor.txt") {		
-			//cout << "normal layout" << endl;
 			player = generateCharacter(type);
 			generateStairway();
 			generateGold();
@@ -371,7 +353,6 @@ void Grid::initializeFloor(char type) {
 			generateEnemies();
 		}
 		else {
-			//cout << "command line layout" << endl;
 			setLayout(type);
 			setPotions();
 			setGold();
@@ -382,7 +363,6 @@ void Grid::initializeFloor(char type) {
 Character* Grid::generateCharacter(char type) {
 	srand(time(NULL));
 	int pos = rand() % + 5;
-	//cout << x << "," << y << endl;
 	this->rooms[pos].isOccupied = true;
 	srand(time(NULL));
 	int pos2 = rand() % + this->rooms[pos].tiles.size();
@@ -432,12 +412,10 @@ Character* Grid::generateEnemies(){
 		//cout << pos << endl;
 		//srand(time(NULL));
 		int pos2 = rand() % + rooms[pos].tiles.size();
-		//cout << pos2 << endl;
 		int x = rooms[pos].tiles[pos2]->x;
 		int y = rooms[pos].tiles[pos2]->y;
 		if(theGrid[x][y].isOccupied) {
  			i--; 
-			//continue;
 		}
 		else {
 			delete theGrid[x][y].thing;
@@ -469,7 +447,6 @@ void Grid::generatePotions() {
 		int y = rooms[pos2].tiles[pos3]->y;
 		if(theGrid[x][y].isOccupied) {
 			i--; 
-			//continue;
 		}
 		else {
 			Item* potion;
@@ -531,7 +508,6 @@ void Grid::generateGold() {
 		int y = rooms[pos2].tiles[pos3]->y;
 		if(theGrid[x][y].isOccupied) {
 			i--; 
-			//continue;
 		}
 		else {
 		
@@ -669,8 +645,6 @@ string Grid::enemyAI() {
 						}
 					
 					while(check && radius.size()) {
-						//cout << " " << z << " ";
-						//cout << theGrid[i][j].thing->type;
 						int npos = rand() % + radius.size();
 						coords = evalDirection(radius[npos], i, j);
 						int cx = coords->x;
@@ -681,17 +655,13 @@ string Grid::enemyAI() {
 							enemy->isMoved = true;
 							string originalType = theGrid[cx][cy].thing->type;
 							delete theGrid[cx][cy].thing;
-							//cout << " check3";
 							theGrid[cx][cy].setThing(theGrid[i][j].thing);
-							//cout << " check4 ";
 							theGrid[i][j].setThing(new Ground);
 							enemy->standingOn = originalType;
-							//cout << " check6";
 							theGrid[cx][cy].isOccupied = true;
 							theGrid[i][j].isOccupied = false;
 							theGrid[i][j].notifyDisplay(*(td));
 							theGrid[cx][cy].notifyDisplay(*td);
-							//found = true;
 							check = false;
 							z++;
 						}
@@ -722,7 +692,7 @@ ostream& operator<<(ostream &out, const Grid &g) {
 			race = "Dwarf";
 			break;
 	}
-	out << "Race: " << race << " Gold: " << g.player->gold << "                                    Floor: " << g.level << endl;
+	out << "Race: " << race << " Gold: " << g.player->gold << "                                       Floor: " << g.level << endl;
 	out << "HP: " << g.player->hp << endl;
 	out << "Atk: " << g.player->atk << endl;
 	out << "Def: " << g.player->def << endl;
