@@ -357,10 +357,13 @@ void Grid::initializeFloor(char type) {
 			setPotions();
 			setGold();
 		}
-		cout<< *this;
+		//if(level = 1) cout<< *this;
 }
 
 Character* Grid::generateCharacter(char type) {
+	if(type != 'e' && type != 'h' && type != 'o' && type != 'd') {
+		type = 'h';
+	}
 	srand(time(NULL));
 	int pos = rand() % + 5;
 	this->rooms[pos].isOccupied = true;
@@ -624,8 +627,8 @@ string Grid::enemyAI() {
 										ostringstream os;
 										os <<"Update:"<< enemy->raceID << " deals " << damage << " damage to PC";
 										s = os.str();
-										cout << s << endl;
 										cout << *this;
+										cout << s << endl;
 										return s;
 									}
 								}
@@ -636,8 +639,8 @@ string Grid::enemyAI() {
 												ostringstream os;
 												os <<"Update: " << enemy->raceID << " deals " << damage << " damage to PC";
 												s = os.str();
-												cout << s << endl;
 												cout << *this;
+												cout << s << endl;
 												return s;
 											} 
 								}					

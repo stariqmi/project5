@@ -23,36 +23,34 @@ int main(int argc, char* argv[]) {
 	CombatMediator* cm = new CombatMediator(grid);
 	grid->combatMediator = cm;
 	string s;
+	int player_health = 0;
+	int player_gold = 0;
 	char type;
 	bool nextLevel = false;
 	bool keepPlaying = true;
 	while(keepPlaying) {
 		if(!nextLevel) {
+			cout << "Select race (default Human): ";
 			cin >> type;
 		}
-		else {
-			// int prev_hp = grid->player->hp;
-			// int prev_gold = grid->player->gold;
-			// int prev_x = grid->player->x;
-			// int prev_y = grid->player->y;
-			// delete grid->theGrid[prev_x][prev_y].thing;
-			// Character* newPlayer = grid->charFactory->makeCharacter(type);
-			// newPlayer->x = prev_x;
-			// newPlayer->y = prev_y;
-			// newPlayer->gold = prev_gold;
-			// newPlayer->hp = prev_hp;
-			// newPlayer->grid = grid;
-			// grid->theGrid[prev_x][prev_y].setThing(newPlayer);
-			// grid->theGrid[prev_x][prev_y].notifyDisplay(*(grid->td));
-		}
 		grid->initializeFloor(type);
+		if(nextLevel) {
+			cout << "new level!" << endl;
+			grid->player->hp = player_health;
+			grid->player->gold = player_gold;
+		}
+		cout << *grid;
 		nextLevel = false;
 		while (cin >> s) {
 			bool success = false;
+			string action;
+			string error;
 			if (s == "no" || s == "so" || s == "ea" || s == "we" || s == "nw" || s == "ne" || s == "sw" || s == "se") {
 				int initialGold = grid->player->gold;
 				string moveCheck = grid->player->move(s);
 				if(moveCheck == "next") {
+					player_gold = grid->player->gold;
+					player_health = grid->player->hp;
 					if(grid->theGrid != NULL) { 
 						grid->clearGrid();
 					}	
@@ -63,22 +61,25 @@ int main(int argc, char* argv[]) {
 					//cout << *grid;
 					string result = helper->evaluateMove(grid, grid->player, s, initialGold, moveCheck);
 					if(result == "invalid") {
-						cout << "ERROR: Invalid move - Cannot walk over wall, potion, enemy or empty space." << endl;
+						error = "ERROR: Invalid move - Cannot walk over wall, potion, enemy or empty space.";
 					}
 					else if(result == "outside") {
-						cout << "ERROR: Invalid move - You can't move outside playable region." << endl;
+						error = "ERROR: Invalid move - You can't move outside playable region.";
 					}
 					else if(result == "dragon") {
-						cout << "ERROR: Invalid move - You need to kill the dragon before you can take the Dragon Horde." << endl;
+						error = "ERROR: Invalid move - You need to kill the dragon before you can take the Dragon Horde.";
 					}
 					else {
-						cout << "Action: " << result << "." << endl;
+						action = "Action: " + result + ".";
 						success = true;
 					}
 				}
 			}
 
 			else if (s == "r") {
+				player_gold = 0;
+				player_health = 0;
+				grid->level = 1;
 				if(grid->theGrid != NULL) { 
 					grid->clearGrid(); 
 				}
@@ -95,12 +96,12 @@ int main(int argc, char* argv[]) {
 					string potionType = potion->potionType;
 					grid->player->usePotion(c->x, c->y);
 					//cout << *grid;
-					cout << "Action: PC used " << potionType << "." << endl;
+					action = "Action: PC used " + potionType + ".";
 					success = true;
 				}
 				else {
 					//cout << *grid;
-					cout << "ERROR: Invalid direction - No potion exists at such location." << endl;
+					error = "ERROR: Invalid direction - No potion exists at such location.";
 				}
 				delete c;
 			}
@@ -113,21 +114,31 @@ int main(int argc, char* argv[]) {
 				delete c1;
 				//cout << *grid;
 				if(checkAttack == "invalid") {
-					cout << "ERROR: Invalid move (Cannot attack here)" << endl;
+					error = "ERROR: Invalid move (Cannot attack here)";
 				}
 				else {
 					success = true;
-					cout << *grid;
-					cout << "Action: " << checkAttack << endl;
+					//cout << *grid;
+					action = "Action: " + checkAttack;
 				}
 			}
 
 			else if (s == "q")  {delete grid; keepPlaying = false; break;}		
 			else {
-				cout << "ERROR: Not a valid command" <<  endl;
+				error =  "ERROR: Not a valid command";
 			}
-			if(success) grid->enemyAI();
-			if(nextLevel) { break; }
+			if(success) {
+				grid->enemyAI();
+				cout << action << endl;
+				player_gold = grid->player->gold;
+				player_health = grid->player->hp;
+			}
+			else {
+				cout << error << endl;
+			}
+			if(nextLevel) { 
+				break; 
+			}
 		}
 		if(cin.fail()) keepPlaying = false;
 	}
