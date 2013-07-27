@@ -91,6 +91,8 @@ void Grid::setGold() {
 							dh->protector = &(theGrid[i][j]);
 							theGrid[c->x][c->y].isOccupied = true;
 							theGrid[c->x][c->y].notifyDisplay(*td);
+							Dragon* dragon = dynamic_cast<Dragon*>(enemy);
+							dragon->treasureLocation = &(theGrid[c->x][c->y]);
 						}
 					}
 					delete c;
@@ -544,6 +546,7 @@ void Grid::generateGold() {
 				Coordinates* coords;
 				int xc;
 				int yc;
+				Character* dragon;
 				while(check && radius.size()) {
 					int npos = rand() % + radius.size();
 					coords = evalDirection(radius[npos], x, y);
@@ -552,7 +555,7 @@ void Grid::generateGold() {
 					radius.erase(radius.begin() + npos);
 					if(!(theGrid[coords->x][coords->y].isOccupied)) {
  						delete theGrid[coords->x][coords->y].thing;
- 						Character* dragon = charFactory->makeCharacter('r');
+ 						dragon = charFactory->makeCharacter('r');
  						dragon->grid = this;
 						theGrid[coords->x][coords->y].setThing(dragon);
 						theGrid[coords->x][coords->y].isOccupied = true;
@@ -575,6 +578,8 @@ void Grid::generateGold() {
 					theGrid[x][y].setThing(gold);
 					theGrid[x][y].isOccupied = true;
 					theGrid[x][y].notifyDisplay(*td);		
+					Dragon* protector = dynamic_cast<Dragon*>(dragon);
+					protector->treasureLocation = &(theGrid[x][y]);
 				}
 			}
 			else {
