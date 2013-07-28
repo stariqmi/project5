@@ -30,6 +30,7 @@ Coordinates* Helper::evalDirection(string direction, int i, int j) {
 	else if(direction == "ne") {
 		c = new Coordinates(i - 1, j + 1);
 	}
+	else {c = NULL;}
 	return c;
 }
 

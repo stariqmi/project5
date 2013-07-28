@@ -32,8 +32,8 @@ int main(int argc, char* argv[]) {
 	bool keepPlaying = true;
 	while(keepPlaying) {
 		if(died || finish) {
-			 cout << "Current Score " << grid->player->scoreboard->score << endl;
-			 cout << "High Score " << grid->player->scoreboard->highscore << endl;
+			// cout << "Current Score " << grid->player->scoreboard->score << endl;
+			// cout << "High Score " << grid->player->scoreboard->highscore << endl;
 			 
 			 grid->clearGrid();
 			 grid->level = 1;
@@ -107,37 +107,46 @@ int main(int argc, char* argv[]) {
 				string dir;
 				cin >> dir;
 				Coordinates* c = helper->evalDirection(dir, grid->player->x, grid->player->y);
-				bool check = helper->checkForPotion(grid, c->x, c->y);
-				if(check) {
-					Potion* potion = dynamic_cast<Potion*>(grid->theGrid[c->x][c->y].thing);
-					string potionType = potion->potionType;
-					grid->player->usePotion(c->x, c->y);
-					//cout << *grid;
-					action = "Action: PC used " + potionType + ".";
-					success = true;
+				if (c){
+					bool check = helper->checkForPotion(grid, c->x, c->y);
+					
+					if(check) {
+						Potion* potion = dynamic_cast<Potion*>(grid->theGrid[c->x][c->y].thing);
+						string potionType = potion->potionType;
+						grid->player->usePotion(c->x, c->y);
+						//cout << *grid;
+						action = "Action: PC used " + potionType + ".";
+						success = true;
+					}
+					else {
+						//cout << *grid;
+						error = "ERROR: Invalid direction - No potion exists at such location.";
+						}
+					delete c;		
 				}
-				else {
-					//cout << *grid;
-					error = "ERROR: Invalid direction - No potion exists at such location.";
-				}
-				delete c;
+				else {error = "ERROR: Invalid direction for potion";}	
+				
 			}
 
 			else if (s == "a") {
 				string dir;
 				cin >> dir;
 				Coordinates* c1 = helper->evalDirection(dir, grid->player->x, grid->player->y);
-				string checkAttack = cm->combat(grid->player->x, grid->player->y, c1->x, c1->y);
-				delete c1;
-				//cout << *grid;
-				if(checkAttack == "invalid") {
-					error = "ERROR: Invalid move (Cannot attack here)";
-				}
-				else {
-					success = true;
+				if(c1){
+					string checkAttack = cm->combat(grid->player->x, grid->player->y, c1->x, c1->y);
+					delete c1;
 					//cout << *grid;
-					action = "Action: " + checkAttack;
+					if(checkAttack == "invalid") {
+						error = "ERROR: Invalid move (Cannot attack here)";
+					}
+					else {
+						success = true;
+						//cout << *grid;
+						action = "Action: " + checkAttack;
+					}	
 				}
+				else {error = "ERROR: Invalid direction for attack";}
+				
 			}
 
 			else if (s == "q")  {delete grid; keepPlaying = false; break;}		
