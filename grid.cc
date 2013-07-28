@@ -666,7 +666,7 @@ string Grid::enemyAI(string pc_move) {
 						coords = evalDirection(radius[npos], i, j);
 						int cx = coords->x;
 						int cy = coords->y;
-						//delete coords;
+						delete coords;
 						radius.erase(radius.begin() + npos);
 						if(!(theGrid[cx][cy].isOccupied)) {
 							enemy->isMoved = true;
